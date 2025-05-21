@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 アルゴリズム Naked Single</title>
+
+	<!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+
+	<!-- jQuery treeview ! -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+
+	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+
+
+<!-- -------------------------------------------------------------------------- -->
+	<article id="main">
+		<section><br>
+			<h3 id="head_bg_Blue">Naked Single</h3><br>
+			<img class="imgL"  src="images/img31/img31_b.svg" alt="Naked Single" width="30%">
+			<p>「Naked Single」は"候補数字数が1つのセルは確定"です。<br>これも数独の数字配置のルールそのものです。<br>
+				左の例では X=4 に確定します。</p>
+
+			<p class="newLine"><br>問題例</p>
+			<img class="imgL" src="images/img31/img31b_10.png" alt="Naked Single"  width="30%">
+			<p>セルの候補数字がただ1つなら、その数字に確定する</p>
+			<p class="newLine">.3217.6.88.4..9.7.75.......6....84572.......6.7.4.....3..5...84.2.9..5..4..61.7.2</p>
+			<br>
+
+			<h4 id="head_bg_LightBlue">解析プログラム Naked Single</h4>
+<pre class="line-numbers" class="prismOp" >
+<code class="language-csharp">public class SimpleSingleGen: AnalyzerBaseV2{
+    public bool NakedSingle( ){
+        bool  SolFond=false;
+        foreach( UCell P in pBDL.Where(p=&gt;p.FreeBC==1) ){
+            SolFond=true;
+            P.FixedNo=P.FreeB.BitToNum()+1;
+            if(!MltSolOn)  goto LFond;
+        }
+
+        LFond:
+        if(SolFond){
+            SolCode=1;
+            Result=&quot;Naked Single&quot;;
+            if(SolInfoDsp) ResultLong=&quot;Naked Single&quot;;
+            AnMan.SnapSaveGP();   // SimpleSingleGen is not covered by SnapSaveGP
+            return true;
+        }
+        return false;
+    }
+}</code></pre>
+		
+		<br><br>
+		</section>
+	</article>
+
+<!-- ========================================================================== -->
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

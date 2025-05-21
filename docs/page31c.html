@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 Hidden Single</title>
+
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+
+	<!-- jQuery treeview ! -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+
+	<!-- -------------------------------------------------------------------------- -->
+	<article id="main">
+		<section>
+			<h3 id="head_bg_Blue">Hidden Single</h3>
+			
+			<p>
+				<img class="imgL" src="images/img31/img31_c.svg" width="30%" alt="Hidden Single"><br>
+				Houseを構成するセル群の中で、ある数字Nを候補に持つのが唯一のセルのとき、そのセルは数字Nと確定する」という方法です。
+				左の例では X=4 に確定します。
+			</p>
+
+			<p class="newLine"><br>問題例</p>
+
+			<img class="imgL" src="images/img31/img31c_10.png" width="25%"  alt="Hidden Single"><br>
+			<p>各セルの赤で表示した数字は、行・列・ブロックのいずれかのhouseに関して唯一であり、確定する。</p>
+			<p class="newLine">...6.83....7..45..6..73.428.6.....13..4...6.....3..2.7518.2..3.4.3..6...296...7..</p>
+			<p>Hidden Singleの解析プログラムは、3.1 Last Digitとほぼ同じで、
+				Last Digitが全ての数字について列挙するのに対し、Hidden Singleは個々の数字を指定してセルを列挙し、それが唯一のセルである箇所を探します。</p>
+
+			<h4 id="head_bg_LightBlue">解析プログラム Hidden Single </h4>
+<pre class="line-numbers" class="prismOp" >
+<code class="language-csharp">public class SimpleSingleGen: AnalyzerBaseV2{
+    public bool HiddenSingle( ){
+        bool  SolFond=false;
+        for( int no=0; no&lt;9; no++ ){
+            int noB=1&lt;&lt;no;
+            for( int tfx=0; tfx&lt;27; tfx++ ){
+                if( pBDL.IEGetCellInHouse(tfx,noB).Count()==1 ){
+                    SolFond=true;
+                    var P=pBDL.IEGetCellInHouse(tfx,noB).First();
+                    if(P.FreeBC==1)  continue;
+                    P.FixedNo=no+1;
+                    if( !MltSolOn )  goto LFond;
+                }
+            }
+        }
+
+        LFond:
+        if(SolFond){
+            SolCode=1;
+            Result=&quot;Hidden Single&quot;;
+            if( SolInfoDsp ) ResultLong=&quot;Hidden Single&quot;;
+            AnMan.SnapSaveGP();   //SimpleSingleGen is not covered by SnapSaveGP
+            return true;
+        }
+        return false;
+    }
+}</code></pre>
+
+	<!-- ======================================================================== -->
+		</article><br>
+	</section>
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

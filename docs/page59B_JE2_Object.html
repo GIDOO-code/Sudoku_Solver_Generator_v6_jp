@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 SubsetExclude</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6.0</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>	
+    </section>
+	
+	<!-- -------------------------------------------------------------------------- -->
+
+	<article id="main">
+		<section>
+			<H3 id="head_bg_Blue">&nbsp;JE2+,JE2++ タイプ</H3>
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;(1) JE2+,JE2++ の定義</h4>
+			<p>
+				JE2+,JE2++ は、Target と Companion を区別せず、合わせて Object とするタイプです。
+				JE2の Target の一方が Object のタイプ（JE2+）と、両方の Target が Object のタイプ（JE2++）があります。
+				<br><br>
+				<img src="images/img59B/image59B_Exocet_def_B01.svg" style="margin-left: 40px;" width="60%" ><br><br>
+			
+				Bird 文書では、Object に "ロックされた 非Base数字 がある" ことを条件としていますが、この条件は緩めることができます。
+				緩めた条件のもとで適用できる除外ルールがあります。<br>
+				一方、条件を緩めることで JE2よりも適用局面が広がり、
+				かつ "2セルに限定の 除外ルール" を組み立てることもできます。<br><br>
+				<img src="images/img59B/image59B_Exocet_def_B02.svg" style="margin-left: 40px;" width="70%" ><br>
+			</p>
+			<p style="background-color:rgb(173, 245, 166) ">
+				&nbsp;&nbsp;by:David P Bird	&nbsp;&nbsp;"JExocet Compendium"<br>
+				&nbsp;&nbsp;http://forum.enjoysudoku.com/jexocet-compendium-t32370.html<br>
+			</p>
+		</section>
+	</article>
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

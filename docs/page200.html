@@ -1,0 +1,181 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Hardest SuDoKu</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+
+	<style>
+		table {
+			border: 1px solid black;
+			border-collapse: collapse;
+			font-size: 0.8em;
+			th, td{
+				padding: 0.2em;
+				border: 1px solid black;
+				border-collapse: collapse ;
+				width: 120px;
+			}
+		}
+
+	</style>
+
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!-- -------------------------------------------------------------------------- -->
+	<article id="main" style="padding: 30px;">
+		<article><br>
+			<h3 id="head_bg_Blue">&nbsp;Hardest SuDoKuの分析 -1</h3>
+			<p>フィンランドの数学者アルト・インカラ（Arto Inkala）が作成した｢世界一難しい数独｣(2012年、WHSと略記)について、検討します。<br>
+				左が問題、右はその解で、唯一解です。<br>
+				<img src="images/img200/img200_10_HardestSuDoKu.png" style="float:center" width="25%"> &nbsp;&nbsp;
+				<img src="images/img200/img200_11_HardestSuDoKuSolution.png" style="float:center" width="25%"><br>
+				この問題を論理的なアルゴリズムで解くのは難しく、GNPX(v4)でも解けません。
+				一方、試行錯誤で解くのは、比較的簡単なコードで可能です。上右図の解はGNPXに含むコードで求めました。
+				なお、GNPXでは試行錯誤（Try and Error）は、解法アルゴリズムと認めてないの、通常の解法リストには含みません。<br><br>
+
+			<h3 id="head_bg_LightBlue"> (1) WHSの特性</h3>
+				<p>
+				<ul>
+					<li> 要素数<br>
+						WHSの未確定セルの候補数字は、次のように分布しています。<br>
+						&nbsp;<img src="images/img200/img200_12_Candidate.png" style="float:center" width="25%"><br><br>
+						セルの候補数字の数の分布を集計すると、候補数字2のセルは1つで、数独の問題としては極めて少ない。
+						また、候補数字が3のセルは11であり、これらは数独の問題を解くうえでのヒントが少ないことと関連している。<br>
+						<table style="width:80%">
+							<tr align="center">
+								<th width="240px">候補数字の数</th><th>2</th><th>3</th><th>4</th><th>5</th><th>6</th><th>7</th><th>8</th><th>9</th>
+							</tr>
+							<tr align="center">
+								<td width="240px">セル数</td><td>1</td><td>11</td><td>25</td><td>20</td><td>2</td><td>1</td><td>0</td><td>0</td>
+							</tr>
+						</table>
+
+
+					</li><br><br>
+
+					<li> 候補数字の分布<br>
+						候補数字を色付け表示しました。<br>
+						<img src="images/img200/img200_20_0.png" height="30%"><br><br>
+						さらに、1つの数字のみを色付け表示しました。数字7がやや少ない感がしますが、どの数字も盤面全体に
+						広く分布して、特徴は見えません。また、どの数字でも、多くの行・列・ブロックに3以上の箇所に配置されています。
+						1つの行・列・ブロックに候補が2つの <strong>Strong Link</strong> は、
+						<strong>13リンク(r9#1,b8#1, c5#5,b2#5,r6#5,b6#5,r7#5, r6#7,b4#7,c3#7 ,c2#8,b4#8, b1#9) </strong>のみです。
+						Strong Link が少ないことは、問題の難しさの一要因かもしれません。<br>
+
+						<br>
+						<img src="images/img200/img200_20_1.png" width="30%">
+						<img src="images/img200/img200_20_2.png" width="30%">
+						<img src="images/img200/img200_20_3.png" width="30%">
+						<img src="images/img200/img200_20_4.png" width="30%">
+						<img src="images/img200/img200_20_5.png" width="30%">
+						<img src="images/img200/img200_20_6.png" width="30%">
+						<img src="images/img200/img200_20_7.png" width="30%">
+						<img src="images/img200/img200_20_8.png" width="30%">
+						<img src="images/img200/img200_20_9.png" width="30%">
+					</li>
+				</ul>
+			</p><bR><bR>
+
+			<h3 id="head_bg_LightBlue"> (2) WHSの変形 縮小問題</h3>
+				<p>WHSは、問題の数字が21あります。これらの数字を1つ除いたら数独の問題として成立しません。<bR>
+					例えば、r1c1#8を空白にした問題(下図)では、これを満たす数字パターンの配列は292あります。<br>
+					全ての数字パターンの配列は、<strong>WHS_data</strong>フォルダーにあります。<br>
+					<img src="images/img200/img200_21_smaller.png" width="25%"><br>
+					<small>
+					...........36......7..9.2...5...7.......457.....1...3...1....68..85...1..9....4.. solutions:292<br>
+					214738659983652174675491283159367842836245791742189536521974368468523917397816425<br>
+					214758693983612574675493281852367149139845726467129835521974368748536912396281457<br>
+					214783659983652147675491283452367891139845726867129534521974368748536912396218475<br>
+					214783659983652147675491283459367821132845796867129534521974368748536912396218475<br>
+					214783659983652174675491283152937846836245791749168532521374968468529317397816425<br>
+					...(6-287 omission)<br>
+					985721643213654897674893251859367124132945786467182539521479368748536912396218475<br>
+					985723641213654897674891253859367124132945786467182539521479368748536912396218475<br>
+					985732641243651879176498253359267184812345796764189532521974368438526917697813425<br>
+					985732641243651879176498253852367194319245786764189532521974368438526917697813425<br>
+					985732641243651879176498253854367192319245786762189534521974368438526917697813425<br><bR>
+					</small>
+					他の問題数字を空白にした問題でも、多数の数字パターンがあります。その状況を図に示します。<br>
+					最大のパターン数は、r6c8#3を空白にした問題で3408パターンあります。<br>
+					なお、数独の問題は"唯一の解を持つ"ことが条件であり、WHSの縮小問題は数独ではありません(異なる意見があることは承知しています）。<br><br>
+					<img src="images/img200/img200_22_WHSsmall.png" width="25%" style="float:left;"><br>
+					&nbsp; 上段:問題数字<br>
+					&nbsp; 下段:パターン数（上段の数字を空白にしたときのパターン数）<br>
+					<p style="clear: both" ><br><br>
+				</p>
+
+						
+			<h3 id="head_bg_LightBlue"> (3) WHSの変形 拡大問題</h3>
+			<p>WHSに解の数字を1づつ加えた問題もあります。これらはGNPX(v4)で解けるか、を調べました。WHSの空白箇所は60あり、従って60問題ができます。
+				このうち、8か所に数字を加えた問題(下図の赤字数字を１つづつ加えた問題）は解けます。
+				そのときに使われたアルゴリズムは、<strong>(Finned)Fish系,ALS系,ALS-Chain,SueDeCoqなど</strong>で普通のアルゴリズムです。<br><br>
+				<img src="images/img200/img200_23_WHSadd1.png" width="30%" style="float:left;"><br><br>
+				&nbsp; 黒字は元の問題<br>
+				&nbsp; 赤字箇所を1つづつ加えた問題は、GNPXで解けます。<br></p>
+				&nbsp; GNPX で 問題ファイル "hardSuDoKu_Transformed_12Added.txt" を入力すれば、解く様子が見れます。<br>
+
+				<p style="clear: both"><br>
+				<small>
+					WHS+r1c6#3: LastDigit[20] NakedSingle[26] HiddenSingle[13] LockedCandidate[3] LockedSet(2D)Hidden[1] Finned XWing[1] ALS-XZ[3]<br><br>
+					WHS+r1c7#6: LastDigit[21] NakedSingle[29] HiddenSingle[9] LockedCandidate[7] LockedSet(2D)[4] LockedSet(2D)Hidden[3] LockedSet(3D)[1] XWing[1] Finned XWing[4] W-Wing[1] ALS-XZ[5] ALS-XY-Wing[3]<br><br>
+					WHS+r3c9#3: LastDigit[21] NakedSingle[26] HiddenSingle[12] LockedCandidate[8] LockedSet(2D)[3] LockedSet(2D)Hidden[3] LockedSet(3D)[1] XWing[1] Finned XWing[4] W-Wing[1] ALS-XZ[5] ALS-XY-Wing[3]<br><br>
+					WHS+r4c3#4: LastDigit[21] NakedSingle[28] HiddenSingle[10] LockedCandidate[5] LockedSet(2D)[6] LockedSet(3D)[1] Finned XWing[2] XYChain[1] ALS-XZ[3] ALS-XY-Wing[3] ALS-Chain[2]<br><br>
+					WHS+r4c9#6: LastDigit[20] NakedSingle[29] HiddenSingle[10] LockedCandidate[2] LockedSet(2D)[1] LockedSet(2D)Hidden[1] SueDeCoq[1] ALS-XZ[1]<br><br>
+					WHS+r5c2#6: LastDigit[21] NakedSingle[20] HiddenSingle[18] LockedCandidate[5] LockedSet(2D)Hidden[2] XWing[1] ALS-XY-Wing[1] ALS-Chain[4]<br><br>
+					WHS+r6c9#4: LastDigit[21] NakedSingle[29] HiddenSingle[9] LockedCandidate[5] LockedSet(2D)[6] LockedSet(3D)[1] Finned XWing[2] XYChain[1] ALS-XZ[3] ALS-XY-Wing[2] ALS-Chain[2]<br><br>
+					WHS+r9c4#3: LastDigit[20] NakedSingle[27] HiddenSingle[12] LockedCandidate[4] LockedSet(2D)Hidden[1] Finned XWing[1] ALS-XZ[2]<br>
+					([]内の数字は使った回数)
+				</small>
+				</p>
+				<p>
+					また、次の図の緑数字を1つづつ加えた問題は、GNPXではどれも解けませんでした。これらを含めて、52/60（86.7%)の問題は、解けません。<br><br>
+					<img src="images/img200/img200_24_WHSadd1unsolved.png" width="30%" style="float:left;"><br><br>
+					&nbsp; 黒字は元の問題<br>
+					&nbsp; 緑字箇所を1つづつ加えた問題は、どれもGNPXでは解けない。<br><br>
+					ちなみに、WHSに解の数字を2づつ加えた問題では、816/1770(46.1%)がGNPXで解けました。<br></p>
+					<p style="clear: both"></p><br>
+					これらの問題と適用したアルゴリズムは、データファイルにあります。（GitHubからダウンロードできます）<br><br>
+				</p><br><br>
+		
+		
+
+				<h3 id="head_bg_LightBlue"> (4) ... continue.</h3>
+				<br><br>
+		</article>
+	</section>
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+	</div>
+
+</body>
+</html>

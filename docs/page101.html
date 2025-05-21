@@ -1,0 +1,77 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section style="padding-top: 1.5em;">
+
+            <a id="SudokuConstraints"></a>
+            <h3 id="head_bg_Blue">数独の制約</h3>
+            <p>
+                数独の問題は、9x9の枡に、1～9の数字を 行・列・3x3ブロック に過不足なく1つづつ配置する ことです。<br>
+                <br><br>
+				<img src="images/img101/image_101a.svg" width="30%">
+            </p>
+
+			<p>
+				数独の制約に関して、次のようなことが言えます。
+
+				<!--<ol  style="list-style:none; padding-left:10px;">-->
+				<ol  style="padding-left:20px;">
+					<li>数独には、行・列・ブロック・数字の制約があります。</li>
+					<li>行と列は独立した制約です。行とブロック、列とブロックは独立していません。</li>
+					<li>セルに配置する数字1～9は、制約です。
+						多くのアルゴリズムは、表面的には数字の制約は意識しませんが、
+						行・列・ブロック・数字の4つの制約を(ほぼ)同等に扱うアルゴリズム(General Logic)もあります。</li>
+						
+				</ol>
+			</p>
+        </section>
+    </article>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

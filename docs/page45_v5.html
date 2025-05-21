@@ -1,0 +1,256 @@
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+		<script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+<!-- -------------------------------------------------------------------------- -->
+	<article id="main">
+		<section>
+			<h3 id="head_bg_Blue">SueDeCoqEx, Franken SueDeCoq</h3>
+			<p>SueDeCoq の成立条件を、新たな方法で定義します。これを用いて SueDeCoq アルゴリズムを拡張します。</p>
+
+			<ul>
+				<li> <a href="page45.html"> SueDeCoq (原形）</a></li>
+				<li>
+					<a href="#SueDeCoqEx1"> SueDeCoqEx1 </a>&nbsp;&nbsp;
+					<a href="#SueDeCoqEx2"> SueDeCoqEx2 </a>&nbsp;&nbsp;
+					<a href="#Franken_SueDeCoqEx3"> FrankenSueDeCoqEx3 </a>
+				</li>
+				<li>
+					<a href="#Finned_SueDeCoqEx"> Finned SueDeCoqEx </a>&nbsp;&nbsp;&nbsp;
+				</li>
+				<li>
+					<a href="#Finned_sdc_exsample"> Finned SueDeCoqExの例 </a>&nbsp;&nbsp;&nbsp;
+				</li>
+			</ul>
+
+
+
+
+			<a id="SueDeCoqEx2"></a>
+			<h3 id="head_bg_LightBlue">SueDeCoqEx2</h3>
+			<p>
+				SueDeCoqの仕組みは、<a href="page103.html#AnLS"> A2LS </a>と2つのALSを組み合わせた ”Locked” です。SueDeCoqExの成立要件は次のとおりです。
+				<ol> [SueDeCoqEx の成立条件]
+					<li>A2LSと2つのALSがある(ALS_a,ALS_b)。2つのALSに重なりはない。
+					</li>
+					<li>A2LSとALS_1にはRCC_1がある。A2LSとALS_2にはRCC_2がある。|RCC_1|>=2、|RCC_2|>=2とする。</li>
+					<li>RCC-1とRCC-2に重なりはない。</li>
+					<li>|A2LSの数字| - 2 = |A2LSのセル|</li>
+				</ol>
+
+				数式条件は、次のことを表しています。<br>
+				A2LSとALS_1は2つ以上のRCCで連結しているので、ALS_1には必ずRCCの1個の数字があります。したがって、A2LSには残りの数字があります。
+				A2LSとALS_2についても同じです。
+				すると、A2LSに残された数字の数と、セル数が一致ます。これはA2LSが "Locked" になることを意味します。
+				従って、”A2LS,ALS_1,ALS_2"が一組の Locked" になります。<br><br>
+
+				<img src="images/img45_v5/image45_SueDoq_Logic2.svg" width="50%" alt="SueDeCoqEx"><br><br>
+				[SueDeCoqEx の成立条件]にみられるように、A2LS、ALSには、行・列・ブロックの条件はありません。RCCで連結していることだけが条件です。<br>
+			</p>
+			<img src="images/img45_v5/image45V5_sdcEx1.png" width="20%" style="float:left; margin-right:8px;">
+			<strong>SueDeCoqEx</strong><br>
+			stem AnLS : r45c78 #145789<br>
+				1st ALS : r5c59 #189  RCC;#19<br>
+				2nd ALS : r68c8 #358  RCC;#58<br>
+				exclude : r4c9#9 r6c7#9 r6c9#9 r7c8#35<br>
+			<p style="clear: both" ></p><br>
+
+			<img src="images/img45_v5/image45V5_sdcEx2.png" width="20%" style="float:left; margin-right:8px;" alt="SueDeCoqEx">
+			<strong>SueDeCoqEx</strong><br>
+				stem AnLS : r56c2 #1235<br>
+				1st ALS : r7c2 r8c1 r9c12 #12345  RCC;#15<br>
+				2nd ALS : r6c1368 #23579  RCC;#23<br>
+				exclude : r5c1#4 r7c1#4 r7c3#4 r8c3#4 r8c9#4<br>
+			<p style="clear: both" ></p><br>
+
+			<img src="images/img45_v5/image45V5_sdcEx3.png" width="20%" style="float:left; margin-right:8px;" alt="SueDeCoqEx">
+			<strong>SueDeCoqEx</strong><br>
+				stem AnLS : r7c23456 #1245689<br>
+				1st ALS : r7c9 #24  RCC;#24<br>
+				2nd ALS : r5c2 r6c3 #159  RCC;#19<br>
+				exclude: r4c3#9 r7c1#24<br>
+			<p style="clear: both" ></p><br>
+				
+			<img src="images/img45_v5/image45V5_sdcEx4.png" width="20%" style="float:left; margin-right:8px;" alt="SueDeCoqEx">
+			<strong>SueDeCoqEx</strong><br>
+				stem AnLS : r56c8 #1589<br>
+				1st ALS : r7c8 #18  RCC;#18<br>
+				2nd ALS : r467c9 #1259  RCC;#59<br>
+				exclude: r5c7#9 r8c8#8 r8c9#2 r9c9#2<br>
+			<p style="clear: both" ></p><br>
+
+			<p class="newLine"></p>
+			<small>
+			3248615976579438219185273642.143....5.32.6...4..7.....1..6.....8..1746..7..39..1.<br>
+			641..8329873291645592..4187.8..2.4.1.....92.3...41.8.6......73..6.9..51...714.968<br>
+			82..6.....6.8...2...32..568641...37.53......4.87...6..4563.97..37...1.......5..3.</small><br>
+			（hp"HoDoKu"の問題を使っています。）
+		</p>
+
+
+			<a id="Franken_SueDeCoqEx3"></a>
+			<h3 id="head_bg_LightBlue">Franken SueDeCoq</h3>
+			<p>
+				"SueDeCoqEx"は、自然な延長でさらに拡張します。<br>
+				A3LSが、互いに素な3つのALS(ALS_a,ALS_b,ALS_c)と、RCCで連結しているとします。これを <strong>"Franken SueDeCoqEx"</strong>とします。<br>
+				<ol> [Franken SueDeCoq の成立条件]
+					<li>A2LSと3つのALSがある(ALS_a,ALS_b,ALS_c)。3つのALSに重なりはない。
+					</li>
+					<li>A2LSとALS_1にはRCC_1がある。A2LSとALS_2にはRCC_2がある。A2LSとALS_3にはRCC_3がある。
+						|RCC_1|>=2、|RCC_2|>=2、|RCC_3|>=2とする。</li>
+					<li>RCC-1、RCC-2、RCC-3に重なりはない。</li>
+					<li>|A3LSの数字| - 3 = |A3LSのセル|</li>
+				</ol>
+
+				<img src="images/img45_v5/image45_SueDoq_Logic3.svg" width="50%" alt="Franken SueDeCoq"><br><br>
+				Franken SueDeCoqの成立の仕組みは、SueDeCoqExと同じです。<br><br>
+				<img src="images/img45_v5/image45V5_sdcEx10.png" width="20%" style="float:left;  margin-right:8px;" alt="Franken SueDeCoq">
+				<strong>Franken SueDeCoqEx3</strong><br>
+				stem AnLS : r7c79 r89c9 #2345789<br>
+				1st ALS : r9c7 #24  RCC;#24<br>
+				2nd ALS : r8c8 #35  RCC;#35<br>
+				3rd ALS : r4c7 r5c9 #35  RCC;#78<br>
+				exclude : r5c7#4 r7c8#345<br>
+				<p style="clear: both" ><br>
+
+				<img src="images/img45_v5/image45V5_sdcEx11.png" width="20%"  style="float:left;  margin-right:8px;" alt="Franken SueDeCoq">
+				<strong>Franken SueDeCoqEx3</strong><br>
+				stem AnLS : r7c23 r8c1 r9c2 #1234589<br>
+				1st ALS : r9c1 #23  RCC;#23<br>
+				2nd ALS : r8c3 #48  RCC;#48<br>
+				3rd ALS : r46c3 r5c2 #48  RCC;#19<br>
+				exclude: r7c1#24 <br>
+				<p style="clear: both" >
+
+			<p class="newLine"><small>
+			3248615976579438219185273642.143....5.32.6...4..7.....1..6.....8..1746..7..39..1.<br>
+			641..8329873291645592..4187.8..2.4.1.....92.3...41.8.6......73..6.9..51...714.968</small><br>
+			（hp"HoDoKu"の問題を使っています。）</p>
+			</p>
+			<br><br>
+
+
+
+			<a id="SueDeCoqEx1"></a>
+			<h3 id="head_bg_LightBlue">SueDeCoqEx1</h3>
+			<p>
+				"SueDeCoqEx"は、縮小することもできます。これを<strong>"SueDeCoqEx0"</strong>とします。<br>
+				ALSとALSが2つのRCCで連結しているとします。これは<strong>"ALS-XZ doubly linked"</strong>です。<br>
+				すなわち、ALS-XZ と SueDeCoq の関係を見ることができます。<br>
+					<img src="images/img45_v5/image45_SueDoq_Logic1.svg" width="50%" ><br><br>
+				<img src="images/img45_v5/image45V5_sdcEx20.png" width="20%"  style="float:left;  margin-right:8px;" alt="SueDeCoqEx1">
+				<strong>SueDeCoqEx1</strong><br>
+					stem AnLS : r79c9 r8c89 #23589<br>
+					1st ALS : r5c9 #89  RCC;#89<br>
+					exclude: r4c9#89 r6c9#89<br>
+				<p style="clear: both" ><br>
+
+				<img src="images/img45_v5/image45V5_sdcEx21.png" width="20%"  style="float:left;  margin-right:8px;" alt="SueDeCoqEx1">
+				<strong>SueDeCoqEx1</strong><br>
+					stem AnLS : r57c2 #125<br>
+					1st ALS : r8c1 r9c12 #2345  RCC;#25<br>
+					exclude: r5c1#4 r6c2#5 r7c1#24 r7c3#4 r8c3#4 r8c9#4<br>
+				<p style="clear: both" >
+			<p class="newLine"><small>
+			3248615976579438219185273642.143....5.32.6...4..7.....1..6.....8..1746..7..39..1.<br>
+			641..8329873291645592..4187.8..2.4.1.....92.3...41.8.6......73..6.9..51...714.968</small><br>
+			（hp"HoDoKu"の問題を使っています。）</p>
+
+
+
+			<a id="Finned_SueDeCoqEx"></a>
+			<h3 id="head_bg_LightBlue"> Finned SueDeCoqEx</h3>
+			<p>
+				Fish に Fin付Fish があるように、SueDeCoqにも Fin付SueDeCoq があります。<br>
+				Fin付Fish は BaseSetにFinが付加したパターンです。CoverSetが、BaseSetとFinを同時にカバーする位置にあるとき
+				Lockedになります。<br><br>
+				SueDeCoqは、AnLSとALSがそれぞ2つのRCCで連結し、<br>
+				&nbsp;&nbsp;&nbsp;<storong>|AnLSの数字の数| - n = |AnLSのセル数|</storong><br>
+				が成り立つパターンです。(その他にも数字要素の重なりがない、などの条件がある)<br>
+				Fin付SueDeCoq は、ALSの数字配置のパターンがAnLSと整合しない場合です。<br>
+				以下に、Fin付SueDeCoq(n=1,2,3)の例を示します。<br><br>
+
+				<img src="images/img45_v5/image45_sdcEx_10.svg" width="70%" alt="Finned SueDeCoqEx"><br><br>
+
+
+				Finは、RCCになれなかった要素です。<br>
+				AnLSとALSの外部にある要素によって全てFinが否定的に確定すると、Finned SueDeCoqExは破綻します。
+				従って、全てのFinを否定的に確定する（ALSの外部の）要素は、否定的に確定します。<br>
+
+				<img src="images/img45_v5/image45_FinnedSueDoq_Logic.svg" width="60%" alt="Finned SueDeCoqEx"><br><br>
+				n=1 Fin付SueDeCoq は、ALS-XZのsinglylinked と一致します。<br>
+				<br>
+				<img src="images/img45_v5/image45_sdcEx_12.svg" width="60%" alt="Finned SueDeCoqEx"><br><br>
+
+
+				<a id="Finned_sdc_exsample"></a>
+				<h3 id="head_bg_LightBlue"> Finned SueDeCoq の例</h3><br>
+				<img src="images/img45_v5/imagee45v5_fsdcEx30.png" width="20%" style="float:left;  margin-right:8px;" alt="Finned SueDeCoqEx1">
+				<strong>Finned SueDeCoqEx1</strong><br>
+					stem AnLS : r57c5 #158<br>
+					1nd ALS : r4c78 r5c789 #145789  RCC;#1<br>
+					exclude: r7c8#5<br>
+				<p style="clear: both" ><br>
+
+				<img src="images/img45_v5/imagee45v5_fsdcEx31.png" width="20%"  style="float:left;  margin-right:8px;" alt="Finned SueDeCoqEx1">
+					<strong>Finned SueDeCoqEx2</strong><br>
+					stem AnLS : r789c9 #23589<br>
+					1st ALS : r8c8 #35  RCC;#35<br>
+					2nd ALS : r4c7 r5c9 #789  RCC#8<br>
+					exclude: r4c9#9 r6c9#9<br>
+				<p style="clear: both" ><br>
+
+					<img src="images/img45_v5/imagee45v5_fsdcEx32.png" width="20%"  style="float:left;  margin-right:8px;" alt="Finned SueDeCoqEx1">
+					<strong>Finned Franken_SDCEx3</strong><br>
+					stem AnLS : r467c2 #346789<br>
+					1st ALS : r8c2 #39  RCC;#39<br>
+					2nd ALS : r9c2 #46  RCC;#46<br>
+					3rd ALS : r4c7 r5c9 #789  RCC:#7<br>
+					exclude: r5c2#8
+					<p style="clear: both" >
+			<p class="newLine"><small>
+				3248615976579438219185273642.143....5.32.6...4..7.....1..6.....8..1746..7..39..1.<br>
+				641..8329873291645592..4187.8..2.4.1.....92.3...41.8.6......73..6.9..51...714.968</small><br>
+				（hp"HoDoKu"の問題を使っています。）</p><br><br>
+		</section>
+	</article>
+	
+	<a href="#" class="pagetop">Top</a>
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

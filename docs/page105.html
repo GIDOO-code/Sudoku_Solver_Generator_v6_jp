@@ -1,0 +1,142 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!--
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+-->
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <p>
+                GNPX v5- の リンクの表記、クラス、アルゴリズムなどの概要(ヒント）を示します。正確な理解は、GNPX のコードを読み解くことが必要です。<br>
+                なお、整理途上であり、一貫性が完成していません。
+            </p>
+
+            <h3 id="head_bg_Blue">&nbsp;eNetwork</h3>
+            <p>
+                <ul>
+                    <li> リンクを連結する仕組みを、”eNetwork (eNW)”と呼ぶことにします。<br>
+                    <li> リンク : セル間リンク、セル内リンク、ALSリンク、AICリンク...などをまとめる名称として使います。 </li>
+                </ul>
+            </p>
+
+
+            <h4 id="head_bg_LightBlue">&nbsp;(1) ULogical_Node</h4>
+            <p>
+                eNetworkにおける基本要素のクラスです。セルおよびセル群の"位置・数字・状態（肯定または否定）"の属性を持ちます。
+            </p>
+
+
+
+            <h4 id="head_bg_LightBlue">&nbsp;(2) eNetwork_Node</h4>
+            <p>
+                <ul>
+                    <li>セルおよびセル群と、属性値を持ちます。</li>
+                    <li>状態属性値は、肯定(+)または否定(-)を持ちます。
+                        (Ver4.0までは、真(true) 偽(false)と表記していましたが、変更します。)</li>
+                    <li>ノードは接続するリンクの情報を持ちます。リンク終端ノードの状態属性は肯定または否定、あるいは両方です。<br>
+                        ノードの状態属性が肯定かつ否定の場合は矛盾であり、前提となる命題は偽（false)です。 </li>
+                </ul>
+            </p>
+
+
+
+            <h4 id="head_bg_LightBlue">&nbsp;(3) eNetwork_Link</h4>
+            <p>
+                <ul>
+                    <li>eNetwork_Linkクラスは、起点ノード、終点ノード、次接続ノードと、ネットワークを組み立てるための共通の属性を持ちます。<br><br>
+                        <img src="images/img105/image105_NodeLink.svg" width="40%">
+                    </li><br>
+                    <li>リンク派生クラスは、それぞれに元となるLockedパターンがあります。これに要素を加えて Almost 化して作られています。<br>
+                        eNW_Link_InterCells, eNW_Link_IntraCell, eNW_Link_ALS, eNW_Link_ALSM,<br>
+                        eNW_Link_refALS, eNW_Link_AIC, eNW_Link_AICM, eNW_Link_ALSXZ, ... (今後、拡大する。おそらく。)<br>
+
+                        <img src="images/img105/image105_Class_Link.png" width="80%" alt="eNetwork Node/Link"> <!-- class -->
+                    </li>
+
+                </ul>
+            </p>-
+
+
+            <h4 id="head_bg_LightBlue">&nbsp;(4) GNPX v6- の ノード、リンクの実装</h4>
+            <p>
+                数独の1局面の解析中は、ノードは属性値を動的に管理します<br>
+                確定したノードにリンクが接続すると、終端側ノードの状態属性値が確定し(+/-)、ノードをリスト(peNetwork_NodeList)に登録します。<br>
+                ネットワークの探索で、複数経路でノードの状態属性値(+/-)が決まるとき、属性値が同じならその先の探索は省略できます。
+                不一致の場合は矛盾であり、前提となる命題は偽（false)です。<br>
+                複数経路を処理するために、リンクの両端のノードは状態属性を持たず、ネットワークのノードの状態属性を別途管理する方法を 採用しました。
+                （これはGNPXの実装方法です。別の方法もあります。）
+            </p>
+
+            <h4 id="head_bg_LightBlue">&nbsp;(5) ネットワーク探索</h4>
+            <p>
+                起点となるノードの状態属性が定まると、これに接続するリンクを延長して、さらに延長して、... ネットワークができます。
+                このネットワークによって Locked が形成されることがあります。すなわち、数独解析アルゴリズムです。<br>
+
+                ネットワーク探索には、放射型とループ型の2つのタイプがあります。<br>
+                
+                <ol style="padding-left:40px">放射型ネットワーク探索アルゴリズム:<br>
+                    <li>起点となるノードに接続する全てのリンクについて、終端側のノードの状態属性を求める。</li>
+                    <li>ノードが未登録なら、ノードと状態属性に登録する。また、次探索Queueに登録する。</li>
+                    <li>ノードが登録済みで、状態属性が一致するなら、何もしない。</li>
+                    <li>ノードが登録済みで、状態属性が不一致なら、"矛盾" 発見で終了する。</li>
+                    <li>目標とするノードに達したら、あるいはQueueが空なら、終了する。<br>
+                        そうでないなら、Queueからノードを取り出し 1 から繰り返す。
+                    </li>
+                </ol>
+
+                ループ型ネットワーク探索は、探索開始時の処理を、”全リンク”から ”1リンク” に変更します。
+                ループ形成のための空きを作っておきます。2リンク目以降は、ノードに接続する全リンクを探索します。<br><br>
+
+                <img src="images/img105/image105_radialSearch.svg" width="30%" alt="Radial Search">
+                <img src="images/img105/image105_loopSearch.svg" width="30%" alt="Loop Search">
+            </p>
+
+        </section><br><br>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

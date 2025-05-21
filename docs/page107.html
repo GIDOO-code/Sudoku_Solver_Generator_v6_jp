@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!--
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+-->
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">&nbsp;eNetwork 解析アルゴリズム</h3>
+            <p>
+                従来のリンク(セル間リンク、セル内リンク、ALSリンク）を、eNetwork に置き換えると様々な数独解析アルゴリズムが作れます。
+                ネットワーク探索を分離することで、それぞれのアルゴリズムは固有の処理に専念できます。
+                また、ネットワーク探索を専門化したことで、
+                リンクのタイプの拡充してもそれぞれの数独解析アルゴリズムの変更はなし/最小限とすることができます。
+            </p>
+
+            <h4 id="head_bg_LightBlue">(1) NIceLoop</h4>
+            <p>
+                リンクのタイプを拡大し、起点ノード～起点ノードを結ぶリンク列をeNetworkに代えて、eNetwork_NiceLoopに発展させます。
+                求めたNiceLoopは同じですが、ネットワーク探索を分離したことにより、
+                NiceLoopのコードは 準備とループ形成の判定、結果のまとめ になります。<br><br>
+            </p>
+
+
+            <h4 id="head_bg_LightBlue">(2) eNW_DeathBlossom ( eNetwork_DeathBlossom)</h4>
+            <p>
+                DeathBlossomは、eNetwork_DeathBlossomに発展します。<br>
+                &nbsp;XYZ-Wing => DeathBlossom => ALS Death Blossom => eNetwork_DeathBlossom<br><br>
+                DeathBlossomは、Stemセルと他のセル・数字をリンクあるはALSで結ぶアルゴリズムです。
+                リンクで結ぶ状況をeNetworkに置き換えるのは、自然な拡張です。<br>
+                なお、eNW_DeathBlossomとForce_Chain_Cellは、状態属性・ネットワーク方向が対称のアルゴリズムです。<br><br>
+                <img src="images/img107/image107_DeathBlossom.svg" width="25%">
+                &nbsp;&nbsp;&nbsp;&nbsp;<img src="images/img107/image107_FocChain_Cell.svg" width="25%">
+            </p>
+
+            <h4 id="head_bg_LightBlue">(3) ForceChain(ForceChain_Cell, ForceChain_House, ForceChain_Contradiction)</h4>
+            <p>
+                ForceChain系のアルゴリズムは、放射型ネットワーク探索の第2フェーズの選択と確認処理、結果のまとめです。
+                ForceChain_Contradictionは、終点ノードの状態が”肯定かつ否定”の場合です。
+            </p>
+
+        </section><br><br>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

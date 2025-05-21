@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 ALS DeathBlossom</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+
+
+
+    <!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue"> DeathBlossom...アルゴリズム考察（v5)</h3>
+            <p>DeathBlossomアルゴリズムをさらに発展させます。ここでの検討では、
+                <a href="page25.html">リンク、</a>
+                <a href="page26.html">ALS、</a>
+                <a href="page28.html#AIC">AIC、</a>
+                <a href="page53a.html">ALS DeathBlossom</a> についての知識を前提とします。</p><br>
+                
+            <h3 id="head_bg_LightBlue">(1) DeathBlossom 基本形</h3>
+            DeathBlossomは、ALSによるリンクを用います。<br><br>
+            <img src="images/img53_v5/img53_v5_20.svg" width="60%" alt="DeathBlossom"><br><br><br>
+            
+            (*) Stem cellの要素数に等しい数のALSリンクが次の図のように配置されているとします。<br>
+            ある数字(図ではz)を真と仮定すると、全てのALSをLockedSetに変え、Stem cellの候補がなくなります。
+            従って、ある数字(z)を”真と仮定”は誤りとなり、zは偽となります。<br><br>
+
+            <img src="images/img53_v5/img53_v5_21.svg" width="60%" alt="DeathBlossom"></div><br><br><br>
+
+
+            <h3 id="head_bg_LightBlue">(2) DeathBlossom 改良の方法</h3>
+            DeathBlossomアルゴリズムの仕組みと、改良の方法を示します。
+            <ul>
+                <li> 弱リンク アルゴリズム<br>
+                    ALSリンクは弱リンクです。弱リンクであれば、アルゴリズムは成立します。すなわち、セル内リンク、セル間リンク、AIC も弱リンクであり、
+                    およびこれらを組み合わせる アルゴリズム が構成できます。また、その他の弱リンクにも拡張できます。</li><br>
+
+                <li> 連結リンク<br>
+                    弱リンクであれば、DeathBlossom は構成できます。このときの弱リンクは、単一リンクには限りません。Forceアルゴリズムと同じで、連結リンクの弱リンクでも可能です。<br>
+                    (GNPX v5では。連結リンクを含む DeathBlossom を搭載します。)</li><br>
+
+                <li> ALSのLockedSet縮退による確定<br>
+                    ALS外の数字確定により ALSがlockedSetに縮退するとき、ALS内の要素が確定することがあります。
+                    ALS内の1要素が確定する、ALS内要素の部分集合でLockedSetが生じる、またその確定が波及的に他の要素を確定する、
+                    などの効果が発生することがあります。いわば小規模な数独アルゴリズムが作用することがあります。<br>
+                    いくつかの例を示します。<br><br>
+                    
+                    <img src="images/img53b/img53b_22.png" width="60%" alt="DeathBlossom">
+                    <img src="images/img53b/img53b_23.png" width="60%" alt="DeathBlossom"><br><br>
+                </li>
+
+            </ul>
+
+        </section>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

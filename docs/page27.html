@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 C# 各種リンク</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+
+	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+
+
+
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">リンク2(Cell-ALS)</h3>
+            
+            <h4 id="head_bg_LightBlue" id="LinkCellAls">セルーALSリンク要素クラス(UCellLink)</h4>
+            <p>セルとALSを繋ぐリンクの要素クラスです。</p>
+
+<pre class="line-numbers" class="prismOp" >
+<code class="language-csharp">public class LinkCellAls: IComparable{
+        public readonly UCell UC;
+        public readonly UALS  ALS;
+        public readonly int   nRCC=-1; //no:0...8 (doubly の場合は個別にリンクを作る)
+        public LinkCellAls( UCell UC, UALS ALS, int nRCC ){
+            this.UC=UC; this.ALS=ALS; this.nRCC=nRCC;
+        }
+        public  override bool Equals( object obj ){
+            var A = obj as LinkCellAls;
+            return (this.ALS.ID==A.ALS.ID);
+        }
+        public int CompareTo( object obj ){
+            LinkCellAls A = obj as LinkCellAls;
+            return (this.ALS.ID-A.ALS.ID);
+        }
+}</code></pre><br><br>
+
+            <h3 id="head_bg_LightBlue">セルーALSリンクの生成関数(LinkCellAls)</h3>
+            <p>セルとALSを繋ぐリンクの生成関数です。セルーALSリンクは今後開発するアルゴリズムでも使う予定なので、汎用的に作ります。
+                セルとALSの両方に関わるので、どちらのクラスでもよいのですが、ここではセル管理クラス（CellLinkMan）の関数とします。<br>
+                リンクは解析途上の盤面ごとに生成しますが、同じ盤面で複数のアルゴリズムが利用することがあり、生成済みの場合にはそれを用います。
+                生成は次の手順で行います。
+                <ol>
+                    <li>着目するALSを選ぶ。</li>
+                    <li>ALSのもつ要素数字を着目数字とする。</li>
+                    <li>ALS内の着目数字の位置を、行・列・ブロックで集計する(rcbDir)。</li>
+                    <li>行・列・ブロックが1方向のみのとき、その方向のセルに着目数字を探す。<br>
+                        該当するセル位置をインデックスとして、リンク配列(LinkCeAlsLst)に登録する。</li>
+                </ol>
+            </p>
+
+
+<pre class="line-numbers" class="prismOp" >
+<code class="language-csharp">public partial class CellLinkMan{
+    public List<LinkCellAls>[]   LinkCeAlsLst;
+    
+    public void Create_Cell2ALS_Link( ALSMan ALSman ){
+        if( LinkCeAlsLst!=null ) return ;
+        LinkCeAlsLst = new List&lt;LinkCellAls&gt;[81];
+        if( ALSman.ALSLst==null || ALSman.ALSLst.Count&lt;2 )  return;
+
+        List&lt;UCell&gt;  qBDL=pSA.pGP.BDL;
+        foreach( var PA in ALSman.ALSLst.Where(P=&gt;P.singly) ){
+            foreach( var no in PA.FreeB.IEGet_BtoNo() ){
+                if( !PA.singly )  continue;
+                int noB=(1&lt;&lt;no);
+                int rcbDir=0;
+                foreach( var P in PA.UCellLst.Where(q=&gt;(q.FreeB&noB)&gt;0) ){
+                    rcbDir |= ( (1&lt;&lt;(P.b+18)) | (1&lt;&lt;(P.c+9)) | (1&lt;&lt;(P.r)) );
+                }
+
+                for( int tx=0; tx&lt;27; tx+=9 ){
+                    int d = rcbDir&(0x1FF&lt;&lt;tx);
+                    if( d.BitCount()!=1 ) continue;
+                    int tfx=d.BitToNum(27);
+
+                    foreach( var P in qBDL.IEGet(tfx,noB) ){
+                        if( PA.B81.IsHit(P.rc) ) continue;
+
+                        var Q = new LinkCellAls(P,PA,no);
+                        if( LinkCeAlsLst[P.rc]==null ){
+                            LinkCeAlsLst[P.rc]=new List&lt;LinkCellAls&gt;();
+                        }
+                        else if( LinkCeAlsLst[P.rc].Contains(Q) ) continue;
+                        LinkCeAlsLst[P.rc].Add(Q);
+                    }
+                }
+            }
+        }
+        for( int rc=0; rc&lt;81; rc++ ) if( LinkCeAlsLst[rc]!=null ) LinkCeAlsLst[rc].Sort();
+    }
+}</code></pre>
+
+        </section>
+    </article>
+	
+
+    
+    <a href="#" class="pagetop">Top</a>
+    <footer id="foot">
+        <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>

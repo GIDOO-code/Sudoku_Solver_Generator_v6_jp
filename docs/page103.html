@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!--
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+-->
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">&nbsp;ALS</h3>
+            <br>
+            ALSは、ALSリンク、およびRCC(特性)によって、様々な数独を解くアルゴリズムの中で重要な役割を果たしています。
+            <h3 id="head_bg_LightBlue">(1)&nbsp;ALS</h3>
+            <p>
+                Locked Setは、同じhouseに属する&quot;n個のセルにn個の候補数字がある&quot;状態です。
+                どのセルがどの数字かは決まらないが、部分集合として確定した状態（Locked）です。
+                ALSは同じhouseに属する&quot;n個のセルにn+1個の候補数字&quot;がある&quot;ほぼLocked&quot;状態です。<br><br>
+                <img src="images/img103/image103_ALS_a1.svg" width="50%" alt="Locked Set"><br>
+                何らかの方法でALS外で数字が確定し、ALSから1数字が除かれると、ALSはLockedになります。
+                ALS単独では解法として成立しませんが、何かと組合せて様々な解析アルゴリズムが作れます。
+                最小のALSは、&quot;1セル2候補数字&quot;です。<br><br>
+                <img src="images/img103/image103_ALS_a2.svg" width="50%" alt="Locked Set"><br><br>
+            </p>
+
+
+            <div id="AnLS"></div>
+            <h3 id="head_bg_LightBlue" >(2)&nbsp;A2LS, AnLS</h3>
+            <p>
+                ALSは、素朴な形で&quot;m個のセルにm+n個の候補数字&quot;のセル群 &nbsp;&quot;AnLS&quot;に拡張できます。<br>
+                GNPX v5 では、A2LS を用いる ALS-XZ リンクを使います。<br>
+                また、SueDeCoqの解法アルゴリズムとして AnLS を用いる方法を示します（AnLSの他に ALS, RCCを用います）。<br><br>
+                <img src="images/img103/image103_ALS_a3.svg" width="50%" alt="AnLS">
+            </p>
+
+
+
+            <h3 id="head_bg_LightBlue">(3)&nbsp;RCC</h3>
+            <p>
+                2つの ALS(AnLS) の関係する解析アルゴリズムでは、共通の数字が制限する効果を利用します。<br><br>
+                次の図には2つのALSがあり、これらが次の条件を満たすとき、
+                その数字をRCC (Restricted Common Candidate:制限された共通候補）と呼びます。<br><br>
+                <strong>条件:重なりのない2つのALSに共通の数字があり、それらが同じhouse内にある。<br>
+                (オレンジ点線枠、ALSのhouseとは異なる）。</strong><br><br>
+                &nbsp;<img src="images/img103/image103_ALS_b1.svg" width="30%" alt="ALS RCC"><br>
+
+                RCCは同じhouseに属するので、RCCは一方のALSのみ肯定であり、他方のALSではRCCは否定です。
+                ただし、どちらのALSで肯定かは決定していません。<br>
+                ここに何らかの条件が加わり、RCCが一方のALSで肯定(&quot;RCCがこのALSにある&quot;）となると、
+                他方のALSでは否定(&quot;RCCはこのALSにない&quot;）が確定します。
+                否定となったALSでは&quot;n個のセルにn個の候補数字&quot;となり、 このALSはLockedSetになります。<br><br>
+
+                次の図は、2つのALS間にRCCが2つあるケースです（doubly linked)。
+                RCCは一方のALSにのみあります。doublylinkedの場合は2つのRCCが一方のALSに片寄ってあることはなく、
+                それぞれのALSにひとつづつあります。ただし、どのRCCがどちらのALSにあるかは、決定していません。<br>
+                doublylinkedのALS組は、一体としてLockedSetのように振舞います。<br>
+                &nbsp;<img src="images/img103/image103_ALS_b2.svg" width="40%" alt="RCC/doublylinked "><br><br>
+
+                また、AnLSでは3個以上のRCCを用いる場合もあります。<br><br>
+            </p>
+        </section>
+
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
