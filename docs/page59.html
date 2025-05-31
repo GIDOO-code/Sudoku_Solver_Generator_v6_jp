@@ -513,21 +513,21 @@
 						E11. Cross-Line の Escape Cell に 1回しか現れない数字は、その Cover houseの ”S” 以外のセルでは 否定 である。
 					</p>
 					<p style="background-color:rgb(203, 232, 255) ">
-						&nbsp;&nbsp;&nbsp;Bird 文書の11項 を修正している。ベース数字が確定の場合は 12項 とした。<br>
+						&nbsp;&nbsp;&nbsp;Bird 文書の11項 を修正している。確定したベース数字についての除外は 12項 とした。<br>
 					</p>
 					本項の対象とする数字は、"JExocetの解候補の1つである" ことが条件である。無制限にこのルールは適用できない。
 					<ol style="list-style:none; padding-left:10px;">
 						<li>(1) #abx JExocetの解候補とする。</li>
 						<li>(2) #abが解と確定したなら、#x は解でない 。このとき、#x は Escape にある。</li>
 						<li>(3) #xは JExocetの解候補なので、jExocet の条件(Base,Target,Sの関係）は有効である。</li>
-						<li>(3) S領域に #x は2つあるので、その配置は次図の2タイプとなる。</li>
-						<li>(4) これらより、(PCL-{S})にある #x は否定になる。(PCL:Parallel-Cover-Line）</li>
+						<li>(3) Base ブロックの Escape にある#xが一つなら、それは Positive である。</li>
+						<li>(4) CrossLine-1,-2の Escape にある#xが一つなら、それは Positive である。</li>
 					</ol><br>
 					<img src="images/img59/image59_Exocet_Rule-11.svg" style="margin-left: 20px;" width="80%" ><br><br>
 				</li><br><br>
 
 
-				<!-- E12 -->
+				<!-- E12 -->CrossLine-1,-2
 				<li>
 					<p class="PColor01">
 						E12. 2つのベース候補数字が肯定に確定したなら、S領域で2つのインスタンスが 肯定 となるのを妨げる数字インスタンスは、否定 である。
