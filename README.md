@@ -29,7 +29,7 @@
  (6) DeathBlossomのアルゴリズム考察<br>
  (7) Subsetアルゴリズム<br>
  (8) Fireworkアルゴリズム<br>
- (9) Exocet(junior/Senior) アルゴリズム(開発途上)<br>
+ (9) Exocet(Junior/Senior) アルゴリズム(開発中)<br>
 
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>
