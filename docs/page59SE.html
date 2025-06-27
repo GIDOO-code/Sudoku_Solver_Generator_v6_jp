@@ -44,76 +44,62 @@
 			<H3 id="head_bg_Blue">&nbsp;Exocet</H3>
 
 			<p>
-				Exocetは、house、locked、Coverlineなどの制約を組み合わせた 解法アルゴリズム です。ここでは、 Exocet の仕組みを順番に説明します。
+				Exocetは、house、Companion、Coverline などの制約を組み合わせた解法アルゴリズムです。ここでは、 Exocet の仕組みを説明します。
 				以下の説明では Exocet の用語や定義の知識を持つことを前提とします。不案内のかたは、<a href="page59A_JE2.html">Junior Exocet</a> を参考にしてください。<br>
-				<br>
-				<i>[暫定版］本項は、曖昧さや誤りを含む可能性がある。鵜呑みにせず批判的な視点から読んでください。<br>
-				また、GNPX V6のアプリケーションプロジェクト(C#)が理解に役立つでしょう。</i>
-			</p>
 
-			<H3 id="head_bg_Light2Blue">&nbsp;(0) Exocetの仕組み</H3>
+			</p><br><br>
+
+			<H3 id="head_bg_Light2Blue">&nbsp;(0) ExocetのLocked</H3>
 			<p>
-				Exocetは、つぎのような論理で構成されrています。
+				Exocetは Locked によるアルゴリズムです。
+				<ul style="list-style:none; padding-left:10px;">
+					<li>&nbsp;1) Baseには、Base数字がある。</li>
+					<li>&nbsp;2) BaseとObject, Companion から決まるS領域には、Base数字の配置に制約がある。</li>
+					<li>&nbsp;3) 2つあるObjectには、"Base数字がある" と導きます。</li>
+				</ul>
+				<img src="images/img59SE/image59SE_Logoic1.svg" style="margin-left: 20px;" width="50%" alt="Exocet"><br><br><br><br>
+
+
+			<b><u>以下では、Exocet の仕組み = 論理を解説します。</u></b><br><br>
+			
+			
+			<H3 id="head_bg_Light2Blue">&nbsp;(1) Exocetの枠組み</H3>
+			<p>
+				最初に、枠組みを設定します。
 				<ul style="list-style:none; padding-left:10px;">
 					<li>&nbsp;1) Baseには、Base数字が3～4ある。</li>
-					<li>&nbsp;2) BaseとObjectから決まるS領域では、それぞれの Base 数字は 2つのHouseでカバーされる。</li>
-					<li>&nbsp;3) 1つのBase数字(#a)に着目すると、#aは Object にある。</li>
-					<li>&nbsp;4) Base数字のどの2つ(#ab)を選んでも、#abは 2つの Object にある。</li>
-					<li>&nbsp;5) Base数字は、Locked 状態である。</li>
-					<li>&nbsp;（BaseとObjectの配置と形にはいくつかのタイプがある。）</li>
+					<li>&nbsp;2) Baseと方向(direction)と Band から、3つのCrossLineを選ぶ。</li>
 				</ul>
-				<img src="images/img59S/image59S_Logoic1.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br><br>
+				<img src="images/img59SE/image59SE_Logoic2.svg" style="margin-left: 20px;" width="70%" alt="Exocet"><br><br><br><br>
 
 
-			<b><u>以下では、それぞれの項目を詳述する。</u></b><br><br>
-
-
-			<H3 id="head_bg_Light2Blue">&nbsp;(1) BaseとCrossLinesを選ぶ ... 基本的な (Senior)Exocetの場合</H3>
+			<H3 id="head_bg_Light2Blue">&nbsp;(2) Exocetの要素の導出</H3>
 			<p>
-				数独の局面における Exocet 制約の Base と CrossLines は、次のような形で存在しています。
-				<ul style="list-style:none; padding-left:10px;">
-					<li>&nbsp;1) 任意のセル(StemCell)と方向(direction. 行方向/列方向)を選ぶ</li>
-					<li>&nbsp;2) Stemと同じブロック内に2つのBaseセルを定める。Baseセルは、Stemと同じminilineにあって、いずれも未確定セルとする。</li>
-					<li>&nbsp;3) CrossLine0は Stemとクロス方向で定める。
-						CrossLine1は CrossBand1から選ぶ。CrossLine2は CrossBand2から選ぶ。<br>
-						&nbsp; &nbsp; &nbsp;(Bandは、同じ方向のBlockの集合体)</li>
-				</ul>
-				<img src="images/img59S/image59S_Logoic2.svg" style="margin-left: 20px;" width="90%" alt="Exocet"><br><br>
-			</p>
-
-			<H3 id="head_bg_Light2Blue">&nbsp;(2) Target/Object を選ぶ</H3>
-			<p>
-				<ul style="list-style:none; padding-left:10px;">
-					<li>&nbsp;1) CrossLine-0、CrossLine-1、CrossLine-2 上に2つの Target/Object を選ぶ。2/3で選ぶので、1つのCrossLine上にはObjectはない。
-				<!--<li>&nbsp;1) CrossLine-1、CrossLine-2 上に2つの Target/Object を選ぶ。-->
-						(以下では、Objectで表記。Targetは1セルのObject。)</li>
-					<li>&nbsp;2) Objectは、一つのブロック内にある。</li>
-				</ul>
-					<img src="images/img59S/image59S_Logoic3.svg" style="margin-left: 20px;" width="90%" alt="Exocet"><br>
-
-					<span style="color:red">CrossLine-0 に Object があるタイプは、検討中です。</span>
-			</p><br>
-
-
-			<H3 id="head_bg_Light2Blue">&nbsp;(3) Sline, Companion</H3>
-			<p>
-				Companion は 次の論理が成立するように定めます。<br>
-				・ CrossLine の SLine 以外の部分に Base数字がある。<br>
-				・ Object と Companion は、CrossLine の SLine 以外の部分にある。<br>
-				・ Companion には Base数字 はない。したがって、 Object に Base数字 はある。<br>
+				Exocetの要素を組み立てる手順(1-2-3)を示します。これにより、各要素の関係と機能が生じます。<br>
+				<img src="images/img59SE/image59SE_Element_derivation.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br>
 
 				<ul style="list-style:none; padding-left:10px;">
-					<li>&nbsp;1) Companionは、CrossLineとObjectのParallelHouseの交差する箇所のセル。</li>
-					<li>&nbsp;2) CrossLineとObject,Companionから SLine を定める。<br>
-						&nbsp; &nbsp; &nbsp;SLine = CrossLine - (Object &cup; Companion)  (&cup;:和集合 &nbsp;-:差集合)
+					<li>&nbsp;1) 1つの CrossLine(CL) に着目し、CL上のEscape以外の箇所に Objectを配置します。<br>
+					&nbsp; &nbsp; &nbsp; Objectは、Base数字を含む必要があります。</li>
+					<li>&nbsp;2) Companion は、CrossLine上の Object,Escape以外の箇所 で 次の図のように定義します。<br>
+					&nbsp; &nbsp; &nbsp; Companionは、<b>Base数字を含みません</b>。<br>
+						<img src="images/img59SE/image59SE_CompanionDefinition.svg" style="margin-left: 20px;" width="70%" alt="Exocet">
 					</li>
+					<li>&nbsp;3) CrossLineの <b>Escape.Object,Companion以外の領域</b> を <b>SLine</b> とします。<br>
+					&nbsp; &nbsp; &nbsp; Base数字は SLineとObjectにあり、EscapeとCompanionにはありません。
+					</li>
+					<li>&nbsp;4) S領域(3つのSline）にあるBase数字は、それぞれが2つラインで被覆されます。</li>
+					<li>&nbsp;5) S領域に Base数字 のインスタンスが不足したとき、その<b>インスタンスは Object にあります。</b><br>
+					&nbsp; &nbsp; &nbsp; これは、Base数字が Escape と Companion にないことに因ります。</li>
 				</ul>
-					<img src="images/img59S/image59S_Logoic4.svg" style="margin-left: 20px;" width="90%" alt="Exocet"><br>
-					<span style="color:red">CrossLine-0 に Object があるタイプは、検討中です。</span><br>
+				Companionについて補足します。<br>
+				CompanionとObjectは <b>どちらか一方のみがBase数字を持つ</b> 関係に定義されます。<br>
+				Companionは Base数字 を含まないので、<b>ObjectにBase数字 があることが保証</b>されます。<br>
+				また、対となる Object の Companion とは、<b>S領域経由でリンク</b>しているので、ObjectにBase数字 があることが保証されます。<br><br><br>
 			</p>
 
 
-			<H3 id="head_bg_Light2Blue">&nbsp;(4) Exocet の成立条件</H3>
+			<H3 id="head_bg_Light2Blue">&nbsp;(3) Exocet の数字の条件</H3>
 			<p>
 				&nbsp; &nbsp;次の R1-R4 を満たすとき、Base数字は Target/Object にある。
 					<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 90%;" >
@@ -170,14 +156,34 @@
 				Base候補数字から任意の2数字を選択したとき、この2数字について次の命題が成り立ちます。<br>
 				&nbsp; &nbsp; <b>命題 : Baseで positive なら、Object1 と Object2 でも positive である。</b><br>
 
-				<ol style="list-style:none; padding-left:10px;"><b>Exocet Lockedの証明</b>
-					<li>L1. Baseセルで、ベース数字#ab は positive とする。</li>
-					<li>L2. 3つのCrossLine(CrossLine-0,CrossLine-1,CrossLine-2)には、#abのインスタンスがそれぞれ 3つあり(数独のルール)、合わせて6個のインスタンスがある。</li>
-					<li>L3. R3より、Companionには #ab のインスタンスはない。</li>
-					<li>L4. R4より、S領域{SLine-0,SLine-1,SLine-2} には 2つの #a CoverLine、2つの#b CoverLine がある。</li>
-					<li>L5. "6-4=2"より、#aと#b インスタンスは、それぞれ Object1 と Object2にある。<br>
-						(一方のObjectに #aと#b が同時に入ることはない。どちらにどれかは確定しない。)</li>
-				</ol>
+				<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 90%;" >
+					<b>Exocet Lockedの証明</b>
+					<tr>
+						<td class="table_itemName" style="width: 5%" >L1</td>
+						<td class="table_item">&nbsp;Baseセルで、ベース数字#ab は positive とする。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName" >L2</td>
+						<td class="table_item">&nbsp;3つのCrossLine(CrossLine-0,CrossLine-1,CrossLine-2)には、#abのインスタンスがそれぞれ 3つあり(数独のルール)、<br>
+										&nbsp;合わせて6個のインスタンスがある。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">L3</td>
+						<td class="table_item" style="width: 90%" >&nbsp;R3より、Companionには #ab のインスタンスはない。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">L4</td>
+						<td class="table_item">&nbsp;R4より、S領域{SLine-0,SLine-1,SLine-2} には 2つの #a CoverLine、2つの#b CoverLine がある。</tr>
+					<tr>
+						<td class="table_itemName">L5</td>
+						<td class="table_item">&nbsp;"6-4=2"より、#aと#b インスタンスは、それぞれ Object1 と Object2にある。<br>
+										&nbsp;(一方のObjectに #aと#b が同時に入ることはない。どちらにどれかは確定しない。)</tr>
+				</table><br>
+			</p>
+			<p style="background-color:rgb(235, 230, 192)">
+				<b>Exocetの仕組みの理解のために、再度、次のことを強調して置きます。<br>
+				Exocetの論理では、Object-Companion-SLine の定め方が重要な役割を果たしています。<br>
+				Companionの定義から、CrossLineごとに ObjectとSLine の一方のみに インスタンスがあります。</b>
 			</p><br><br><br>
 
 
@@ -192,7 +198,7 @@
 				ObjectとCompanionの設定方法は、標準的なExocetと同じです。
 
 			</p>
-			<img src="images/img59S/image59S_SingleExocet.svg" style="margin-left: 20px;" width="90%" alt="Single Exocet"> <br><br>
+			<img src="images/img59SE/image59SE_SingleExocet.svg" style="margin-left: 20px;" width="70%" alt="Single Exocet"> <br><br>
 			<p>
 				<ol style="list-style:none; padding-left:10px;"><b>Single Exocetの成立条件</b>
 					<li>1) Base数字うち、1つの候補数字は S領域に3つのCoverLine をもつ（これを"wildcard"とよぶ）。</li>
@@ -214,35 +220,12 @@
 			<!--Single-Base Exocetは、Single Exocet の Base が <b>1セル 2候補数字</b> の ケースです。<br>
 				Single-Base Exocetが成立したときは、BaseとTargetの数字が確定し、それらの連結するセルが確定します。 -->
 			</p>
-			<img src="images/img59S/image59S_SingleBaseExocet.svg" style="margin-left: 20px;" width="90%" alt="Single Exocet"> <br><br>
+			<img src="images/img59SE/image59SE_SingleBaseExocet.svg" style="margin-left: 20px;" width="70%" alt="Single Exocet"> <br><br>
 
 		</section>
 		<section>
 			<br><br><br>
-			<H3 id="head_bg_Blue">&nbsp;補足情報(Exocetの理解のために)</H3>
-			<H4 id="head_bg_Light2Blue">&nbsp;Exocetアルゴリズムの論理</H4>
-			<p>
-				Exocetは、いくつかのロジックが組み合わさっているために、その仕組みや効果を理解するのがやや難しいアルゴリズムです。
-				同じ理由から、仕組みを差し替えるあるいは拡張することで、Exocetファミリーは様々に拡大します。<br>
-				次の図は、Exocetに使われている論理の一つです。
-				<ol style="list-style:none; padding-left:10px;"><b>Exocetの仕組みの一つ</b>
-					<li>1) 数独の1つの House には、1～9の1つの数字(例えば#a)は1箇所のみで肯定である。</li>
-					<li>2) Houseを3つの領域にわけたとき、領域Cに#aにないなら、領域Aか領域Bにある。領域AとCにないなら、領域Bにある。</li>
-					<li>3) Exocetの要素に当てはめると、A,B,Cはそれぞれ SLine, Object, [Escape,Companion]になる。</li>
-				</ol>
-			</p>
-			<img src="images/img59S/image59S_Additional1.svg" style="margin-left: 20px;" width="80%" alt="Exocet"><br><br>
-
-			<H4 id="head_bg_Light2Blue">&nbsp;Companion</H4>
-			<p>
-				Companion は、Baseの候補数字を含まない領域です。<br>
-				<b>S領域の制約条件</b>と、<b>CompanionにBase数字はない</b>ことから、<b>Objectに候補数字がある</b>ことが導かれます。
-				Companionは、S領域のカバー条件とともにExocet成立の役割を果たしています。
-			</p>
-			<img src="images/img59S/image59S_Additional2.svg" style="margin-left: 20px;" width="80%" alt="Exocet"><br><br>
-
-
-
+			<H3 id="head_bg_Blue">&nbsp;補足情報</H3>
 
 			<H4 id="head_bg_Light2Blue">&nbsp;Mirror</H4>
 			<p>
@@ -264,8 +247,7 @@
 							Mirror は Target/Object のある<b>ブロック</b>に定義される。<br>
 							Object1 の Mirror1 は Block2 にある。Object2 の Mirror2 は Block1 にある。<br>
 							<br>
-
-							<img src="images/img59S/image59S_Mirror1.svg" style="margin-left: 20px;" width="50%" alt="Exocet Mirror">
+							<img src="images/img59SE/image59SE_Mirror1.svg" style="margin-left: 20px;" width="50%" alt="Exocet Mirror">
 						</td>
 					</tr>
 					<tr>
@@ -276,7 +258,7 @@
 							JE2(ex.1,ex.2) では、Base Band にTargetがあり、さらに Escapeも除外する。<br>
 							Objectでは、連結Houseの除外はない。<br>
 							TargetとBlockが連結しないなら、Mirror定義の除外はない(ex.3,ex.4)。<br><br>
-							<img src="images/img59S/image59S_Mirror2.svg" style="margin-left: 20px;" width="50% alt="Exocet Mirror Form">
+							<img src="images/img59SE/image59SE_Mirror2.svg" style="margin-left: 20px;" width="50% alt="Exocet Mirror Form">
 						</td>
 					</tr>
 					<tr>

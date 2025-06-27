@@ -58,22 +58,19 @@
 			</p>
 			
 			<p>
-				<ol style="list-style:none; padding-left:10px;">Junior Exocet(JE)
+				<ol style="list-style:none; padding-left:10px;">
+					<span style="color:rgb(4, 4, 192)">Junior Exocet(JE)</span>
 					<li><a href="#ID_JE2">&nbsp; JE2</a></li>
 					<li><a href="page59B_JE2_Object.html">&nbsp; JE2+,JE++</a></li>
 					<li><a href="page59C_JEn.html">&nbsp; JE1</a></li>
-					<br>
-					Senior Exocet ... 現在開発中
-				<!--
-					<li><a href="page59S.html">&nbsp; SE_Standard</a></li>
-					<li><a href="page59S.html">&nbsp; SE_Single</a></li>
-					<li><a href="page59S.html">&nbsp; SE_SingleBase</a></li>
-					<li><a href="page59S.html">&nbsp; SE_...</a></li>
-					<li><a href="page59S.html">&nbsp; SE_...</a></li>
-				-->
+					<span style="color:rgb(4, 4, 192)">Senior Exocet(SE)</span>
+					<li><a href="page59SE.html">&nbsp; SE standard</a></li>
+					<li><a href="page59SE.html">&nbsp; SE single</a></li>
+					<li><a href="page59SE.html">&nbsp; SE singleBase</a></li>
+					<li><a href="page59SE.html">&nbsp; SE jelly</a></li>
 				</ol>
 
-				<br><br><br>
+				<br>
 			</p>
 		</section>
 
@@ -82,12 +79,14 @@
 			<p>
 				Exocetは、他のアルゴリズムとは"異なるタイプのLocked"であり、魅力的で奥が深いアルゴリズムです。<br>
 				適用する局面や、除外できる数字パターンも多彩であり、Exocetのみで解ける局面もあります。<br>
-				数独パズルを解く 新しい強力なアルゴリズム Exocet が加わったことから、解析アルゴリズムの新たな方向性が開けました。
+				数独パズルを解く 新しい強力なアルゴリズム が加わったことから、解析アルゴリズムの新たな方向性が開けました。<br>
 				さらなる新しい手法の発見を予見させます。<br><br>
 
 				Exocetには、基本的で素朴なタイプから拡張タイプまで 様々な種類があり、Exocetはそれらの総称です。<br>
-				Exocetは、やや複雑な論理を使います。従って、基本的なタイプから順に解説します。<br>
-				最初は、Junior Exocet(JE2) です。<br>
+				Exocetは、やや複雑な論理を使うので、2つの段階で解説します。本 page は 第1段階の <b>Junior Exocet</b>についてです。<br>
+				第2段階 <a href="page59S.html">&nbsp; Senior Exocet</a> では、Exocetの仕組みを解説します。<br>
+				用語を含め 第1段階(<b>Junior Exocet</b>) の知識を持つなら、第2段階(<b>Senior Exocet</b>)の理解は容易でしょう。<br>
+				また、Exocetの納得感も得られるでしょう。<br>
 				<br>
 				<span style="color:red">... JExocet sample </span><br><br>
 		<!--
@@ -103,10 +102,10 @@
 			<a id="ID_JE2"></a>
 			<h4 id="head_bg_Blue">&nbsp;JExocet の定義 ... JE2の場合</h4>
 			<p>
-				JExocetは、<b>Base、S領域、Target の関係</b> による <span style="color:Blue">Locked</span> です。<br><br>
-				Baseの2セルには、2つ以上の候補数字があります。2つならLockedSetなので、3つ以上とします。<br>
+				JExocetは、<b>Base、S領域、Target の関係</b> による <span style="color:Blue">Locked</span> です。<br>
+				Baseの2セルには、2つ以上の候補数字があります。2つならLockedSetなので、3つ以上とします。<br><br>
 				<span style="color:Blue">
-				JExocet Locked : 候補数字からどのような2つの数字を選んだとしても、それらは T<small>1</small> と T<small>2</small> で肯定となる。
+				<b>JExocet Locked : 候補数字からどのような2つの数字を選んだとしても、それらは T<small>1</small> と T<small>2</small> で肯定となる。</b>
 				</span><br><br>
 				<img src="images/img59/image59_Exocet_Base.svg" style="margin-left: 40px;" width="40%" ><br><br>
 
@@ -135,7 +134,7 @@
 			</p>
 
 			<p>
-				JExocetの形は、次の手順で導きます(JE2の場合)。これらは、JExocetの解法コードを作成する上でも参考になります。
+				JExocetの形は、次の手順で導きます。これらは、JExocetの解法コードを作成する上でも参考になります。
 				<ul style="padding-left:20px;">
 					<li>ステップ1: 盤面上の一つのセル(Stemセル)と、方向(行、列)を選ぶ。これによって、mini-lineが決まる。<br>
 						mini-lineの2つのBase(B1,B2)セルと、Band、2つのブロック(Block1,Block2)が定まります。
@@ -263,18 +262,17 @@
 
 				<ol style="padding-left:4ch;">
 					<li><b>[JExocet Locked] JExocet の R1～R4 が成立したとき(Locked digits) :</b><br>
-						<b>Baseの任意の数字(#a)選び、positiveと仮定する</b>なら、#a は Target で positive となります。
-						また、Mirror には #a と 非#a が含まれることが導けます。ただし、仮説から導いた結論であり、確定ではありません。<br>
+						<b>Baseの任意の数字(#a)選び、positiveと仮定する</b>なら、#a は Target で positive となります。<br>
 						Lockedの場合には、Target候補数字に "Locked数字ではあるが、非確定数字"も含むため、
 						Base-Target-Mirror の制約関係は確定していません。従って、Target-Mirrorに関する除外ルールは適用できません。<br><br>
 						なお、次の推論(対偶)は成立します。<br>
-						&nbsp; <b>Baseの任意の数字(#a)選んだとき、Targetで #a が negative なら、#a は Base ではない。</b>
+						&nbsp; <b>Baseの任意の数字(#a)選んだとき、Targetで #a が negative なら、#a は Base数字 ではない。</b>
 					</li><br>
 
 					<li><b>[2-Digits Locked] ベースの2数字が確定したとき(Determined digits) :</b><br>
 						ベースの2数字が確定すると、Target 数字も確定します。その他のベース候補数字は negative になり、Target でも negative に確定します。
 						(どちらの数字がどちらのTargetかは確定でない)。<br>
-						Base-Target-Mirror が制約関係となり、以下の除外ルールが全て適用できます。
+						また、Base-Target-Mirror が制約関係となり、以下の除外ルールが全て適用できます(Mirrorに関する除外ルールが適用できる）。
 					</li>
 				</ol>
 				
@@ -391,7 +389,7 @@
 			
 			<h4 id="head_bg_LightBlue">&nbsp;除外-2 [2-Digits Locked]</h4>
 			<p>
-				除外-1-2は、Base 候補数字の2数字が確定したときに適用できる除外ルールです。Baseの2数字が positive であることが確定し、Target で positive であることが確定した状態です。
+				除外-2は、Base 候補数字の2数字が確定したときに適用できる除外ルールです。Baseの2数字が positive であることが確定し、Target で positive であることが確定した状態です。
 				これは、局面の最初のときもあり、また除外ルールを適用した結果のときもあります。
 			</p><br>
 			
@@ -420,13 +418,6 @@
 					Mirrorの位置と、Base、Targetの影響圏から、Mirrorには Targetにあるベース数字がある。<br>
 					ベース数字が M<small>1</small>A にないなら、M<small>1</small>B にある。
 					したがって、M<small>1</small>B から 非ベース数字は除外できる。<br>
-		<!--
-					ルール E7.の適用について補足します。<br>
-					E7 は、Base-Target-Mirrorに関わる除外ルールです。しかしながら、Target-Mirror の位置の定義と、<br>
-					<span style="color:Blue">&nbsp; Base数字&sub;Base候補数字 &hArr; &not;Base数字&sup;&not;Base候補数字
-						&hArr; #x&isin;&not;Base候補数字 &rArr; #x&isin;&not;Base数字</span><br>
-					より <b>JExocet Locked</b> で 成立します。<br>
-		-->
 					<br>
 
 					<img src="images/img59/image59_Exocet_Rule-07.svg" style="margin-left: 5px;" width="80%" ><br><br>
@@ -461,10 +452,6 @@
 						あるいは、その数字が非ベース数字なら他の非ベース数字は Mirror から 除外できる。
 					</p>
 					<p>
-						<p style="background-color:rgba(253, 62, 62, 0.11) ">
-							Rule-9 では、Base_Locked と Mirror_Locked を区別してください。<br>
-							Mirror_Locked の数字が <span style="color:red">非ベース数字</span>のケースでは、ベース数字が非Lockedでも適用できます。
-						</p>
 						<p>
 						Mirror には ベース数字と非ベース数字が入ります。<br>
 						Mirror に ロックされた数字があるとき[Mirror_Locked]、ベース数字と非ベース数字の両方を入れるためには、ロックされた数字の制約が生じます。<br>
