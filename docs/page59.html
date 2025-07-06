@@ -167,7 +167,7 @@
 				<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 95%;" >
 					<tr>
 						<td class="table_itemName" style="width: 5%" >R1</td>
-						<td class="table_item">Baseセル(B1,B2)は、いずれも未確定セルであり、同じ数字を含み、合わせて3以上の Base 数字(#abc/#abcd)をもつ。</td>
+						<td class="table_item">Baseセル(B1,B2)は、いずれも未確定セルであり、合わせて3以上の Base 数字(#abc/#abcd)をもつ。</td>
 					</tr>
 					<tr>
 						<td class="table_itemName">R2</td>
@@ -192,11 +192,15 @@
 					<tr>
 						<td class="table_itemName" style="width: 5%" >R1</td>
 						<td class="table_item">Baseセルの Base数字 が 2つの場合は LockedSet です。5以上のケースは、"制約が多くなり、おそらくないであろう"という予測によります。
-							これより、R1は"3～4の Base数字"となっています。</td>
+							これより、R1は"3～4の Base数字"となっています。おそらく、拡張します。<br>
+							ベースセルに共通の数字がないこともあります。
+						</td>
 					</tr>
 					<tr>
 						<td class="table_itemName" >R2</td>
-						<td class="table_item">Base数字以外の候補数字を含んでよい</td>
+						<td class="table_item">Base数字以外の候補数字を含んでよい。<br>
+							Objectのセル数以上の数のBase数字を含む。
+						</td>
 					</tr>
 					<tr>
 						<td class="table_itemName">R3</td>
