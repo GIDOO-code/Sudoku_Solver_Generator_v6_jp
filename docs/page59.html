@@ -129,7 +129,7 @@
 
 			<p style="background-color:rgba(203, 232, 255, 0.5) ">
 				* Exocet の仕組みの理解には、"方向" を区別すると良いでしょう。<br>
-				&nbsp;&nbsp;"Baseの並び"を基準として、これと並行の方向は "Paralle"です。<br>
+				&nbsp;&nbsp;"Baseの並び"を基準として、これと並行の方向は "Parallel"です。<br>
 				&nbsp; &nbsp;また、これと交差する方向は "Cross" です。文脈から明らかなときは、これらはしばしば省略されます。<br>
 			</p>
 
@@ -480,6 +480,14 @@
 							&nbsp;&nbsp;数独ルールの"行・列・ブロック 制約"と"数字1～9 制約"は同等で、"行・列・ブロック・数字 制約"です。<br>
 							&nbsp;&nbsp;<a href="page60.html">General Logic</a> は、これに基づく解析アルゴリズムです。<br>
 							&nbsp;&nbsp;<a href="page26.html">ALS(Almost Locked Set)</a> は、"n セルに n+1数字"が一般的ですが、"n+1 セルに n数字" も "ALS" です。
+							</small>
+						</p>
+						<p style="background-color:rgba(161, 255, 161, 0.5) ">
+							<small>
+							[補足2]<br>
+							&nbsp;&nbsp;"n+1 セルに n数字" には "AHS（Almost Hidden Set" という名称がつけられています。<br>
+							&nbsp;&nbsp;GNPX の実装では、ALSをもとに、若干の修正を加えて定義しています。<br>
+							&nbsp;&nbsp;クラス ALS、AHS は、SubSetをベースクラスとする派生クラスとして定義しています。
 						</small>
 					</p>
 				</li><br><br>

@@ -1,0 +1,137 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku AHS</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>	
+    </section>
+
+
+
+    <article id="main">
+        <section>
+            
+
+            <h3 id="head_bg_Blue">AHS</h3>
+            <p>AHS（Almost Hidden Set）は 、House内の候補数字とセルの制約で生じる部分集合です。<a href="page26.html">ALS</a> と対になる制約です。<br></p>
+
+            <h4 id="head_bg_LightBlue">(1)AHS</h4>
+            <p>
+                <b>Locked Set</b> は、同じhouseに属する&quot;n個のセルにn個の候補数字がある&quot;状態で、
+                どのセルがどの数字かは決まらないが、全体としてLocked状態です。<br>
+                <b>AHS </b>は同じhouseに属する &quot;n+1個のセルにn個の候補数字&quot;がある <b>ほぼ</b> Locked 状態です。
+                AHSを構成する 1 セルを除くと確定し、AHSは LockedSetになります。<br>
+                最小のAHSは、&quot;2セル1候補数字&quot;です。<br><br>
+                <img src="images/img50_AHS/img50AHS_def.svg" alt="AHS" width="50%" >
+                <br><br>
+                このHPでは、次のように簡略化した AHS表現 も用います。<br>
+                <img src="images/img50_AHS/img50AHS_simpllified.svg" alt="AHS" width="50%" > 
+            </p>
+
+        </section>
+
+        <section>
+            <a ID="RCC"></a>
+            <h4 id="head_bg_LightBlue">(2) RCC,nRCC</h4>
+            <p>
+                AHSを用いる解析アルゴリズムでは、2つのAHSの 共通のセルと数字が制限する効果を利用します。<br>
+                2つのAHSが重なるとき、AHSのセルを分類します。AHSの重なる部分のセルは RCC(Restricted Common Cell)です。
+                また、AHSのRCC以外のセルは nRCC(no Restricted Common Cell)です。<br><br>
+                <img src="images/img50_AHS/img50AHS_RCC_nRCC_def.svg" alt="AHS" width="30%" ><br><br>
+
+                RCCには複数のセルがあります。それぞれのセルは、2つのAHS 由来の候補数字を含みます。
+                ただし、単純にするために、最初は RCCのセルが1つの状態について 定義します。<br><br>
+                2つのAHSの候補数字は、両者に共通の候補数字と、それぞれに固有の候補数字の場合があります。
+                したがって、RCCのセルでも 候補数字が 共通 / 固有 の組み合わせが生じます。<br>
+                RCC-セルは、次のように "X"と"Z"に分類します。<br>
+
+                <table class="table1" style="border-collapse:collapse; border: 1px solid #000099;" >
+					<tr>
+						<td class="table_itemName" style="width: 5%" >X</td>
+						<td class="table_item">2つのAHSの候補数字が異なる、あるいは2つのAHSには同じ候補数字をあるが RCC-セル には同じ候補数字がない。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName" >Z</td>
+						<td class="table_item">RCC-セルに、共通由来の候補数字がある。（"X"でないものは "Z"）</td>
+					</tr>
+				</table><br>
+                <img src="images/img50_AHS/img50AHS_X_Z_def.svg" alt="AHS" width="60%" ><br><br>
+
+                上の図では、RCC内のセルを1セルとしていますが、RCC-セルは1～3セルの場合があります。<br>
+                また、RCC内は、X と Z が様々に混在しています。<br>
+                解析アルゴリズムとなるのは、これらの特定の組み合わせの場合です。
+                <img src="images/img50_AHS/img50AHS_X_Z_mix.svg" alt="AHS" width="70%" >
+            </p><br><br>
+
+
+
+
+
+            <h3 id="head_bg_Blue">解析アルゴリズム</h3>
+            <p>
+                AHS-XZ は、数独アルゴリズムの中ではやや変わり種ですが、単純な論理です。GNPXのソースコードは参考になるでしょう。<br>
+            </p>
+
+            <h4 id="head_bg_LightBlue">(1) AHS_XZ</h4>
+            <p>
+                AHS_XZ は、RCCに <b>1以上の X と 1以上の Z</b> がある状態です。<br><br>
+                RCC(最小で2セル)で 何らかの方法で <b>Z</b> セルが無効になると、一方のAHSは LockedSet となり、他方のAHSではセルが不足します。
+                したがって、Zセルの AHS以外の候補数字は除外できます。<br><br>
+                <img src="images/img50_AHS/img50AHS_AHS_XZ.svg" alt="AHS_xz" width="70%" ><br><br>
+            </p>
+
+            <h4 id="head_bg_LightBlue">(2) AHS_XZ_double</h4>
+            <p>
+                AHS-XZ double は、RCCに <b>2以上のX</b> がある状態です。<br><br>
+                除外ルール:<br>
+                1) RCCで 何らかの方法で <b>X</b> セルが無効になると、一方のAHSは LockedSet となり、他方のAHSではセルが不足します。
+                したがって、Zセルの AHS候補数字以外は、除外できます。<br><br>
+                2) nRCCにある 他方のAHSの候補数字は、除外できます。<br>
+                <br>
+                <img src="images/img50_AHS/img50AHS_AHS_XZ_double.svg" alt="AHS_xz" width="70%" ><br><br><br>
+            </p>
+
+
+        </section>
+
+
+
+    <a href="#" class="pagetop">Top</a>
+    <footer id="foot">
+        <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+    </footer>
+
+</body>
+</html>
