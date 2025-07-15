@@ -90,7 +90,7 @@
                 <img src="images/img50_AHS/img50AHS_X_Z_def.svg" alt="AHS" width="60%" ><br><br>
 
                 上の図では、RCC内のセルを1セルとしていますが、RCC-セルは1～3セルの場合があります。<br>
-                また、RCC内は、X と Z が様々に混在しています。<br>
+                また、RCC内のセルは、X と Z が様々に混在しています。<br>
                 解析アルゴリズムとなるのは、これらの特定の組み合わせの場合です。
                 <img src="images/img50_AHS/img50AHS_X_Z_mix.svg" alt="AHS" width="70%" >
             </p><br><br>
@@ -107,19 +107,30 @@
             <h4 id="head_bg_LightBlue">(1) AHS_XZ</h4>
             <p>
                 AHS_XZ は、RCCに <b>1以上の X と 1以上の Z</b> がある状態です。<br><br>
-                RCC(最小で2セル)で 何らかの方法で <b>Z</b> セルが無効になると、一方のAHSは LockedSet となり、他方のAHSではセルが不足します。
-                したがって、Zセルの AHS以外の候補数字は除外できます。<br><br>
+
+                除外ルール:<br>
+                1) Zセルの AHS以外の候補数字は除外できる。<br>
+                &nbsp; &nbsp; - RCCで 何らかの方法で <b>Z</b> セルが無効になったとする。<br>
+                &nbsp; &nbsp; - 一方の AHS は LockedSet となり、他方の AHS ではセルが不足する。<br><br>
                 <img src="images/img50_AHS/img50AHS_AHS_XZ.svg" alt="AHS_xz" width="70%" ><br><br>
             </p>
 
             <h4 id="head_bg_LightBlue">(2) AHS_XZ_double</h4>
             <p>
                 AHS-XZ double は、RCCに <b>2以上のX</b> がある状態です。<br><br>
+                
                 除外ルール:<br>
-                1) RCCで 何らかの方法で <b>X</b> セルが無効になると、一方のAHSは LockedSet となり、他方のAHSではセルが不足します。
-                したがって、Zセルの AHS候補数字以外は、除外できます。<br><br>
+                1) Zセルの AHS以外の候補数字は除外できる。<br>
+                &nbsp; &nbsp; - RCC(最小で2セル)で 何らかの方法で <b>Z</b> セルが無効になったとする。<br>
+                &nbsp; &nbsp; - 一方の AHS は LockedSet となり、他方の AHS ではセルが不足する。<br><br>
+            
                 2) nRCCにある 他方のAHSの候補数字は、除外できます。<br>
-                <br>
+                &nbsp; &nbsp; - これは、X が2つ以上あることを利用しています。<br>
+                &nbsp; &nbsp; - (RCCに X が2つの場合) nAHS-1 において、仮に AHS-2 の候補を 肯定とする。<br>
+                &nbsp; &nbsp; - このセルが除外されて、AHS-1 は LockedSet になる。<br>
+                &nbsp; &nbsp; - AHS-2 のセル数は 2(RCCのセル数)だけ減る。しかし、X が２つあることで AHS-2 の候補数字は減らない。<br>
+                &nbsp; &nbsp; - したがって、AHS-2 は "N 数字 N-1(=N+1-2) セル"となり、破綻する。
+                <br><br>
                 <img src="images/img50_AHS/img50AHS_AHS_XZ_double.svg" alt="AHS_xz" width="70%" ><br><br><br>
             </p>
 
