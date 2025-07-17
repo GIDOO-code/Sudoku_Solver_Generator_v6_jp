@@ -1,6 +1,6 @@
 # Sudoku_Solver_Generator_v6.0
- Version6.0 2025.September 公開予定
- 
+ Version6.0 2025.September 公開予定<br>
+ AHS(HP) AHSXZ(GNPX) を追加(2025.07.17) 
 
 # GNPX v6 HP:
  en: https://gidoo-code.github.io/Sudoku_Solver_Generator_v6/<br>
