@@ -1,5 +1,6 @@
 # Sudoku_Solver_Generator_v6.0
  Version6.0 2025.September 公開予定
+ 
 
 # GNPX v6 HP:
  en: https://gidoo-code.github.io/Sudoku_Solver_Generator_v6/<br>
