@@ -41,3 +41,7 @@
 
 ## 3. GNPX v6 VSプロジェクト＆C#ソース<br>
  (1) VisualStudioプロジェクト(C#ソース)は、Sudoku_Solver_Generator_v6 からダウンロードできます。<br>
+
+ ## 4. 実行方法
+ (1) GNPX App.zip を解凍する。
+ (2) GNPX_vx.xx.exe - ショートカット　を実行する。
