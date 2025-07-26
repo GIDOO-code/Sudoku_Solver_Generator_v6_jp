@@ -40,8 +40,8 @@
 		<section>
 
 			<span style="color:red">... Senior Exocet is under development ... </span><br><br><br>
-
-			<H3 id="head_bg_Blue">&nbsp;Exocet</H3>
+		
+			<H3 id="head_bg_Blue" id="SE">&nbsp;Exocet</H3>
 
 			<p>
 				Exocetは、house、Companion、Coverline などの制約を組み合わせた解法アルゴリズムです。ここでは、 Exocet の仕組みを説明します。
@@ -57,7 +57,7 @@
 					<li>&nbsp;2) BaseとObject, Companion から決まるS領域には、Base数字の配置に制約がある。</li>
 					<li>&nbsp;3) 2つあるObjectには、"Base数字がある" と導きます。</li>
 				</ul>
-				<img src="images/img59SE/image59SE_Logoic1.svg" style="margin-left: 20px;" width="50%" alt="Exocet"><br><br><br><br>
+				<img src="images/img59SE/image59SE_Logic1.svg" style="margin-left: 20px;" width="50%" alt="Exocet"><br><br><br><br>
 
 
 			<b><u>以下では、Exocet の仕組み = 論理を解説します。</u></b><br><br>
@@ -70,20 +70,20 @@
 					<li>&nbsp;1) Baseには、Base数字が3～4ある。</li>
 					<li>&nbsp;2) Baseと方向(direction)と Band から、3つのCrossLineを選ぶ。</li>
 				</ul>
-				<img src="images/img59SE/image59SE_Logoic2.svg" style="margin-left: 20px;" width="70%" alt="Exocet"><br><br><br><br>
+				<img src="images/img59SE/image59SE_Logic2.svg" style="margin-left: 20px;" width="70%" alt="Exocet"><br><br><br><br>
 
 
 			<H3 id="head_bg_Light2Blue">&nbsp;(2) Exocetの要素の導出</H3>
 			<p>
 				Exocetの要素を組み立てる手順(1-2-3)を示します。これにより、各要素の関係と機能が生じます。<br>
-				<img src="images/img59SE/image59SE_Element_derivation.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br>
+				<img src="images/img59SE/image59SE_Logic3.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br>
 
 				<ul style="list-style:none; padding-left:10px;">
 					<li>&nbsp;1) 1つの CrossLine(CL) に着目し、CL上のEscape以外の箇所に Objectを配置します。<br>
 					&nbsp; &nbsp; &nbsp; Objectは、Base数字を含む必要があります。</li>
 					<li>&nbsp;2) Companion は、CrossLine上の Object,Escape以外の箇所 で 次の図のように定義します。<br>
 					&nbsp; &nbsp; &nbsp; Companionは、<b>Base数字を含みません</b>。<br>
-						<img src="images/img59SE/image59SE_CompanionDefinition.svg" style="margin-left: 20px;" width="70%" alt="Exocet">
+						<img src="images/img59SE/image59SE_Logic4.svg" style="margin-left: 20px;" width="70%" alt="Exocet">
 					</li>
 					<li>&nbsp;3) CrossLineの <b>Escape.Object,Companion以外の領域</b> を <b>SLine</b> とします。<br>
 					&nbsp; &nbsp; &nbsp; Base数字は SLineとObjectにあり、EscapeとCompanionにはありません。
@@ -134,8 +134,7 @@
 					</tr>
 					<tr>
 						<td class="table_itemName" >R2</td>
-						<td class="table_item">Base数字以外の候補数字を含んでよい。<br>
-							Objectのセル数以上の数のBase数字を含む。
+						<td class="table_item">Base数字以外の候補数字を含んでよい。
 						</td>
 						</td>
 					</tr>
@@ -191,9 +190,9 @@
 
 
 			<h4 id="head_bg_Blue">&nbsp;拡張 Exocet</h4>
-
-			<h4 id="head_bg_Light2Blue">&nbsp;(1) Single Exocet</h4>
-			<p>
+			<div id="SE_single"></div>
+			<h4 id="head_bg_Light2Blue">&nbsp;(1) SExocet Single</h4>
+			<p id="SE_single">
 				Single Exocetは、一方のObject が <b>"Base数字を持てない" = "確定済みのセル(群)"</b> のケースです。<br>
 				Baseセル、Base数字、CrossLineの設定は、標準のExocetと同じです。<br>
 				次の図は一例です。一方のObjectが確定済みセルであり、そのときのSLineとCompanionの形です。<br>
@@ -216,8 +215,8 @@
 				<br><br><br>
 			</p>
 
-
-			<h4 id="head_bg_Light2Blue">&nbsp;(2) Single-Base Exocet</h4>
+			<div id="SE_singleBase"></div>
+			<h4 id="head_bg_Light2Blue" >&nbsp;(2) SExocet Single-Base</h4>
 			<p>
 				Single-Base Exocetは、Single Exocet の Base が <b>1セル</b> の ケースです。<br>
 			<!--Single-Base Exocetは、Single Exocet の Base が <b>1セル 2候補数字</b> の ケースです。<br>
@@ -230,7 +229,7 @@
 			<br><br><br>
 			<H3 id="head_bg_Blue">&nbsp;補足情報</H3>
 
-			<H4 id="head_bg_Light2Blue">&nbsp;Mirror</H4>
+			<H4 id="head_bg_Light2Blue">&nbsp;SE Mirror</H4>
 			<p>
 				Exocet の Mirror は、他の構成要素とは異なる性質を持っています。<br>
 				&nbsp; &nbsp;<b>Mirror は Exocet の Locked 成立に関わらない。<br>

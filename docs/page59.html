@@ -43,9 +43,44 @@
 
 	<article id="main">
 		<section>
-			<h4>～～～ 学習中のため 暫定版  ～～～<br>
-			&nbsp;ウェブサイトとGNPX開発は並行して進めているため、両者に不整合なことがあります。最新の情報は、GNPXです。</h4>
+			<p>
+				<span style="color:blue">... JExocet sample ～～～ 学習中のため 暫定版  ～～～<br>
+				ウェブサイトとGNPX開発は並行して進めているため、両者に不整合なことがあります。最新の情報は、GNPXです。</span>	<br><br>
+			</p>
 			
+			<H3 id="head_bg_Blue">&nbsp;Exocet</H3>
+			<p>
+				Exocetは、他のアルゴリズムとは"異なるタイプのLocked"であり、魅力的で奥が深いアルゴリズムです。<br>
+				適用する局面や、除外できる数字パターンも多彩であり、Exocetのみで解ける局面もあります。<br>
+				Exocetには、基本的で素朴なタイプから拡張タイプまで 様々な種類があり、Exocetはそれらの総称です。<br><br>
+
+				最初は Exocetの入門編で、 <b>Junior Exocet</b>、<b>Senior Exocet</b>について解説します。
+				<ol style="list-style:none; padding-left:10px;">
+					<span style="color:rgb(4, 4, 192)">Junior Exocet(JE)</span>
+					<li><a href="#ID_JE2">&nbsp; JE2</a></li>
+					<li><a href="page59B_JE2_Object.html">&nbsp; JE2+,JE++</a></li>
+					<li><a href="page59C_JEn.html">&nbsp; JE1</a></li>
+					<span style="color:rgb(4, 4, 192)">Senior Exocet(SE)</span>
+					<li><a href="page59SE.html#SE">&nbsp; SE (standard)</a></li>
+					<li><a href="page59SE.html#SE_single">&nbsp; SE single</a></li>
+					<li><a href="page59SE.html#SE_singleBase">&nbsp; SE singleBase</a></li>
+				</ol>
+
+				<a href="page59SE_2nd.html">第2編 </a>は、Exocet の仕組みを解剖し、各要素の意味、役割 を深堀りします。<br>
+				Exocetの各要素を発展的に抽象化しますので、入門編の理解が前提になります。<br>
+				<a href="page59SE_2nd.html">&nbsp; Exocet Extend</a> <br>
+				<br>
+			</p>
+		</section>
+
+			
+
+
+
+		<section>
+			<h3 id="head_bg_Blue">&nbsp;JExocet (JE2)</h3>
+		
+			<a id="ID_JE2"></a>
 			<p style="background-color:rgb(173, 245, 166) ">
 				本ページは<br>
 				&nbsp;&nbsp;by:David P Bird	&nbsp;&nbsp;"JExocet Compendium"<br>
@@ -56,51 +91,7 @@
 				
 				David P Bird に大いに感謝です。
 			</p>
-			
-			<p>
-				<ol style="list-style:none; padding-left:10px;">
-					<span style="color:rgb(4, 4, 192)">Junior Exocet(JE)</span>
-					<li><a href="#ID_JE2">&nbsp; JE2</a></li>
-					<li><a href="page59B_JE2_Object.html">&nbsp; JE2+,JE++</a></li>
-					<li><a href="page59C_JEn.html">&nbsp; JE1</a></li>
-					<span style="color:rgb(4, 4, 192)">Senior Exocet(SE)</span>
-					<li><a href="page59SE.html">&nbsp; SE standard</a></li>
-					<li><a href="page59SE.html">&nbsp; SE single</a></li>
-					<li><a href="page59SE.html">&nbsp; SE singleBase</a></li>
-					<li><a href="page59SE.html">&nbsp; SE jelly ... in development</a></li>
-				</ol>
 
-				<br>
-			</p>
-		</section>
-
-		<section>
-			<H3 id="head_bg_Blue">&nbsp;Exocetの基本</H3>
-			<p>
-				Exocetは、他のアルゴリズムとは"異なるタイプのLocked"であり、魅力的で奥が深いアルゴリズムです。<br>
-				適用する局面や、除外できる数字パターンも多彩であり、Exocetのみで解ける局面もあります。<br>
-				数独パズルを解く 新しい強力なアルゴリズム が加わったことから、解析アルゴリズムの新たな方向性が開けました。<br>
-				さらなる新しい手法の発見を予見させます。<br><br>
-
-				Exocetには、基本的で素朴なタイプから拡張タイプまで 様々な種類があり、Exocetはそれらの総称です。<br>
-				Exocetは、やや複雑な論理を使うので、2つの段階で解説します。本 page は 第1段階の <b>Junior Exocet</b>についてです。<br>
-				第2段階 <a href="page59S.html">&nbsp; Senior Exocet</a> では、Exocetの仕組みを解説します。<br>
-				用語を含め 第1段階(<b>Junior Exocet</b>) の知識を持つなら、第2段階(<b>Senior Exocet</b>)の理解は容易でしょう。<br>
-				また、Exocetの納得感も得られるでしょう。<br>
-				<br>
-				<span style="color:red">... JExocet sample </span><br><br>
-		<!--
-				<img src="images/img59/image59_Exocet_Sample0.png" style="margin-left: 40px;" width="20%" ><br>
-		-->
-
-			</p>
-			<br>
-
-
-
-
-			<a id="ID_JE2"></a>
-			<h4 id="head_bg_Blue">&nbsp;JExocet の定義 ... JE2の場合</h4>
 			<p>
 				JExocetは、<b>Base、S領域、Target の関係</b> による <span style="color:Blue">Locked</span> です。<br>
 				Baseの2セルには、2つ以上の候補数字があります。2つならLockedSetなので、3つ以上とします。<br><br>
@@ -128,9 +119,10 @@
 			</p>
 
 			<p style="background-color:rgba(203, 232, 255, 0.5) ">
-				* Exocet の仕組みの理解には、"方向" を区別すると良いでしょう。<br>
-				&nbsp;&nbsp;"Baseの並び"を基準として、これと並行の方向は "Parallel"です。<br>
-				&nbsp; &nbsp;また、これと交差する方向は "Cross" です。文脈から明らかなときは、これらはしばしば省略されます。<br>
+				* [Exocetの最初の理解のための補足]<br>
+				&nbsp; Exocet の仕組みの理解には、"方向" を区別すると良いでしょう。<br>
+				&nbsp; "Baseの並び"を基準として、これと並行の方向は "Parallel"です。<br>
+				&nbsp; また、これと交差する方向は "Cross" です。文脈から明らかなときは、これらはしばしば省略されます。<br>
 			</p>
 
 			<p>
@@ -147,7 +139,8 @@
 					</li>
 					<li>ステップ2: ブロック1,2にあり Baseに連結しないセルは、それぞれ6セルあります。各ブロックから、数字未確定の Target セルを選びます(T1,T2)。<br>
 						方向と Targetセル(T1,T2)から、Companionセル、Mirrorセル、Cross-Line-x、S<small>1</small>, S<small>2</small> が定まります。
-						これらのセルは、確定/未確定のいずれの状態もあります。
+						これらのセルは、確定/未確定のいずれの状態もあります。<br>
+						Companion には、Exocet 成立のうえで重要な役割があります。このことについては後に説明します。
 					<!-- JE2+、JE2++では、ブロック1,2内のcross-mini-lineで Baseに連結しない Object セルを選びます。 -->
 					</li>
 				</ul>
@@ -193,14 +186,12 @@
 						<td class="table_itemName" style="width: 5%" >R1</td>
 						<td class="table_item">Baseセルの Base数字 が 2つの場合は LockedSet です。5以上のケースは、"制約が多くなり、おそらくないであろう"という予測によります。
 							これより、R1は"3～4の Base数字"となっています。おそらく、拡張します。<br>
-							ベースセルに共通の数字がないこともあります。
+							2つのベースセルに共通の数字がないこともあります。
 						</td>
 					</tr>
 					<tr>
 						<td class="table_itemName" >R2</td>
-						<td class="table_item">Base数字以外の候補数字を含んでよい。<br>
-							Objectのセル数以上の数のBase数字を含む。
-						</td>
+						<td class="table_item">TargetはBase数字以外の候補数字を含んでよい。</td>
 					</tr>
 					<tr>
 						<td class="table_itemName">R3</td>
@@ -208,7 +199,7 @@
 					</tr>
 					<tr>
 						<td class="table_itemName">R4</td>
-						<td class="table_item">S領域にあるのが"確定、解決済み"の場合は、"Parallel/Cross Cover Line" いずれにも解せます。
+						<td class="table_item">S領域にあるのが"確定、解決済み"の場合は、"Parallel/Cross Cover Line" いずれにも解せます。<br>
 							(以下では、"Paralle"を採用します)</tr>
 					<tr>
 						<td class="table_itemName">-</td>
@@ -228,7 +219,8 @@
 			<p>
 				R1～R4を満たすBase数字は、Locked です。<br>
 				Base候補数字から任意の2数字を選択したとき、この2数字について次の命題が成り立ちます。<br>
-				&nbsp; &nbsp; <b>命題 : Baseで positive なら、Target1 と Target2 でも positive である。</b><br><br>
+				&nbsp; &nbsp; <b>命題 : Baseで positive なら、Target1 と Target2 でも positive である。</b><br>
+
 
 				<ol style="list-style:none; padding-left:10px;"><b>JE2 Lockedの証明</b>  (CL:Cross-Line)
 					<li>L1. Baseセルで、ベース数字#ab は positive とする。</li>
@@ -242,11 +234,17 @@
 					* この証明は、次の サイト/投稿 によります。<br>
 					&nbsp; SudokuWiki.org<br>
 					&nbsp; https://www.sudokuwiki.org/exocet<br>
-					&nbsp; &nbsp; ... by: Anonymous &nbsp; &nbsp; Saturday 8-Jan-2022<br>
-					* 命題の真偽と区別するために、命題の内容表現では positive/negative を用いています。<br>
+					&nbsp; &nbsp; ... by: Anonymous &nbsp; &nbsp; Saturday 8-Jan-2022<br><br>
+					* 命題の真偽と区別するために、命題の内容表現では <b>positive / negative</b> を用いています。<br>
 				<!--* 以下の図では Parallel-Cover-Line を表示しています。この証明では、Paralle/Cross は何ら関係しません。-->	
 				</p>
-				<img src="images/img59/image59_Exocet_def05.svg" style="margin-left: 40px;" width="50%" ><br><br><br>
+				<img src="images/img59/image59_Exocet_def05.svg" style="margin-left: 40px;" width="50%" ><br><br>
+				
+				<p style="background-color:rgba(96, 255, 56, 0.37)">
+					一つ重要な 留意点 があります。<br>
+					Objectの候補数字が Baseを完全に被覆しないなら、Exocet は成立しません。</b>
+				</p>
+				<br>
 			</p>
 
 
@@ -486,8 +484,8 @@
 							<small>
 							[補足2]<br>
 							&nbsp;&nbsp;"n+1 セルに n数字" には "AHS（Almost Hidden Set" という名称がつけられています。<br>
-							&nbsp;&nbsp;GNPX の実装では、ALSをもとに、若干の修正を加えて定義しています。<br>
-							&nbsp;&nbsp;クラス ALS、AHS は、SubSetをベースクラスとする派生クラスとして定義しています。
+							&nbsp;&nbsp;GNPX の実装では、ALSをもとに、SubSetをベースクラスとする派生クラスとして定義しています。<br>
+							&nbsp;&nbsp;また、<a href="page50_AHS.html">&nbsp; AHS_XZ</a> も興味深い 解析アルゴリズム です。
 						</small>
 					</p>
 				</li><br><br>
