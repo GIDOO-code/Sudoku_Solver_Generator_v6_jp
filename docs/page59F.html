@@ -1,0 +1,114 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku Family</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6.0</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>	
+    </section>
+	<!-- -------------------------------------------------------------------------- -->
+
+	<article id="main">
+		<section>
+			<p>
+				&nbsp; &nbsp; &nbsp; <a href="page59.html"><img src="images/imgTop/jumpBefore.png" height="18"> Exocet</a><br><br>
+			</p>
+
+			<H3 id="head_bg_Blue">&nbsp;Exocetのファミリー</H3>
+			<p>
+				Exocet の Target の位置を Band に制限したのが Junior Exocet(JE)です。<br>
+				JE1、Single-Base は、JE2 の Target を制限するケースです。<br><br>
+				<img src="images/img59F/image59F_Exocet_Family.svg" alt="Exocet_Family" style="margin-left: 30px;" width="80%" ><br>
+			</p><br>
+
+			<h4 id="head_bg_LightBlue">&nbsp;(1) Exocet</h4>
+			<p>
+				(Senior) Exocetでは、Target の位置の制限はありません。<br>
+				このタイプが、Exocetの標準形です。SLineは、Target の Close-Line上にあります。<br><br>
+				<img src="images/img59F/image59F_Exocet.svg" alt="Senior Exocet" style="margin-left: 30px;" width="63%" ><br><br>
+			</p>
+
+			<h4 id="head_bg_LightBlue">&nbsp;(2) JE2</h4>
+			<p>
+				Junior Exocetは、2つの Target を <b>Band内</b> に制限するタイプです。
+				Targetセルの配置が筋違いのタイプと、同じ行(列)にある整列タイプがあります。<br>
+				このタイプの成立条件と解析のロジックはほぼ同じであり、あまり気にしないでよいでしょう。<br><br>
+				<img src="images/img59F/image59F_JE2.svg" alt="Junior Exocet" style="margin-left: 30px;" width="50%" ><br><br>
+			</p>
+
+			<h4 id="head_bg_LightBlue">&nbsp;(3) JE1/Exocet_Single</h4>
+			<p>
+				JE1は、JE2の一方の Object が 2セルとも 非Baseの確定数字 のタイプです。<br>
+				Exocet_Single は Object が Band 外にあるタイプです。<br>
+				Exocet の 系統では 傍流のアルゴリズムで、特別な候補数字(wildcard)が登場します。<br><br>
+				<img src="images/img59F/image59F_JE1.svg" alt="JExocet JE1" style="margin-left: 30px;" width="63%" ><br><br>
+				<img src="images/img59F/image59F_SE_Single.svg" alt="Exocet Single" style="margin-left: 30px;" width="63%" ><br><br>
+			</p>
+
+			<h4 id="head_bg_LightBlue">&nbsp;(4) Single Base</h4>
+			<p>
+				Single Baseは、Base が1セルのJE1です。<br><br>
+				<img src="images/img59F/image59F_SE_SingleBase.svg" alt="Senior Exocet Single_Base" style="margin-left: 30px;" width="85%" ><br>
+			</p>
+
+			<h4 id="head_bg_LightBlue">&nbsp;(5) JE2+,JE2++</h4>
+			<p>
+				JE2の一方の Target が2セルになるタイプ(JE2+)と、両方のTargetが2セルになるタイプ(JE2++)です。<br>
+				Exocet Locked 制約は、Baseの候補数字が Object(2セル) にある状態です。Cross-Line、SLineの定義は同じです。<br><br>
+			<!-- JE2+,JE2++の Object には、Conpanionはありません。<br><br> -->	
+				<img src="images/img59F/image59F_JE2PP.svg" alt="Junior Exocet ++" style="margin-left: 30px;" width="50%"><br><br>
+			</p>
+		<!--
+			<h4 id="head_bg_LightBlue">&nbsp;(6) Franken/Mutsnt Exocet</h4>
+			<p>
+				Exocet標準タイプの Cross-Line(House)を、Paralell-Line/Blockに拡張し、Slineを配置するタイプです。<br>
+				Block-Houseの場合には、SLineの名称は相応しくないですが、機能を優先してSlineを用います。
+				<br><br>
+				<img src="images/img59F/image59F_FM_Exocet.svg" alt="Franken/Mutant Exocet" style="margin-left: 30px;" width="63%" ><br><br>
+			</p>
+		-->
+			
+			<br><br><br>
+
+		</section>
+	</article>
+
+
+
+	
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

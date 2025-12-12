@@ -1,0 +1,358 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku Senior Exocet</title>
+
+	<!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link rel="stylesheet" href="jq_treeview/jquery.treeview.css">
+	<link rel="stylesheet" href="jq_treeview/screen.css">
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6.0</i></strong>
+		<script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+	<section id="menuList">
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>
+	</section>
+	<!-- -------------------------------------------------------------------------- -->
+
+	<article id="main">
+		<section>
+			<p style="color:blue">
+				ウェブサイトとGNPX開発は並行して進めているため、両者に不整合なことがあります。最新の情報は、GNPX ソースコードです。</span> <br>
+				本HPの内容には 誤りが含まれる可能性がありますので（蓋然性は高い）、批判的に見てください。
+			</p><br>
+
+			<H3 id="head_bg_Blue" id="SE">&nbsp;(Standatd) Exocet</H3>
+			<p>
+				ここでは、Standard Exocetの仕組みを解説します。一部再掲です。<br>
+				Exocetは、Base、Target、CrossLine、Coverline、Companion などの様々な要素と制約を組み合わせた解法アルゴリズムです。<br>
+				Exocet の形、用語などに不案内のかたは、<a href="page59.html"><img src="images/imgTop/jumpBefore.png" height="10"> Junior Exocet</a> を参考にしてください。<br>
+			</p><br><br>
+<!--(0)-->
+			<H3 id="head_bg_Light2Blue">&nbsp;(0) ExocetのLocked</H3>
+			<p>
+				Exocetは Locked によるアルゴリズムです。
+			<ul style="list-style:none; padding-left:10px;">
+				<li>&nbsp;1) Baseには3つ以上の Base候補数字がある。</li>
+				<li>&nbsp;2) BaseとTarget, Companion から決まるS領域には、Base数字の配置に制約がある。</li>
+				<li>&nbsp;3) Base候補数字から どのような2つ組の候補数字を選んでも、そのBase数字はTargetにある" 。</li>
+			</ul>
+			<img src="images/img59B/image59B_Logic0.svg" style="margin-left: 20px;" width="50%"
+				alt="Exocet Logic"><br><br><br><br>
+
+
+			<b><u>以下では、Exocet の仕組み = 論理を解説します。</u></b><br><br>
+
+<!--(1)-->
+			<H3 id="head_bg_Light2Blue">&nbsp;(1) Exocetの枠組み</H3>
+			<p>
+				最初に、<a href="page59.html#base_direction">Baseと方向(direction)</a> を設定します。<br>
+
+			<ul style="list-style:none; padding-left:10px;"><b> 枠組み :</b>
+				<li>1) 3つのCrossLine(CL) を選びます。<br>
+					&nbsp; &nbsp; CL-0は1つに定まります。CL-1、CL-2はそれぞれ3つの候補があり、各1つのCLを選びます。</li>
+				<li>2）Escapeは、stem、方向、CL-1、CL-2から定まります。</li>
+				<li>3) stemは、形を定めるためのもので、Exocet の論理には関係しません。</li>
+			</ul>
+			<img src="images/img59B/image59B_Logic1.svg" style="margin-left: 20px;" width="70%"
+				alt="Exocet Frame"><br><br>
+
+<!--(2)-->
+			<H3 id="head_bg_Light2Blue">&nbsp;(2) Exocetの要素</H3>
+			<p>
+				Exocetの要素を組み立てる手順を示します。これにより、各要素の機能と関係が生じます。<br>
+
+			<p style="color:blue">
+
+			</p>
+
+
+			<ul style="list-style:none; padding-left:10px;">
+				<li><b>Target : </b></li>
+				<!--
+					<li><b>Target : </b><br>
+					&nbsp; (Targetは1セル、Objectは2セルです。以下では Target で表記します。）</li>
+				-->
+				<li>&nbsp; 1) CrossLine(CL)上のEscape以外の箇所に Targetを配置します。<br>
+					&nbsp; &nbsp; &nbsp; Targetは、Base数字を含む必要があります。</li><br>
+				<img src="images/img59B/image59B_Logic2.svg" style="margin-left: 20px;" width="85%"
+					alt="Exocet Target/Target"><br><br>
+
+				<li><b>Companion :</b>
+					<li>&nbsp; 1) Companion は、CL上の Target,Escape以外の箇所で 次の図のように定義します。<br></li>
+					<li>&nbsp; 2) Companionは、Target毎に定義し、それらを合成して局面のCompanionとします。</li>
+					<br>
+					<img src="images/img59B/image59B_companion.svg" style="margin-left: 20px;" width="50%"
+						alt="Exocet Companion"><br><br>
+				</li><br>
+
+				<li><b>SLine :</b><br>
+				<li>&nbsp; 1) <b>SLine</b>は、CLから<b>Escape,Target,Companion</b>を除いた 残りの領域</b> です。<br>
+				<li>&nbsp; 2) Base数字は SLineとTargetにあり、EscapeとCompanionにはありません。<br>
+					&nbsp; &nbsp; &nbsp; SLineに Base数字がないなら、Target にあります。</li>
+			</ul>
+			</p><br>
+
+<!--(3)-->
+			<div id="Companion"></div>
+			<H4 id="head_bg_LightBlue">&nbsp;(3) SLine - Target リンク ... Companion の役割</H4>
+			<p>
+				Exocetでは、Companion は重要な役割を果たしています。<br>
+				Companionは、最低限に必要なセルを含めば ある程度"任意"に設定できます。<br>
+				<b>Exocetが成立する最小=最適</b> に設定すのが良いでしょう。
+
+			<ol>
+				<li> CrossLine には 候補数字 #a のインスタンスが1つある。</li>
+				<li> CrossLine を Sline, Companion,Target,Escape に分ける。</li>
+				<li> Escape には #a はない。Sline, Companion,Target #a のインスタンスがある。</li>
+				<li> Target の他の CrossLine への投影箇所もCompanion とする。</li>
+				<li> <b>条件:Companion には #a はない</b> を加えると、Sline と Target はリンクになる( #a はどちらかにある)。</li>
+				<li> (何らかのロジックで) "SAreaに #a がない" ことが導かれると、#a は Target にある。</li>
+			</ol><br>
+		
+			<img src="images/img59B/image59B_companionLogic.svg" style="margin-left: 20px;" width="50%"
+				alt="Exocet Companion"><br><br>
+		
+
+			</p><br>
+
+
+
+
+<!--(4)-->
+			<H3 id="head_bg_Light2Blue">&nbsp;(4) Exocet の数字の条件</H3>
+			<p>
+				&nbsp; &nbsp;次の R1-R4 を満たすと Exocet が成立し、Base数字は Target-Target で肯定になります。
+
+			<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 95%;">
+				<tr>
+					<td class="table_itemName" style="width: 5%">R1</td>
+					<td class="table_item">Baseセル(B1,B2)は、いずれも未確定セルであり、合わせて 3～4 種の Base 数字をもつ。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">R2</td>
+					<td class="table_item">Targetセル（T1,T2）は、いずれも未確定セルであり、合わせてBase数字を3つ以上もつ。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">R3</td>
+					<td class="table_item">Companionセルは、Base 数字を含まない。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">R4</td>
+					<td class="table_item"><b>Base数字の全て</b>について、S領域{S0,S1,S2}にある Base数字は、2つの Cover-Line でカバーされる。</td>
+				</tr>
+			</table><br>
+
+
+			これらの条件について、若干、補足して解説します。<br>
+			<b>補足:</b>
+			<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 95%;">
+				<tr>
+					<td class="table_itemName" style="width: 5%">R1’</td>
+					<td class="table_item">Baseセルの Base数字 が 2つの場合は LockedSet です。5以上のケースは、"制約が多くなり、おそらくないであろう"という予測によります。
+						これより、R1は"3～4の Base数字"となっています。おそらく、拡張します。<br>
+						2つのベースセルに共通の数字がないこともあります。
+					</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">R2’</td>
+					<td class="table_item">TargetはBase数字以外の候補数字を含むことも可能です。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">R3’</td>
+					<td class="table_item" style="width: 90%">Companionセルは、確定セルと未確定セルの場合がある。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">R4’</td>
+					<td class="table_item">S領域{S0,S1,S2}にある Base数字は、候補数字、確定数字のいずれもあります。</td>
+				</tr>
+			</table><br><br>
+			</p>
+
+<!--(5)-->
+			<h4 id="head_bg_Light2Blue">&nbsp;(5) Exocet の論理 ... Lockedの証明</h4>
+			<p>
+				R1～R4を満たすBase数字は、Locked です。<br>
+				Base候補数字から任意の2数字を選択したとき、この2数字について次の命題が成り立ちます。<br>
+				&nbsp; &nbsp; <b>命題 : Baseで positive なら、Object1 と Object2 でも positive である。</b><br>
+
+			<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 90%;">
+				<b>Exocet Lockedの証明</b>
+				<tr>
+					<td class="table_itemName" style="width: 5%">L1</td>
+					<td class="table_item">&nbsp;Baseセルで、ベース数字#ab は positive とする。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">L2</td>
+					<td class="table_item">&nbsp;3つのCrossLine(CrossLine-0,CrossLine-1,CrossLine-2)には、#abのインスタンスがそれぞれ
+						3つあり(数独のルール)、<br>
+						&nbsp;合わせて6個のインスタンスがある。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">L3</td>
+					<td class="table_item" style="width: 90%">&nbsp;R3より、Companionには #ab のインスタンスはない。</td>
+				</tr>
+				<tr>
+					<td class="table_itemName">L4</td>
+					<td class="table_item">&nbsp;R4より、S領域{SLine-0,SLine-1,SLine-2} には 2つの #a CoverLine、2つの#b CoverLine
+						がある。
+				</tr>
+				<tr>
+					<td class="table_itemName">L5</td>
+					<td class="table_item">&nbsp;"6-4=2"より、#aと#b インスタンスは、それぞれ Object1 と Object2にある。<br>
+						&nbsp;(一方のObjectに #aと#b が同時に入ることはない。どちらにどれかは確定しない。)
+				</tr>
+			</table><br>
+
+			また、命題の対偶は次の通りです。<br>
+			&nbsp; &nbsp; <b>対偶：Targetの候補数字が Baseを完全に被覆しないなら、Exocet は成立しない。</b>
+			</p><br><br>
+
+<!--(6)-->
+			<h4 id="head_bg_LightBlue">&nbsp;(6) Exocet Locked の理解(再掲)</h4>
+			<p>
+				ここで、改めて <b>Exocet Locked</b> の状態を考えます。<br>
+				Exocet Locked は、Baseの候補数字から <b>どの2つの候補数字を選んだ</b> としても、それらは Target で肯定となります。<br>
+				対象とするPuzzleには解があり、かつ唯一解のPuzzleです。その解から翻れば いずれかの2つのBase候補数字(#a,#b)は確定数字(#A,#B)です。
+				Base候補数字は3つ以上あるので、残り"#x"に着目すると、候補数字#Xは Target で否定であり、Escapeで肯定です。<br>
+				ただし、Puzzleを解く途中段階では、Base候補数字のどれが解であるかは分かっていません。<br>
+				Exocet Lockedは、<b>確定していない が それでも導けることがある</b> 推論です。
+				同様のこと(推論)は、例えば LockedSet を思い浮かべると良いでしょう。<br><br>
+				<img src="images/img59/image59_Exocet_def05.svg" style="margin-left: 40px;" width="80%"><br>
+			</p>
+
+
+			<div id="MirrorLogic"></div>
+			<h4 id="head_bg_LightBlue">&nbsp;(7) Mirror Logic(再掲)</h4>
+			<p>
+				<b>Mirror</b> は、<b>Exocet Logic</b> が成立したときに生じる論理です。<br>
+				1) <b>JE2</b>で Exocet Lockedが成立している、とする。<br>
+				2) Targetが #a なら、Mirrorの一方のセルには 同じ#a がある。<br>
+				3) 対偶 :<br>
+					&nbsp; &nbsp; &nbsp; <b>MIrrorにないBase候補数字は、対応するTargetにない。</b><br><br>
+				Base・Target・Mirrorは同じBand内にあり、スコープが重ならない位置にあります。<br>
+				このことから、<b>Mirrorを用いる除外</b> が成立します。<br>
+				一方、JE2 以外で Band制約とスコープの重なり条件が成立しないケースでは、Mirrorの論理は成り立ちません。<br><br><br>
+
+				<img src="images/img59/image59_Exocet_MirrorLogic.svg" style="margin-left: 20px;" width="70%" ><br><br><br>
+			</p>
+
+
+			<!-- ================================================================================================================== -->
+<!--(A)-->
+			<h4 id="head_bg_Blue">&nbsp;Exocetの拡張</h4>
+			<div id="SE_single"></div>
+
+<!--(A1)-->
+			<h4 id="head_bg_Light2Blue">&nbsp;(1) Exocet Single</h4>
+			<p id="SE_single">
+				<a href="page59.html#ID_JE1">&nbsp; JExocet (JE1) <img src="images/imgTop/jumpTo.png" width="20" Height="10"></a><br><br>
+
+				Single Exocetは、一方のObject が <b>"Base数字を持てない" = "確定済みのセル群"</b> のケースです。<br>
+				Baseセル、Base数字、CrossLineの設定は、標準のExocetと同じです。<br>
+				次の図は一例です。一方のObjectが確定済みセルであり、そのときのSLineとCompanionの形です。<br>
+				ObjectとCompanionの設定方法は、標準的なExocetと同じです。
+
+			</p>
+			<img src="images/img59B/image59B_SingleExocet.svg" style="margin-left: 20px;" width="50%" alt="Single Exocet"> <br><br>
+			<p>
+			<ol style="list-style:none; padding-left:10px;"><b>Single Exocetの成立条件</b>
+				<li>1) Base数字うち、1つの候補数字は S領域に3つのCoverLine をもつ（これを"wildcard"とよぶ）。</li>
+				<li>2) wildcard以外のBase数字(#a)について、S領域にある全ての#aは2つのCoverLineで被覆できる。</li>
+				<li>3) 通常のObjectには、wildcardを含め全てのBase数字が候補としてある（その他の数字も含んでよい)。</li>
+			</ol><br>
+			<ol style="list-style:none; padding-left:10px;"><b>Single Exocetの結果</b>
+				<li>1) Baseでは、wildcard は positiveである。</li>
+				<li>2) 通常のObjectでは、wildcard は positiveである。</li>
+				<li>3) Baseと通常のObjectの両方と連結するセルでは、wildcardは negativeである。</li>
+			</ol>
+			<br><br><br>
+			</p>
+			<!-- ------------------------------------------------------------------------------------------------------------------ -->
+
+<!--(A2)-->
+			<div id="SE_singleBase"></div>
+			<h4 id="head_bg_Light2Blue">&nbsp;(2) Exocet Single-Base</h4>
+			<p>
+				Exocet Single-Base は、Exocet Single の Base が <b>1セル</b> の ケースです。<br>
+				Exocet Single-Base の特徴として、極めて多くのPuzzleに適用できるアルゴリズムです。
+				<a href="page59S.html">&nbsp; Exocet サンプル <img src="images/imgTop/jumpTo.png" height="8"></a>
+
+
+				<!--Single-Base Exocetは、Single Exocet の Base が <b>1セル 2候補数字</b> の ケースです。<br>
+				Single-Base Exocetが成立したときは、BaseとTargetの数字が確定し、それらの連結するセルが確定します。 -->
+			</p>
+			<img src="images/img59B/image59B_SingleBaseExocet.svg" style="margin-left: 20px;" width="70%" alt="Single Exocet"> <br><br>
+
+
+
+			<!-- ================================================================================================================== -->
+<!--
+			<div id="SE_FM"></div>
+			<h4 id="head_bg_Light2Blue">&nbsp;(3) Franken/Mutant Exocet</h4>
+			<p>
+				Franken/Mutant Exocet (FM Exocet) は、CrossLineの一部が parallel あるいは Block-House型 になるケースです。
+				CrossLine-bは、Standardと同じです。<br>
+				Franken/Mutant型では、CrossLineが重なる場合があります。重なる部分にBase数字があるときは S領域の
+-->
+
+
+<!--
+	
+		//@@@ Excludes when SLine have no Base-Digits.
+		//@@@ SLine に Base-Digits がない場合は除外されます。
+
+		Combination of two HouseBlocks is excluded.
+		2つのブロックHの組み合わせは除外されます。
+		
+		//@@@  In SE_FM type, CrossLine may cross. Having BaseDigit at the crossing point violates the 2-CoverLine rule.
+		SE_FM型では、CrossLineが交差することがあります。交差点にBaseDigitが存在すると、2-CoverLineルールに違反します。
+-->
+<!--
+				<br>
+				Single-Base Exocetは、Single Exocet の Base が <b>1セル 2候補数字</b> の ケースです。<br>
+				Single-Base Exocetが成立したときは、BaseとTargetの数字が確定し、それらの連結するセルが確定します。
+			</p>
+			<img src="images/img59B/image59B_FM_Exocet.svg" style="margin-left: 20px;" width="50%"
+				alt="Franken/Mutant Exocet"> <br><br><br><br>
+		-->
+
+
+
+
+		</section>
+
+
+
+
+	</article>
+
+	<a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+
+</html>

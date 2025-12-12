@@ -20,7 +20,7 @@
  PU向けのいくつかの機能を追加しました(GNPXのコードを読んでください)。<br>
 
 
-## 2. 数独解析アルゴリズム　の追加<br>
+## 2. 数独解析アルゴリズム　の改良と追加<br>
  論理を説明するイメージ図を用いて解説します。（具体的では本質が理解しづらい）<br>
  (1) 数独解析における "Locked"<br>
  (2) ALSの拡張(AnLS)、アルゴリズムの開発<br>
@@ -31,7 +31,8 @@
  (7) Subsetアルゴリズム<br>
  (8) Fireworkアルゴリズム<br>
  (9) AHS(AHS-XZ)<br>
- (10) Exocet(Junior/Senior) アルゴリズム(開発中)<br>
+ (10) ALS Chain(改良)<br>
+ (11) Exocet(Junior/Senior) アルゴリズム(開発中)<br>
 
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>
@@ -42,6 +43,6 @@
 ## 3. GNPX v6 VSプロジェクト＆C#ソース<br>
  (1) VisualStudioプロジェクト(C#ソース)は、Sudoku_Solver_Generator_v6 からダウンロードできます。<br>
 
- ## 4. 実行方法
- (1) GNPX App.zip を解凍する。
- (2) GNPX_vx.xx.exe - ショートカット　を実行する。
+ ## 4. 実行方法<br>
+ (1) GNPX App.zip を解凍する。<br>
+ (2) GNPX_vx.xx.exe - ショートカット　を実行する。<br>
