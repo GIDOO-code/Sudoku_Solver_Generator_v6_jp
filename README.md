@@ -1,5 +1,5 @@
 # Sudoku_Solver_Generator_v6.0
- Version5.2(6.0beta) 2025.december 公開<br>
+ 6.0beta テスト公開です(2025.december)<br>
  AHS(HP) AHSXZ(GNPX) を追加(2025.07.17) 
 
 # GNPX v6 HP:
