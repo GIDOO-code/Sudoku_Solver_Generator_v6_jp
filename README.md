@@ -1,5 +1,5 @@
 # Sudoku_Solver_Generator_v6.0
- 6.0beta テスト公開です(2025.december)<br>
+ 6.0beta テスト公開です(2026.January)<br>
  AHS(HP) AHSXZ(GNPX) を追加(2025.07.17) 
 
 # GNPX v6 HP:
@@ -32,7 +32,7 @@
  (8) Fireworkアルゴリズム<br>
  (9) AHS(AHS-XZ)<br>
  (10) ALS Chain(改良)<br>
- (11) Exocet(Junior/Senior) アルゴリズム(開発中)<br>
+ (11) Exocet(Junior/Senior/FM) アルゴリズム(開発中)<br>
 
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>
