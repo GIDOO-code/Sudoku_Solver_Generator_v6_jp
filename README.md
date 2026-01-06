@@ -1,6 +1,6 @@
 # Sudoku_Solver_Generator_v6.0
  6.0beta テスト公開です(2026.January)<br>
- F/M Exocet を 追加 (GNPX v9.4)。
+ F/M Exocet を 追加 (GNPX v9.4)<br>
  AHS(HP) AHSXZ(GNPX) を追加(2025.07.17) 
 
 
