@@ -1,7 +1,7 @@
 # Sudoku_Solver_Generator_v6.0
  6.0beta テスト公開です(2026.January)<br>
  <span style="color: orange; ">
- Franken/Mutan Exocet を 追加 (GNPX v9.4)</span><br>
+ Franken/Mutan Exocet を 追加 (GNPX v9.5)</span><br>
  AHS(HP) AHSXZ(GNPX) を追加(2025.07.17) 
 
 
