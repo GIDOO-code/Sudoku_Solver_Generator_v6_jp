@@ -47,7 +47,6 @@
 				SLineが2つの CoverLine でカバーされるなら Exocet Locked が成立します。<br>
 				拡張 CrossLine では、"Cross"の呼称は不自然ですが、素朴な Exocet の定義に従い、CrossLine を用います。<br><br>
 
-				Franken/Mutant Exocet は、拡張 CrossLine、Target、Companion の定義が拡張されています。Exocet の成立要件は、標準の Exocet と同じです。<br><br>
 				<a href="page59S.html#ID_Exocet_FM">&nbsp; Exocet Franken/Mutant(FM) サンプル<img src="images/imgTop/jumpTo.png" height="8"></a>
 				
 			<H4 id="head_bg_LightBlue" id="SE">&nbsp;拡張 CrossLine</H4>
@@ -55,12 +54,12 @@
 				basicな Exocet では、次の手順で CrossLine を定義します。
 				<ol>
 					<li>Baseの位置と方向を決める。</li>
-					<li>CrossBand-b は Base 位置から決まる。</li>
+					<li>CrossBand-0 は Base 位置から決まる。</li>
 					<li>CrossBand-n から CrossLine-n を選択する(n=1,2)。</li>
 				</ol>
 				<img src="images/img59C/image59C_Standard_CrossLine.svg" style="margin-left: 20px;" width="50%" alt="Standard_CrossLine"> <br><br>
 				
-				拡張 CrossLine では、Baseの位置と方向、および CrossBand-b を定めるまでは、同じです。<br>
+				拡張 CrossLine では、Baseの位置と方向、および CrossBand-0 を定めるまでは、同じです。<br>
 				CrossLineの基となる Bandは、Cross-Band、Paralell-Band、Block-Band の 3タイプがあります。異なる Band 内に 2つの CrossLine-1、CrossLine-2 を定めます。<br>
 				拡張 CrossLine では、複数の CrossLine が交差することがあります。Exocet の成立要件により、CrossLine が交差するセルは、Base候補数字を含むことができません。
 
@@ -71,26 +70,37 @@
 				<img src="images/img59C/image59C_FM_CrossLine_Sample.svg" style="margin-left: 20px;" width="68%" alt="FM_CrossLine"> <br><br>
 			</p>
 
+
+
+
 			<H4 id="head_bg_LightBlue">&nbsp;Target</H4>
 			<p>
 				3つの CrossLine の Escape 領域を除く位置に、2つの Target を配置します。2 Targets / 3 CrossLines であり、1つの CrossLine には Target はありません。<br><br>
-				<img src="images/img59C/image59C_FM_Escape_Target.svg" style="margin-left: 20px;" width="80%" alt="FM_CrossLine">
+				<img src="images/img59C/image59C_FM_Target_on_CrossLine.svg" style="margin-left: 20px;" width="80%" alt="FM_Target_on_CrossLine">
 			</p>
 
-			<H4 id="head_bg_LightBlue">&nbsp;Companion、SLine </H4>
+			<H4 id="head_bg_LightBlue">&nbsp;Companion</H4>
 			<p>
-				Companionは、Cross-type、Paralell-type の CrossLine に定義され、行・列 house と ブロック house の2つの制約が生じるセルに定義されます。
-				Block-type の CrossLine には Companion はありません。<br><br>
+				Companionは、Row-type、Column-type、Block-type の CrossLine に定義されます。
+				数独のセルには、行・列・ブロックの 3つの houseの制約があるので、Row/Column-type と Block-type では形が異なります。
+				また、確定 Companion と、他の CrossLine の関係で決まる Companion 候補(▲印のセル)があります。<br><br>
 				<img src="images/img59C/image59C_FM_Target_Companion.svg" style="margin-left: 20px;" width="70%" alt="FM_CrossLine"><br><br>
 
-				Target、Companion、SLine の関係は、<a href="page59B.html#Target_Companion_Sline">標準的なタイプの Exocetの要素</a> と同じです。
+				2つの Target - Companion の合成で、Puzule の現局面の Companion が決まります。<br><br>
+				<img src="images/img59C/image59C_FM_Companion_Synthesized.svg" style="margin-left: 20px;" width="90%" alt="FM_CrossLine"><br><br>
+
+
+			<H4 id="head_bg_LightBlue">&nbsp;SLine </H4>
+			<p>
+				Target を含む CrossLine に着目します。 CrossLine は、Target, Eescape, SLine and Companion で構成されます。<br>
+				SLine は、次式で定義されます。<br>
+				&nbsp; &nbsp;<b>SLine = CrossLine - (Target, Eescape, Companion)</b><br><br>
+				<img src="images/img59C/image59C_FM_Sline_definition.svg" style="margin-left: 20px;" width="50%" alt="FM_CrossLine"><br>
 			</p>
-
-
-
-
-
-
+			
+			<a href="page59S.html#ID_Exocet_FM">&nbsp; Exocet Franken/Mutant(FM) サンプル<img src="images/imgTop/jumpTo.png" height="8"><br>
+			</a>
+			
 		</section>
 	</article>
 
