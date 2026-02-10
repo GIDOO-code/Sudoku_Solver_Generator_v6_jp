@@ -1,8 +1,11 @@
-# Sudoku_Solver_Generator_v6.0
- 6.0beta テスト公開です(2026.January)<br>
- <span style="color: orange; ">
- Franken/Mutan Exocet を 追加 (GNPX v5.95 2026.January)</span><br>
- AHS(HP) AHSXZ(GNPX) を追加(2025.07.17) 
+# Sudoku_Solver_Generator_v6.0 リリース (2026.February)<br>
+  AHS(HP) AHSXZ(GNPX) を追加(2025.07.17)<br>
+ <span style="color: LightGreen;">
+ Exocet_FM を 追加 (GNPX v5.95 2026.January)  
+  Exocet_FM_Single, Exocet_FM_SingleBase を 追加 (GNPX v5.95 2026.January)</span><br>
+ GNPXの 数独Puzzle 生成方法を追加しました。(page-15)
+ <br><br>
+
 
 
 # GNPX v6 HP:
@@ -12,15 +15,13 @@
 # Sudoku_Solver_Generator v6
 ![GNPX](./images0/GNPX_start.png)<br>
 
-## 0. GNPX v5.8- は、v6.0のベータ版<br>
- ｖ6.0の機能確認中<br><br><br>
-
 
 ## 1. GNPX v6.0 は、メジャーアップデート<br>
  GNPX v6 は、プログラムを全般的に再構成しました。機能整理と論理性を高めたので、コードは読み易くなりました。<br>
  新たに解析アルゴリズムを追加しました。今後も追加の予定です。<br>
+ Puzzle 生成機能を改良しました。sample はこの機能で作成しました。
  開発支援機能を追加しました。通常の実行場面では見えませんが、アルゴリズム開発時に機能します（アルゴリズムの誤り検出）。<br>
- PU向けのいくつかの機能を追加しました(GNPXのコードを読んでください)。<br>
+ PU 向けのいくつかの機能を追加しました(GNPXのコードを読んでください)。<br>
 
 
 ## 2. 数独解析アルゴリズム　の改良と追加<br>
@@ -40,12 +41,12 @@
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>
  (2) 多くの解析アルゴリズムを改良。 全アルゴリズムをビット表現化(Bit81をUInt128に変更)<br>
- (3) バックグラウンドで全解を求め、アルゴリズムの正誤をモニター（試行錯誤法を用いています）。<br>
- (4) 問題作成機能を強化（パターン指定、ブロック1固定で数独の全問題を生成。並列処理。おおよそ900万パズル）。<br>
+ (3) バックグラウンドでPuzzleを解き、アルゴリズムの正誤をモニター（試行錯誤法を用いています）。<br>
+ (4) 問題作成機能を強化<br>
 
 ## 3. GNPX v6 VSプロジェクト＆C#ソース<br>
  (1) VisualStudioプロジェクト(C#ソース)は、Sudoku_Solver_Generator_v6 からダウンロードできます。<br>
 
  ## 4. 実行方法<br>
  (1) GNPX App.zip を解凍する。<br>
- (2) GNPX_vx.xx.exe - ショートカット　を実行する。<br>
+ (2) GNPX_v6.0.exe - ショートカット　を実行する。<br>

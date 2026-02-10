@@ -40,7 +40,7 @@
 		<section>
 			<H3 id="head_bg_Blue">&nbsp;Puzzle 生成</H3>
 			<p>
-				GNPX には、数独パズルを生成する 3 つの方法があります。
+				GNPX には、数独パズルを生成する 2 つの方法があります。
 			</p>
 
 			<H4 id="head_bg_LightBlue">&nbsp;(1) Puzzle 手動生成</H4>
@@ -56,67 +56,44 @@
 			</p><br>
 
 			<H4 id="head_bg_LightBlue">&nbsp;(2) Puzzle 自動生成</H4>
-				GNPX は、盤面のパターンを変更しながら、数独パズルを生成します。<br>
-				特に step-4、step-5の処理は、数独パズルを生成するのに有用な方法です。<br>
-				GNPX ver.6 では、step-3,5 は、<span style="color:rgb(54, 30, 192)"> Parallel</span> 実行しています。
+
 			<p>
-				<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 95%" >
-					<small>
-					<tr>
-						<td class="table_itemName" style="width: 18%" >step-1<br>パターン指定</td>
-						<td class="table_item" >
-							パターンの<b>対称型（点対称、線対称）/ 非対称型</b> と、パターンセル数を指定して、
-							自動的にパターンを作成する。<br>
-							パターンは、次の 3パラメータで変更を制御する。<br>
-							&nbsp; 1)1パターンのPuzzleの上限数  2)LS枠の数(最大3136) 
-						</td>
-					</tr>
-					<tr>
-						<td class="table_itemName">step-2<br>LS枠 生成</td>
-						<td class="table_item">(LS:<a href="ppage14.html">&nbsp;Latin Square</a>)<br>
-							ブロック1は 1～9に固定。ブロック23-47を選ぶ(1/3136)。<br>
-							<small>(ブロック23には56パターン、ブロック47には56パターンあるので、全体で3136パターンある。)</small>
-						</td>
-					</tr>
-					<tr>
-						<td class="table_itemName">step-3<br>LS 生成
-							<span style="color:rgb(54, 30, 192)"> [Parallel]</span></td>
-						<td class="table_item">LS枠からLS全枡を生成する。LS枠によって生成できるLSの数は異なる(2000-5000)。</td>
-					</tr>
-					<tr>
-						<td class="table_itemName">step 4<br>Puzzle候補選別</td>
-						<td class="table_item">step-3のLSに step-1のパターンを重ねてPuzzle候補リストを作ります。<br>
-							パターンを重ねることで同じPuzzleもできる。Puzzle候補リストから唯一なもののみを選ぶ。<br>
-							同じものがあるPuzzleは、数独アルゴリズムを適用したとき2つ以上のパターンを持つことになり、数独Puzzleのルールに反する。
-							この選別で、おおよそ50%程が除外される。
-						</td>
-					</tr>
-					<tr>
-						<td class="table_itemName">step 5<br>Try&Error 
-							<span style="color:rgb(54, 30, 192)"> [Parallel]</span></td>
-						<td class="table_item">step-4のPuzzleを<b>Try & Error</b>で解き、唯一解をもつ Puzzle を選ぶ。<br>
-							<small>(T&Eで複数解をもつパターンは、数独Puzzleではなく、数独解析アルゴリズムを適用しても解けない。)</small><br>
-							パターンにもよるが、一意の解が存在しない可能性がかなり高いです<br>
-							残る場合もその数は 0～10%であり、この残ったものは数独Puzzleであることが保証される。
-						</td>
-					</tr>
-					<tr>
-						<td class="table_itemName">step 6<br>アルゴリズム適用</td>
-						<td class="table_item">step-5の唯一解Puzzleを、数独アルゴリズムで解けることを確認する。<br>
-							解けないPuzzleは、解析アルゴリズムが非力を意味する。
-						</td>
-					</tr>
-				</small>
-				</table><br><br>
-			</p>
-				
-			<H4 id="head_bg_LightBlue">&nbsp;(3) 特定パターンの全Puzzle 生成</H4>
-			<p>
-				GNPX は、盤面の指定パターンの全ての数独パズルを生成します。これは、比較的単純なので並列処理します。<br>
-				残念ながら、あなたの想像する程の時間はかかりません。<br>
-				
+				GNPXで採用している 数独 Puzzle の生成方法 の解説です。<br>
+				v6では、次の手順で 数独 Puzzle を生成します。基本的な生成手法は開発済みですが、ハンドリングは改良の余地があります。 
 			</p>
 
+			<ol style="list-style:none; padding-left:10px;">
+				<li><b>ステップ-1. ラテン方陣を生成する [parallel可能]</b><br>
+					&nbsp; &nbsp; ラテン方陣の生成方法は、 <img src="images/imgTop/jumpBefore.png" height="10"><a href="page14_v6.html">Latin Square</a> にあります。<br>
+					&nbsp; &nbsp; 最初に ブロック1は固定します。<br>
+					&nbsp; &nbsp; ブロック2,3 は、パラメータで制御します。この ブロック2,3 パラメータは 2,612,736 種類あります。<br>
+					&nbsp; &nbsp; ブロック4,7 パラメータにも 2,612,736 種類あります。<br>
+					&nbsp; &nbsp; [2,3 パラメータ] × [4,7 パラメータ] の1組について、 2,000～5,000 の ラテン方陣が生成できます。<br>
+					&nbsp; &nbsp; ランダムに 500～1,000組のパラメータを選び、ラテン方陣セットを生成します。<br>
+				</li><br>
+
+				<li><b>ステップ-2. ラテン方陣に Puzzle パターンを重ねる</b><br>
+					&nbsp; &nbsp; ステップ-1 で生成した ラテン方陣 は全て異なります。<br>
+					&nbsp; &nbsp; これにPuzzle パターンを重ねて、パターンが空白セルを'0'に置き換えます。これを '前Puzzle' とします。<br>
+					&nbsp; &nbsp; パターン を重ねた 前Puzzle は、多数の同一のものが生じます。前Puzzle セットから、ユニークなもののみを選びます。<br>
+					&nbsp; &nbsp; ユニークでないパターンは、数独の問題として唯一解を持ちません。<br>
+					&nbsp; &nbsp; なお、ユニークなパターンも '唯一解を持つ=数独の問題'であることは保証されません。<br>
+				</li><br>
+
+				<li><b>ステップ-3. ユニークな 前Puzzle セットを TryAndError 法で解く [parallel可能]</b><br>
+					&nbsp; &nbsp; TryAndError は 高速 に ラテン方陣を解きます。<br>
+					&nbsp; &nbsp; TryAndError でユニークな解をもつ 前Puzzle は、数独の問題の候補です。<br>
+					&nbsp; &nbsp; ここでも、'数独の問題'であることは保証されません。ステップ-1 の他のパラメータから生成される ラテン方陣 が同じ場合があることに因ります。<br>
+				</li><br>
+
+				<li><b>ステップ-4. 数独アルゴリズムで解く [parallel可能]</b><br>
+					&nbsp; &nbsp; ステップ-3 の 数独の問題の候補 を 数独アルゴリズム で解きます。<br>
+					&nbsp; &nbsp; ステップ-1～3 と ステップ-4 は それぞれ独立に(別スレッドで)実行できます。<br>
+					&nbsp; &nbsp; GNPXでは、数独アルゴリズムスレッドは 常に動作状態にし、 <br>
+					&nbsp; &nbsp; ステップ-1～3 で 数独Puzzle の候補が求まるごとに 数独アルゴリズムスレッドに送ります(Queue使用)。
+				</li><br>
+			</ol>
+				
 		</section>
 	</article>
 
