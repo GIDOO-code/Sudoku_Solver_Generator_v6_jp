@@ -3,11 +3,13 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>数独 SubsetExclude</title>
-	
+	<title>数独 Last Digit</title>
+
+
     <!-- Prism   https://prismjs.com/download.html -->
 	<script src="prism_js_css/prism.js"></script>
 	<link rel="stylesheet" href="prism_js_css/prism.css">
+
 
 	<!-- jQuery treeview ! -->
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
@@ -24,39 +26,26 @@
 
 	<script type="text/javascript" src="js/naviHeader.js"> </script>
 	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
 </head>
 
-<body id="page">
-	<header id="head"> <strong><i>Sudoku Algorithm 6.0</i></strong>
+<body id="page" onload="prettyPrint()" >
+	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
         <script type="text/javascript"> writeNaviHeader(); </script>
 	</header>
 
     <section id="menuList">
-        <script type="text/javascript"> writeNaviAlgorithm(); </script>	
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
     </section>
-	<!-- -------------------------------------------------------------------------- -->
 
-	<article id="main">
+	<a id="pageTop"></a>
+    <header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+    </header>
+
+	<article id="main" style="margin:2%">
 		<section>
-			<H3 id="head_bg_Blue">&nbsp;Puzzle 生成</H3>
-			<p>
-				GNPX には、数独パズルを生成する 2 つの方法があります。
-			</p>
-
-			<H4 id="head_bg_LightBlue">&nbsp;(1) Puzzle 手動生成</H4>
-			<p>
-				マニュアルで、数独の問題を左の9x9の升目に作る。
-				<ol>
-					<li> 最初に、頭の中で、入力する数字を強くイメージする。</li>
-					<li> 9x9のセルをクリックすると、セルにイメージした数字が表れる。</li>
-					<li> もしも、イメージしたのと異なる数字が現れたときは、あなたのイメージパワーが弱かったからです。<br>
-						その場合は、再度、強く強くイメージしてクリックする。これは何度でも試行できます。</li>
-					<li> 入力済み数字を取り消すときは、"消えろ"と強く念じながら、その数字を再度クリックする。</li>
-				</ol>
-			</p><br>
-
-			<H4 id="head_bg_LightBlue">&nbsp;(2) Puzzle 自動生成</H4>
-
+			<h3 id="head_bg_Blue">数独 Puzzle の作り方</h3>
 			<p>
 				GNPXで採用している 数独 Puzzle の生成方法 の解説です。<br>
 				v6では、次の手順で 数独 Puzzle を生成します。基本的な生成手法は開発済みですが、ハンドリングは改良の余地があります。 
@@ -93,14 +82,24 @@
 					&nbsp; &nbsp; ステップ-1～3 で 数独Puzzle の候補が求まるごとに 数独アルゴリズムスレッドに送ります(Queue使用)。
 				</li><br>
 			</ol>
-				
+			
+
 		</section>
+			
 	</article>
 
-    <a href="#" class="pagetop">Top</a>
-	<footer id="foot">
-		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
-	</footer>
+	<article style="padding-left: 40px;">
+					
 
+		<section>
+		</section>
+		<br>
+
+	    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+			<p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+		</footer>
+
+	</article>
 </body>
 </html>
