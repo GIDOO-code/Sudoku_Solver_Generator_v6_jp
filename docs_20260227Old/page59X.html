@@ -1,0 +1,120 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku Exocet</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6.0+</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+	<!-- -------------------------------------------------------------------------- -->
+
+<!--
+	<article id="main">
+			<p style="color:blue">
+				ウェブサイトとGNPX開発は並行して進めているため、両者に不整合なことがあります。最新の情報は、GNPX ソースコードです。</span>	<br>
+				本HPの内容は 不完備 です。誤りが含まれる可能性がありますので（蓋然性は高い）、批判的に見てください。
+			</p><br>
+
+		<section>
+
+
+			<H3 id="head_bg_Blue">&nbsp;Exocet - 2</H3>
+				<b>Exocet 第2編は、Exocet の理解です。</b><br>
+				Exocetの各要素を発展的に再定義します。
+				本ページは、<a href="page59.html">&nbsp; 入門編 <img src="images/imgTop/jumpTo.png" width="15"></a>の理解を前提とします。<br><br>
+
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;Exocet の基本的な形 </H4>
+			<p>
+				Exocet は、<b>Base と Object 結ぶ リンク</b> を用いるアルゴリズムです。リンクのロジックは、SAreaの2CoverLine です。<br>
+				この例は、<b>JE2</b> ですが、<b>Senior Exocet</b>、<b>Target/Object</b>に代えても本質は変わりません。
+				<br><br>
+				<img src="images/img59C/image59C_step0.svg" style="margin-left: 20px;" width="70%" alt="Exocet"><br><br>
+
+				<b>Base</b> は、ブロック内の miniline に2つのセルが配置されます。候補数字 <b>#a</b> に着目すると、Escapeでは #a は否定です。<br>
+				また、CrossLine-0 (着目ブロック外で miniline の直交方向) には、<b>複数の候補数字#a</b>、または<b>1つの確定数字#a</b> があります。<br><br>
+				<img src="images/img59C/image59C_step1.svg" style="margin-left: 20px;" width="70%" alt="Exocet"><br><br>
+
+				<b>Object</b> の 候補数字 <b>#a</b> は、 SArea にある CrossLine-0 とリンクになります。これは強リンクで双方向性です<br><br>
+				<img src="images/img59C/image59C_step2.svg" style="margin-left: 20px;" width="70%" alt="Exocet"><br><br>
+
+				CrossLine-0 -1 -2 をまとめて <b>SArea</b> になります。
+				Junior/Senior Exocet では、SAreaにある候補数字(#ab)はそれぞれ <b>2つの ラインで覆われる</b> とき、<b>Base-Object リンク</b>になります。
+				このリンクの形成には、<span style="color:Blue">Companion</span> が重要な役割を果たしています。<br><br>
+				<img src="images/img59C/image59C_step3.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br><br>
+			</p>
+
+			<H4 id="head_bg_LightBlue">&nbsp;Companion</H4>
+			<p>
+				Exocetでは、Companion は重要な役割を果たしています。<br>
+				すなわち、Base-Object のリンクが成立するように、Companion を設定します。<br>
+				また、Companionは "任意" に設定できます。ただし、過剰に設定した場合には、正しい リンクが除外されます。
+				<ol>
+					<li> CrossLine には 候補数字 #a のインスタンスが1つある。</li>
+					<li> CrossLine を Sline, Companion,Object,Escape に分ける。</li>
+					<li> Escape には #a はない。Sline, Companion,Objectに #a のインスタンスがある。</li>
+					<li> <b>条件:Companion には #a はない</b> を加えると、Sline と Object はリンクになる(どちらかにある)。</li>
+					<li> 何らかのロジックで SAreaに #a がないなら、#a は Object にある。</li>
+				</ol>
+				Companion は拡張した Exocet でも、リンクの形成を補助するように設定できます。<br><br>
+				<img src="images/img59C/image59C_step4_companion.svg" style="margin-left: 20px;" width="50%" alt="Exocet"><br><br>
+
+				以上は、Exocetにおける Companion の基本的な役割です。ただし、この条件は厳しく 一部の有効な Exocet 解を除外することがあります。
+			</p>
+
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;Exocet の形 - 2 </H4>
+			<p>
+				Exocet の拡張の準備として、Exocet の表現を改めます。
+				<br><br>
+				<img src="images/img59C/image59C_step0a.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br><br>
+
+				Exocet は、<b>Base と Object 結ぶ リンク</b> を用いるアルゴリズムです。
+				すなわち、Exocetは、<b>SAreaの2Coverline と Companion</b>を使うアルゴリズムです。<br>
+				リンクには様々な方法があり、これは、将来のアルゴリズム開発のヒントになりそうです。<br>
+				<br><br>
+				<img src="images/img59C/image59C_step3a.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br><br>
+			</p>
+
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;Senior Exocet</H4>
+			<img src="images/img59C/image59C_CrossLineObject.svg" style="margin-left: 20px;" width="60%" alt="Exocet"><br><br>
+
+
+
+		</section>
+	</article>
+-->
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

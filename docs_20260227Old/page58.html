@@ -1,0 +1,251 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 SubsetExclude</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->	
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 5.1</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>	
+    </section>
+
+
+
+	<!-- -------------------------------------------------------------------------- -->
+	<article id="main">
+		<section>
+			<H3 id="head_bg_Blue">Fireworks</H3>
+			<p>
+				Fireworkは、盤面上に生じる数字配置の状態で、これだけでは数独数字を肯定/否定することはありません。
+				しかし、複数のfireworkを組み合わせたり、他の数字配置と組み合わせて数独解法アルゴリズムとなります。
+				ALS、リンクなどと同様の、数独盤面上の状態です。
+				なお、Fireworkアルゴリズムは、次のHPを参考にしています。<br>
+				<strong>
+					The New Sudoku Players' Forum<br>
+					<a>http://forum.enjoysudoku.com/fireworks-t39513.html</a><br>
+				</strong>
+				Fireworkの特徴として、他のアルゴリズムと比較すると論理はやや複雑ですが、プログラムコードはきわめて単純です（GNPXの場合）。
+				短時間試行の範囲での印象ですが、
+				完全な Firework (Stemと2のLeaf) を用いる場合は少なく、不完全な Firework (Stemと1のLeaf)で組み立てるケースが多いです。
+			</p>
+			<h4 id="head_bg_LightBlue">Firework の定義</h4>
+			<p>
+				Fireworkは、次のように定義します。
+				<ol>
+					<li>盤面上の 数字”n”の配置に着目する。</li>
+					<li>数字”n”を候補に持つセル A を選ぶ。</li>
+					<li>セルA のブロックを block-Aとする。</li>
+					<li>block-A外で、かつセルA と同じ行Houseをrow-Bとする。<br>
+						row-BにセルBを選ぶ。Bは数字”n”を候補に持つ row-B内の唯一のセルとする。</li>
+					<li>block-A外で、かつセルA と同じ列Houseをcolumn-Cとする。<br>
+						column-CにセルCを選ぶ。Cは数字”n”を候補に持つ column-C内の唯一のセルとする。</li>
+					<li>Fireworkの構成セルが強いリンクでつながっている状態を、Firework-sとする。</li>
+				</ol>
+				これらの設定の下で、次の命題は正しい。<br>
+				&nbsp;&nbsp;&nbsp;<strong><u>命題 : Firework(セルA,B,C)は、少なくとも1個の数字"n"を含む</u></strong><br>
+				<ul>
+					<li>セルBまたはセルCが 数字"n"なら、命題は正しい。セルB,Cが両方とも 数字"n"のこともある。</li>
+					<li>セルB、C が両方とも数字"n"でないなら、セルAは 数字"n" となり、命題は正しい。</li>
+					<li>セルA、B、Cがいずれも 数字"n" でないと、数独の問題として破綻する。 </li>
+					<li>最初の図で、a1,a2,a3,a4	のいずれかが数字"n"となることはある。２つ以上のセルが数字"n"となることはない。<br>
+						この場合も、セルBまたはセルCが 数字"n"であり、命題は正しい。 </li>
+					<li>Firework-sでは、セルB、Cの状態は同じとなる。</li>
+				</ul>
+				<img src="images/img58/image58_10_firework_def.svg" width="60%" alt="Force Algorithm"><br><br>
+				
+				以下では、Fireworkを次のように表記する。<br>
+				<img src="images/img58/image58_11_firework_def.svg" width="55%" alt="Force Algorithm"><br><br>
+					
+				Fireworkアルゴリズムでは、重なったFireworkを用いるものがある。<br>
+				<img src="images/img58/image58_12_firework_def.svg" width="80%" alt="Force Algorithm"><br><br>
+					
+				Fireworkには、次のような特殊なタイプもある。
+				<ul>
+					<li>Strong型 : StemとLeafが strongLinkでつながったタイプ。2つのLeafは、候補数字と属性が一致する。<br></li>
+					<li>Leafが1つしかないタイプ。</li>
+				</ul>
+				<img src="images/img58/image58_13_firework_def.svg" width="55%" alt="Force Algorithm"><br><br>
+				
+		
+
+			<!-- ============================================================ -->
+				<H3 id="head_bg_Blue">Fireworks 解析アルゴリズム</H3>
+
+
+				<h4 id="head_bg_LightBlue" id="FW_Triple">(1) Firework Triple</h4>
+				<p>
+					<stong>Firework triple</stong>は、3つのfireworkが重なっている状態です(3DFirework,stemとLeaf-1,2が全てのFireworkで一致する)。<br>
+					このとき、stemとLeaf-1,2のセルは3数字で Locked であり、3数字以外の候補は除外できます。
+				</p>
+				<img src="images/img58/image58_20_Firework_triple.svg" width="50%" alt="Firework triple"><br>
+				<p>
+					不完全なFireworkでも Firework triple は成り立ちます。Leaf部分が2数字となるケースです。Firework tripleは、不完全なパターンで多く見つかります。<br><br>
+					<img src="images/img58/image58_30b_FW_triple.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_Triple</strong><br>
+						Firework: r6c8 <#246> / r2c8 r6c1<br>
+					<p class="newLine">..128495.82.597..1945361872.5782.1.9...94.5.7..9715...562138794398472615..46592..</p>
+					<img src="images/img58/image58_30c_FW_triple.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_Triple</strong><br>
+						Firework: r5c2 <#269> / r5c8 r8c2<br>
+					<p class="newLine">1457326..936185472.8.9641535..4..7.6....7...4..4..6.1..5..198474...58931819347265</p>
+				</p>
+
+
+				<h4 id="head_bg_LightBlue" id="FW_Quadruple">(2) Firework Quadruple</h4>
+				<p>
+					2つの firework が重なっている状態を Fireworkx2 と表記します(stemとLeafが全て一致する)。<br>
+					<stong>Firework quadruple</stong>は、2組の 2DFirework の Leaf-1,2が重なっている状態です(2つのStemは位置が異なる）。<br>
+					これは、4セルに4数字が Locked となっています。従って、4セルの4数字以外の候補は除外できます。<br>
+					Firework Quadrupleは、不完全なFireworkを用いるパターンでも可能です。
+				</p>
+				<img src="images/img58/image58_21_Firework_quadruple.svg" width="50%" alt="Firework_quadruple"><br><br>
+				<p>
+					<img src="images/img58/image58_31_FW_Quadruple.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_Quadruple<br></strong>
+						Firework1 : r8c2 <#35> / r3c2 r8c5<br>
+						Firework2 : r3c5 <#78> / r3c2 r8c5 <br>
+					<p class="newLine">1893654723.....8.5......3.18935217466178432594257961389.8...5.77.....9.4.4.9.7683</p>
+
+					<img src="images/img58/image58_31b_FW_Quadruple.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_Quadruple<br></strong>
+						Firework1 : r4c2 <#15> / r1c2 r4c8<br>
+						Firework2 : r1c8 <#23> / r1c2 r4c8 <br>
+					<p class="newLine">1.5984..6..9.65.84486.....9...64.9.8.948.1.6.6.8.93.4.5..4168929427386..861..9473</p>
+				</p>
+
+
+				<h4 id="head_bg_LightBlue" id="FW_WWing">(3) Firework WWing</h4>
+				<p>
+					Firework x2 と、2つのbivalue Cell(ALS)が次の図のように配置されているとします。<br>
+					この状態は Locked で、交差する位置にある数字要素（次図の"a")は除外できます。<br>
+				</p>
+				<img src="images/img58/image58_22_Firework_WWing.svg" width="50%" alt="Firework_WWing"><br>
+				<p>
+					<img src="images/img58/image58_32_FW_WWing.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_WWing</strong><br>
+						Firework : r3c3 <#26> / r3c5 r5c3<br>
+						Assist : r4c5#26  r5c9#26<br>
+						Exclude : r5c5#26<br>
+					<p class="newLine">1..89..4.8..21...7...7.59813154.9..8.8.5..41...41.8395..1382.646.89..1...236.18.9</p>
+					<img src="images/img58/image58_32a_FW_WWing.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_WWing</strong><br>
+						Firework : r8c7 <#68> / r6c7 r8c6<br>
+						Assist : r6c2#68  r5c6#68<br>
+						Exclude : r6c6#68<br>
+					<p class="newLine">6793..21421396475845821739673...15.99.57..1321..5...473..8..4215..1....3821...975</p></p>
+
+
+
+
+
+				<h4 id="head_bg_LightBlue" id="FW_LWing">(4) Firework LWing</h4>
+				<p>
+					Firework x2 と、1つの強fireworkがLeafを共有しているとします。<br>
+					この状態で、FireworkとLeafセルから強firework の数字（次図の"x")は除外できます。<br><br>
+				
+					<img src="images/img58/image58_24_Firework_LWing.svg" width="50%" alt="Firework_LWing"><br><br>
+
+					<img src="images/img58/image58_33_FW_LWing.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_WWing</strong><br>
+						Firework : r4c7 <#34> / r4c3 r9c7<br>
+						Assist : r9c3 <#2> / r4c3 r9c7v<br>
+						Exclude : r4c3#2 r9c7#2v<br>
+					<p class="newLine">148753.6.63594218772916853498.516.7.367429815.51387..6.1.8756..89623475157.691.48</p>
+				
+					<img src="images/img58/image58_33a_FW_LWing.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_WWing</strong><br>
+						Firework : r6c3 <#36> / r6c8 r7c3<br>
+						Assist : r7c8 <#9> / r6c8 r7c3<br>
+						Exclude : r6c8#9 r7c3#9<br>
+					<p class="newLine">148753.6.63594218772916853498.516.7.367429815.51387..6.1.8756..89623475157.691.48</p>
+					
+					</p>
+
+
+
+				<h4 id="head_bg_LightBlue" id="FW_ALP">(5) Firework ALP</h4>
+				<p>
+					Fireworkx2 と、1つのBivalueセルが fig-1 のように配置されているとします。<br>
+					Fireworkの定義により、BivalueセルとStemの数字配置は次の2通りのパターンがあります(fig-2)。<br>
+					従って、FireworkのStemとBivalue Cellは、”a,b"の Locked になります。
+					Stemから ”a,b" 以外の数字は除外できます(fig-3)。
+				</p>
+					<img src="images/img58/image58_25_Firework_ALP.svg" width="80%" alt="Firework_ALP"><br>
+
+					<img src="images/img58/image58_35_FW_ALP.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_ALPs</strong><br>
+					Forework : r4c3 <#35> / r4c7 r9c3<br>
+					rcIntersect : Intersect_Cell:r9c7v
+					<p class="newLine">.37986.14914752683..841379.8..179.4.19236485747.5281.9.218479..789635421.4.291.78</p>
+			<!--
+					<img src="images/img58/image58_34a_FW_ALPs.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+					<strong>Firework_ALPs</strong><br>
+					Forework : r6c3 <#38> / r1c3 r6c7<br>
+					rcIntersect : Intersect_Cell:r1c7<br>
+					<p class="newLine">148753.6.63594218772916853498.516.7.367429815.51387..6.1.8756..89623475157.691.48</p>
+			-->	
+
+
+					
+				<h4 id="head_bg_LightBlue" id="FW_Double_ALP">(6) Firework Double_ALP</h4>
+				<p>
+					Double_ALPは、2つのALPが Bivalue を軸に対称に結びついた配置です。<br>
+					それぞれの ALP-s は、ALP-s の論理で Stemから ”a,b" 以外の数字は除外できます。<br>
+					ALPでは、Bivalueセルの数字を決めると、ALPの数字”a,b" の配置が決まります(fig-2)。<br>
+					また、Firework以外の部分から ”a,b" が制限されます(fig-2,3)。
+				</p>
+					<img src="images/img58/image58_26_Firework_DALP.svg" width="80%" alt="Firework_DALP"><br>
+
+					<p>
+						<img src="images/img58/image58_36_FW_DALP.png" width="25%" style="float:left;  margin-right:8px;" alt="SubSetExclusion">
+						<strong> Firework_DALP</strong><br>
+							Forework1:<br>
+							&nbsp;&nbsp;Stem;r4c5 sw:False FreeB:38<br>
+							&nbsp;&nbsp;(rc1,rc2):r3c5 r4c7<br>
+							Forework2:<br>
+							&nbsp;&nbsp;Stem;r4c5 sw:False FreeB:38<br>
+							&nbsp;&nbsp;(rc1,rc2):r3c5 r4c7<br>
+							<br>
+							rcIntersect:r3c7<br>
+
+						<p class="newLine">32..1.78.89.7.213571.8...425792...6126.971.5414...5297.571.8.23432..7.18.81.2..7.</p>
+					</p>
+
+		</section>
+	</article>
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

@@ -1,0 +1,650 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku JE2</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6.0</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+	<!-- -------------------------------------------------------------------------- -->
+
+	<article id="main">
+		<section>
+			<div style="color:rgb(4, 0, 255)">
+				ウェブサイトとGNPX開発は並行して進めているため、両者に不整合なことがあります。<br>
+				最新の情報は、GNPX ソースコードです。<br><br>
+
+				自明なことを確認します。<br>
+				正しい論理に基ずくアルゴリズムは、正しい結果を導きます。<br>
+				誤った論理のアルゴリズムは、正誤いずれの結果も導きます。<br>
+				結果だけからはアルゴリズムが正しいことを 結論できません。<br><br>
+				
+				おそらく、GNPXにはバグがあります（条件が厳しすぎることも含む）。<br>
+				このためGNPXでは多数の Puzzle を解いています（継続中）。<br>
+				(GNPXは、自動でPuzzleを解き、評価する機能を持っています。）<br>
+				”多数の Puzzle を解く、一部の条件を緩和する” などの試行により、<br>
+				それでも誤りが現れなければ、”論理は正しそうだ”と推定できます。<br>
+				ただし、誤りが現れなくても、組み立てた論理が過剰に厳しすぎることもあり得ます。これには論理の再構築が必要です。<br><br>
+
+				本ページおよび関連するページ の内容は発展途上であり、批判的に見てください。<br><br>
+
+				現段階(GNPX v6)の 暫定的な結論です。<br>
+				Exocet系の最も強力なアルゴリズムは <b>Exocet Franken/Mutant Single-Base</b> です。多くの局面で適用できます。<br>
+				やや複雑なので、段階的に理解してください。<br><br>
+			</div>
+		</section>
+
+		<section>
+			<H3 id="head_bg_Blue">&nbsp;Exocet</H3>
+			<p>
+				Exocetは、他のアルゴリズムとは"異なるタイプのLocked"です。Exocetのみで解ける局面もあり、魅力的なアルゴリズムです。<br>
+				Exocetには、素朴なタイプから拡張タイプまで 様々な種類があり、Exocetはそれらの総称です。<br>
+				ver.6.0では Target 型の Exocet を対象とします。 Object 型は将来のバージョンの課題です。
+ 
+				<ol style="list-style:none; padding-left:10px;">
+					<li><a href="#ID_JE2">&nbsp; JExocet (JE2) <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+					<li><a href="#ID_JE1">&nbsp; JExocet (JE1) <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+					<li><a href="page59B.html">&nbsp; SExocet (SE) <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+					<li><a href="page59B.html#SE_single">&nbsp; SExocet Single <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+					<li><a href="page59B.html#SE_singleBase">&nbsp; SExocet SingleBase <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+
+					<li><a href="page59C.html#SE_FM">&nbsp; F/M Exocet (Franke/Mutant Exocet) <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+					<br>
+					<li><a href="page59F.html">&nbsp; Exocet ファミリー <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+					<li><a href="page59S.html">&nbsp; Exocet サンプル <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+				</ol>
+
+				最初は <span style="color:Blue">Exocetの入門編</span>です。
+			</p><br><br>
+		</section>
+
+			
+
+
+
+		<section>
+			<a id="ID_JE2"></a>
+			<h3 id="head_bg_Blue">&nbsp;Junior Exocet (JE2)</h3>
+			<p>
+				JExocetは、<b>Base、S領域、Target の関係</b> による <span style="color:Blue">Locked</span> です。<br>
+				Baseの2セルには、3以上の候補数字があります。2つならLockedSetなので、3つ以上とします。<br><br>
+
+				<b>JExocet Locked</b>は、つぎのような制約です。<br>
+				<span style="color:Blue">
+				&nbsp; <b>Exocet Locked : Baseの候補数字からどの2つの数字組を選んだとしても、それらは Target<small>1</small> と Target<small>2</small> で肯定となる。</b>
+				</span><br><br>
+				実際には Baseには候補数字が2つ超あるので、<b>"どの2つの数字組を選んでも矛盾しない。(どの2つの数字組が正しいと仮定しても矛盾は生じない。)"</b> という状態です。<br><br>
+
+				<b>JExocet Locked</b>からは、次の論理が展開できます。これらは、以下の <b>除外</b> の項で詳述します。
+				<ol>
+					<li> Targetには、候補数字以外は入らない。</li>
+					<li> Base数字が 一方のTargetで 肯定 なら、他方のTargetでは 否定 である。</li>
+					<li> Cross-Cover-Line をもつベース数字は、対応する Target で 否定 である。</li>
+				</ol><br>
+
+				<img src="images/img59/image59_Exocet_Base.svg" style="margin-left: 20px;" width="40%" ><br><br>
+			</p>
+				
+				
+
+			<p>以下に示す "形の定義"と"候補数字の条件" を満たすとき、<b>JExocet Locked</b> は成立します。</p>
+
+
+			<div id="base_direction"></div>
+			<h4 id="head_bg_LightBlue">&nbsp;(1) JE2 形の定義</h4>
+			<p>
+				Junior Exocet(JE2) には、複数の役割のセルがあり、次の図のように配置されます。
+				<ul style="padding-left:20px;" >
+					<li>Baseセルは1ブロック内のminiラインに配置する。</li>
+					<li>Escapeセルは、Baseセルと相補的な位置にある。</li>
+					<li>Targetセルの配置には、対角形（Diagonal）と整列形（Aligned）の2タイプがある。</li>
+					<li>Companionセルは、Targetセルの位置に連動して配置される。</li>
+				</ul>
+				<br>
+				<img src="images/img59/image59_Exocet_def01.svg" style="margin-left: 20px;" width="70%" ><br>
+			</p>
+
+			<p style="background-color:rgba(203, 232, 255) ">
+				* [Exocetの最初の理解のための補足]<br>
+				&nbsp; Exocet の仕組みの理解には、"方向" を区別するのが役立ちます。<br>
+				&nbsp; "Baseの並び"を基準として、これと並行の方向は "Parallel"です。交差する方向は "Cross" です。<br>
+				&nbsp; 文脈から明らかなときは、これらはしばしば省略されます。<br>
+			</p>
+
+			<p>
+				JExocetの形は、次の手順で導きます。これらは、JExocetの解法コードを作成する上でも参考になります。
+				<ol style="list-style:none; padding-left:10px;">
+					<li><b>ステップ 1 :</b> 盤面上の一つのセル(Stemセル)と、方向(行、列)を選ぶ。これによって、mini-lineが決まる。<br>
+						mini-lineの2つのBaseセル(B1,B2)と、Band、2つのブロック(Block1,Block2)が決まる。
+						また、Stemセルと方向から、Cross-Line-0が決まる。
+						<p style="background-color:rgba(203, 232, 255) ">
+							*mini-line は、ブロック内の行または列の3セル。<br>
+							*Stemセルは形を導くためのもので、Exocetのロジックには関わりません。
+							また、Stemセルは、確定/未確定のいずれでも選べます。<br>
+						</p>
+					</li>
+					<br>
+					<li><b>ステップ 2 :</b> ブロック1,2にあり Baseに連結しないセルは、それぞれ6セルある。各ブロックから、数字未確定の Target セルを選ぶ(T1,T2)。<br>
+						方向と Targetセル(T1,T2)から、Companionセル(C1,C2)、Cross-Line(CL1,CL2)、SLine(S<small>1</small>, S<small>2</small>) が定まります。
+						これらのセルは、確定/未確定のいずれの状態もあります。<br>
+						Companion には、Exocet 成立のうえで重要な役割があります。このことについては<a href="page59B.html#Companion"> 後に </a>説明します。<br>
+						SLine(S<small>0</small>,S<small>1</small>,S<small>2</small>)は、Cross-LineのBand外の領域です。
+					</li>
+				</ol>
+			</p>
+			<img src="images/img59/image59_Exocet_def02.svg" style="margin-left: 20px;" width="70%"><br><br>
+
+			<p>
+				Mirrorは、<b>Exocet Locked の成立</b>には関係しません。<br>
+				Mirrorは、Exocet Lockedが成立したもとで、<b>TargetとMirrorの関係を用いると、除外できるセル・数字が導ける</b>、という関係です。<br>
+				<a href="#MirrorLogic"> Mirror </a>は別の項で述べます。
+			</p>
+
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;(2) JE2 候補数字の条件</h4>
+			<p>
+				JExocet の形の定義のもとで、次の条件(R1～R4) をテストします。<br>
+				全てのBase数字が条件 R1～R4 を満たすとき、<b>Exocet Locked</b> になります。<br><br>
+
+				<b>JE2 候補数字の条件</b>
+				<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 95%;" >
+					<tr>
+						<td class="table_itemName" style="width: 5%" >R1</td>
+						<td class="table_item">Baseセル(B1,B2)は、いずれも未確定セルであり、合わせて 3～4 個の Base 数字をもつ。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">R2</td>
+						<td class="table_item">Targetセル（T1,T2）は、いずれも未確定セルであり、合わせてBase数字を3つ以上もつ。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">R3</td>
+						<td class="table_item">Companionセルは、Base 数字を含まない。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">R4</td>
+						<td class="table_item"><b>Base数字の全て</b>について、S領域{S0,S1,S2}にある Base数字は、2つの Line(House) でカバーされる。</td>
+					</tr>
+				</table><br>
+				
+				<img src="images/img59/image59_Exocet_CoverLine.svg" style="margin-left: 20px;" width="90%"><br><br>
+	
+				これらの条件について、若干、補足して解説します。<br>
+
+				<b>補足:</b>
+				<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; width: 95%;" >
+					<tr>
+						<td class="table_itemName" style="width: 5%" >R1’</td>
+						<td class="table_item">Baseセルの Base候補数字 が 2つの場合は LockedSet です。5以上のケースは、"制約が多くなり、おそらくないであろう"という予測によります。
+							これより、R1は"3～4の Base数字"となっています。おそらく、拡張します(GNPX ver.6 では 3～6)。<br>
+							2つのベースセルに共通の数字がないこともあります。
+						</td>
+					</tr>
+					<tr>
+						<td class="table_itemName" >R2’</td>
+						<td class="table_item">TargetはBase数字以外の候補数字を含むことも可能です。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">R3’</td>
+						<td class="table_item" style="width: 90%" >Companionセルは、確定セルと未確定セルの場合があります。</td>
+					</tr>
+					<tr>
+						<td class="table_itemName">R4’</td>
+						<td class="table_item">S領域{S0,S1,S2}にある Base数字は、候補数字、確定数字のいずれもあります。</td>
+					</tr>
+				</table><br>
+
+			</p>
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;(3) JExocet の論理 ... Lockedの証明</h4>
+			<p>
+				R1～R4を満たすBase数字は、Locked です。<br>
+				Base数字から <b>任意の2数字を選択</b> したとき、この2数字組について次の命題が成り立ちます。<br>
+				&nbsp; &nbsp; <b>命題 : Baseで positive なら、Target1 と Target2 でも positive である。</b>
+				
+				<ol style="list-style:none; padding-left:10px;"><b>JE2 Lockedの証明</b>  (CL:Cross-Line)
+					<li>L1. Baseセルで、ベース数字#ab は positive とする。Escapeでは #ab は negative となる。</li>
+					<li>L2. CL-0,CL-1,CL-2には、#abのインスタンスがそれぞれ 3つあり(数独のルール)、合わせて6個のインスタンスがある。</li>
+					<li>L3. R4より、Sセル(S0,S1,S2) には 2つの #a CoverLine、2つの#b CoverLine がある。</li>
+					<li>L4. "6-4=2"より、CL-1,CL-2の Band領域には #aと#b のインスタンスがある。</li>
+					<li>L5. #aと#b インスタンスは、Escape、Companionにはないので、それぞれ Target1 と Targe2にある。(どちらにどれかは確定しない)</li>
+				</ol><br>
+			<img src="images/img59/image59_Exocet_def04.svg" style="margin-left: 20px;" width="50%" ><br>
+			</p>
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;(4) Exocet Locked の理解</h4>
+			<p>
+				ここで、改めて <b>Exocet Locked</b> の状態を考えます。<br>
+				Exocet Locked は、Baseの候補数字から <b>どの2つの候補数字を選んだ</b> としても、それらは Target で肯定となります。<br>
+				対象とするPuzzleには解があり、かつ唯一解のPuzzleです。その解から翻れば いずれかの2つのBase候補数字(#a,#b)は確定数字(#A,#B)です。
+				Base候補数字は3つ以上あるので、残り"#x"に着目すると、候補数字#Xは Target で否定であり、Escapeで肯定です。<br>
+				ただし、Puzzleを解く途中段階では、Base候補数字のどれが解であるかは分かっていません。<br>
+				Exocet Lockedは、<b>確定していない が それでも導けることがある</b> 推論です。
+				同様のこと(推論)は、例えば LockedSet を思い浮かべると良いでしょう。<br><br>
+				<img src="images/img59/image59_Exocet_def05.svg" style="margin-left: 20px;" width="80%" ><br><br><br>
+			</p>
+
+
+
+			<div id="MirrorLogic"></div>
+			<h4 id="head_bg_LightBlue">&nbsp;(5) Mirror Logic</h4>
+			<p>
+				<b>Mirror</b> は、<b>Exocet Logic</b> が成立したときに生じる論理です。<br>
+				1) <b>JE2</b>で Exocet Lockedが成立している、とする。<br>
+				2) Targetが #a なら、Mirrorの一方のセルには 同じ#a がある。<br>
+				&nbsp; &nbsp;対偶 : MIrrorに#aがないなら、#a は Targetにない。</b><br>
+				3) <b>MIrrorにないBase候補数字は、対応するTargetにない。</b><br><br>
+
+				Base・Target・Mirrorは同じBand内にあり、スコープが重ならない位置にあります。<br>
+				このことから、<b>Mirrorを用いる除外</b> が成立します。<br>
+				一方、JE2 以外で Band制約とスコープの重なり条件が成立しないケースでは、Mirrorの論理は成り立ちません。<br>
+				<br>
+
+				<img src="images/img59/image59_Exocet_MirrorLogic.svg" style="margin-left: 20px;" width="70%" ><br>
+			</p>
+
+			
+		</section>
+
+
+
+
+		<section><br><br><br>
+			<h4 id="head_bg_Blue">&nbsp;除外</h4>
+			<p>
+				<b>Exocet Locked</b> が成立すると、候補数字が 否定/肯定 に確定することがあります。<br>
+				<b>本HP</b> および <b>GNPX</b> では、除外ルールは次のように用います。
+
+				<ol>
+					<li>除外ルール は、Bird 文書 の JE2のルールを基本としています。また、同文書の番号を流用します。
+						<p style="background-color:rgb(222, 236, 255) ">
+							&nbsp;JExocet Compendium &nbsp; by:David P Bird<br>
+							&nbsp; http://forum.enjoysudoku.com/jexocet-compendium-t32370.html<br>
+						</p>
+					</li>
+									
+					<li>波及的(二次的)に、否定/肯定 が導かれる論理は対象としません。これは他の解析アルゴリズムと同じです。
+						二次的な効果は、次のステップで解析されます。</li><br>
+	
+					<li>除外ルールには、拡張 Exocet には適用できないルール があります。</li><br>
+
+					<li>Mirrorを用いる除外ルールは、適用に条件があります。</li><br>
+
+					<li>除外ルールは、先行するルールの結果を利用できる場合があります。<b>GNPX</b>では、繰り返し適用する方法を採用しています。</li>
+				</ol>
+			</p><br>
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;除外ルール</h4>
+
+			<ol style="list-style:none; padding-left:10px;">
+			<!-- E3 -->
+				<li>
+					<p class="PColor01">
+						E3. Target内の 非ベース数字は 否定である。
+					</p>
+					Exocet Locked なら、Targetには いづれかの ベース候補数字が入ります。したがって、非ベース数字が Target に入る余地はない。<br><br>
+
+					<img src="images/img59/image59_Exocet_Rule-03.svg" style="margin-left:5px;" width="50%" >
+				</li><br><br>
+
+
+			<!-- E4 -->
+				<li>
+					<p class="PColor01">
+						E4. ベース数字が Target で 肯定 となることが確定なら、他方の Target では 否定 である。
+					</p>
+					それぞれの Target には異なるベース数字が入る。
+					一方の Target で positive になることが確定なら、他方の Target では negative になる。<br>
+					Object の 2セルに確定した数字があるなら、スコープにある数字は除外される。<br><br>
+					<img src="images/img59/image59_Exocet_Rule-04.svg" style="margin-left:5px;" width="60%" >
+					<br><br>
+				</li><br>
+
+
+			<!-- E5 -->
+				<li>
+					<p class="PColor01">
+						E5. Cross Cover-Lineをもつベース数字は、対応する Target で 否定 である。
+					</p>
+					これは、次のように導けます。
+					<ol style="list-style:none; padding-left:10px;">
+						<li>(1) S<small>1</small>に #a の Cross-Cover-Line があるとします。</li>
+						<li>(2) 命題:T<small>1</small>で Base候補数字#a は positive とする。</li>
+						<li>(3)	Baseの#aは positive。</li>
+						<li>(4)	S<small>0</small>には #a インスタンスがある。</li>
+						<li>(5)	S<small>2</small>には #a インスタンスはない。</li>
+						<li>(6)	T<small>2</small>には +#a がある。</li>
+						<li>(7)	T<small>1</small>#a と T<small>2</small>#a は矛盾する(他のBase数字がTargetに配置できない)。<br>
+						&nbsp; &nbsp; &nbsp;従って、(2)命題は偽であり、T<small>1</small>の #a は negativeである。</li>
+					</ol><br>
+
+
+					<br>
+					<img src="images/img59/image59_Exocet_Rule-05.svg" style="margin-left: 5px;" width="50%" ><br><br>
+				</li><br>
+			</ol>
+
+		<!-- E6 -->
+			<li>
+				<p class="PColor01">
+					E6. Targetに対応する Mirror で肯定にできない ベース数字は、Targetでは 否定 である。
+				</p>
+				JExocet の定義により、命題：<span style="color:blue">Target で肯定のベース数字は Mirror でも肯定 </span>&nbsp; が成り立つ。<br>
+				Rule-6は、この命題の対偶です。<br>
+				Mirrorセルは、確定値のこともあります。ベース数字と異なる確定値の場合に、この条件に合致します。
+				<br><br>
+
+				<img src="images/img59/image59_Exocet_Rule-06.svg" style="margin-left: 20px;" width="50%" ><br><br>
+			</li><br>
+		
+		
+		<!-- E7 -->
+				<li>
+					<p class="PColor01">
+						E7. Mirror Cellの1つに、対応するTargetにあるベース数字が含まれないなら、
+						同じ Mirror の他方の Cell に、対応するTargetにあるベース数字が含まれる。
+					</p>
+					Mirrorの位置と、Base、Targetの影響圏から、Mirrorには Targetにあるベース数字がある。<br>
+					ベース数字が M<small>1</small>A にないなら、M<small>1</small>B にある。
+					したがって、M<small>1</small>B から 非ベース数字は除外できる。<br>
+					<br>
+
+					<img src="images/img59/image59_Exocet_Rule-07.svg" style="margin-left: 20px;" width="60%" ><br><br>
+				</li><br>
+
+
+
+
+			<ol style="list-style:none; padding-left:10px;">
+				<!-- E8 -->
+				<li>
+					<p class="PColor01">
+						E8. "ベース数字 が確定しているとする。" Mirror Cell に <span style="color:red">非ベース数字</span> が1つ含まれるなら、
+						それは 肯定 である。
+					</p>
+					Mirror セルには、ベース数字と、非ベース数字が含まれます。<br>
+					ベース数字 が確定したとする。
+					<ul style="padding-left:10px;">Mirror に含まれる非ベース数字について、
+						<li>1セルなら : 非ベース数字は確定し、これを参照するセルから非ベース数字 から除外できます。</li>
+						<li>2セルなら : 2つの Mirror を共通して参照するセルから非ベース数字 から除外できます。</li>
+					</ul>
+				</li><br><br>
+					<br>
+					<img src="images/img59/image59_Exocet_Rule-08.svg" style="margin-left:20px;" width="70%" ><br><br>
+
+				
+
+
+				<!-- E9 -->
+				<li>
+					<p class="PColor01">
+						E9. Base候補数字が、<b>2セル2数字のLockedSet</b> とします。
+						Mirror に Locked された数字があるとき、その数字がベース数字なら他のベース数字は Mirror では 除外できる。
+						あるいは、その数字が非ベース数字なら他の非ベース数字は Mirror から 除外できる。
+					</p>
+					<p>
+						Base候補数字が、<b>2セル2数字のLockedSet</b> の場合のみ成立します。<br><br>
+						Mirror には ベース数字と非ベース数字が入ります。<br>
+						Mirror に ロックされた数字があるとき[Mirror_Locked]、ベース数字と非ベース数字の両方を入れるためには、ロックされた数字の制約が生じます。<br>
+						2つの Mirror セルに <span style="color:blue">ベース数字</span>を2つ配置することはできません。
+						同じように、<span style="color:red">非ベース数字</span> を2つ配置することはできません。
+						
+						<ol style="padding-left:2pc;">
+							<li>Mirror_Locked された数字が <span style="color:blue">ベース数字</span>であり、かつ、
+								<span style="color:rgb(20, 141, 75)">Base_Locked</span> のとき、<br>
+								Mirror内の 他方の <span style="color:blue">ベース数字</span> は 否定 である。</li>
+							<li>Locked された数字が <span style="color:red">非ベース数字</span> のとき、
+								Mirror内の 他方の <span style="color:red">非ベース数字</span> は 否定 である。</li>
+						</ol><br>
+						
+						<img src="images/img59/image59_Exocet_Rule-09.svg" style="margin-left:20px;" width="30%" >
+
+					</p>
+				</li><br><br>
+
+
+
+				<!-- E10 -->
+				<li>
+					<p class="PColor01">
+						E10.ベースの2数字が確定のとき、BaseとTarget の影響圏では Base 候補数字は除外できる。
+					</p>
+					2つの Base は 肯定 に確定しているので、その影響圏では 否定 になります。
+					また、Target は 肯定 となり 共通の影響圏では 否定 になります。<br><br>
+					<img src="images/img59/image59_Exocet_Rule-10.svg" style="margin-left: 20px;" width="70%" ><br><br>
+				</li><br><br>
+
+
+
+				<!-- E11 -->
+				<li>
+					<p class="PColor01">
+						E11. Cross-Line の Escape Cell に 1回しか現れない数字は、その Cover houseの ”S” 以外のセルでは 否定 である。
+					</p>
+					<p style="background-color:rgb(203, 232, 255) ">
+						&nbsp;&nbsp;&nbsp;Bird 文書の11項 を修正している。確定したベース数字についての除外は 12項 とした。<br>
+					</p>
+					本項の対象とする数字は、"JExocetの解候補の1つである" ことが条件である。無制限にこのルールは適用できない。
+					<ol style="list-style:none; padding-left:10px;">
+						<li>(1) #abx JExocetの解候補とする。</li>
+						<li>(2) #abが解と確定したなら、#x は解でない 。このとき、#x は Escape にある。</li>
+						<li>(3) #xは JExocetの解候補なので、jExocet の条件(Base,Target,Sの関係）は有効である。</li>
+						<li>(3) Base ブロックの Escape にある#xが一つなら、それは Positive である。</li>
+						<li>(4) CrossLine-1,-2の Escape にある#xが一つなら、それは Positive である。</li>
+					</ol><br>
+					<img src="images/img59/image59_Exocet_Rule-11.svg" style="margin-left: 20px;" width="70%" ><br><br>
+				</li><br><br>
+
+
+				<!-- E12 -->
+				<li>
+					<p class="PColor01">
+						E12. 2つのベース候補数字が肯定に確定したなら、S領域で2つのインスタンスが 肯定 となるのを妨げる数字インスタンスは、否定 である。
+					</p>
+					2つのベース候補数字(#ab)が肯定に確定したとする。
+					<ol style="list-style:none; padding-left:10px;">
+						<li>(1) T<small>1</small>=#a とする。S<small>1</small>に#aはない。</li>
+						<li>(2) 基本ルールにより、S<small>0</small>には#aは1つある。
+						<li>(3)	候補数字の条件:R4 により、S領域の候補数字は 2つの Cover-Line で覆われている。S<small>2</small>には#aがある。</li>
+						<li>(4) Cover-Line の S領域外にある要素(▲)は、Cover-Line条件(R4)の成立を妨げる。</li>
+					</ol>
+					従って、Cover-Line の S領域外にある要素(▲)は 否定 である。<br>
+					(PCL-{S})#a is negative (PCL:Paralell-Cover-Line, -:差集合)<br><br>
+				
+					<img src="images/img59/image59_Exocet_Rule-12.svg" style="margin-left: 20px;" width="50%" ><br><br>
+				</li><br><br>
+
+			
+			<h4 id="head_bg_LightBlue">&nbsp;除外-2</h4>
+			<p>
+				除外-2 は、2つのベース数字 による 除外 です。Bird の文書では, "Incomtible Base Pairs" の項です。<br>
+
+				2つの Base にある 候補数字 は、自由な組み合わせで ベース数字の候補にはなりません。
+				例えば、Baseの 候補数字が(1,2,3)であれば、{(1,2),(1,3),(2,3),(2,1),(3,1)(3,2)}の組み合わせがあります。
+				また、2つのBaseの候補が異なる場合には、可能な組み合わせのパターンになります。<br>
+
+				<br>
+				これらの組み合わせに対して、それぞれをテストします。Exocetの性質から、次のことを用います。
+				<ol style="padding-left:2pc;">
+					<li>テスト対象の Base数字 は、それぞれTarget にある。</li>
+					<li>2つのBase数字のインスタンスは、S0にある。インスタンスは確定済みのこともある。</li>
+					<li>2つのBase Cellの 2つのCross-Blockには、候補状態の Base数字がある。</li>
+				</ol><br>
+				S<small>0</small>にあるインスタンスは、次の3通りがあります。
+				<ol style="list-style:none; padding-left:1pc;">
+					<li>Case-1:2つのBase数字のS0におけるインスタンスが、同じセルになる。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						このパターンは数独解としてあり得ないので、この組み合わせパターンは除外できる。</li>
+						<br>
+
+					<li>Case-2:2つのBase数字のS<small>0</small>におけるインスタンスが、同じ Cross-Block にある。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						このパターンは、Cross-Block のBase数字を全て排除する。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						もう一つの Cross-Block には何も影響しません。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						したがって、この組み合わせは Baseと UR の関係になり、<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						数独解の唯一性から、この組み合わせパターンは除外できる。</li>
+						<br>
+
+					<li>Case-3:2つのBase数字のS0におけるインスタンスが、異なる Cross-Block にある。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						このパターンは、それぞれの Cross-Block で それぞれの Base数字 を排除する。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						この場合は、Baseと UR にはなりません。<br>
+						&nbsp; &nbsp; &nbsp;&nbsp; &nbsp; &nbsp;
+						したがって、この組み合わせパターンは解の可能性が残る。
+					</li>
+				</ol><br>
+				"除外-2" はベース数字組み合わせの不適格なものを検出します。<b>GNPX では "除外-1"よりも先に、"除外-2"をテストします。</b>
+			</p><br>
+			<img src="images/img59/image59_Exocet_incompatible07.svg" style="margin-left: 40px;" width="60%" ><br><br><br>
+			<br><br><br>
+
+<!--
+			<h4 id="head_bg_LightBlue">&nbsp;(補足) 除外ルール-5 適用の誤り例</h4>
+			<p>除外ルール-3 を無条件に適用した場合の 誤り例です。<b>r4c1#8は否定</b> は誤りです。</p>
+			<p class="newLine">..8.1.7.. .5.....4. 6.4.3.1.8 ...6.9... 1.5...9.6 ...8.1... 4.7.9.6.3 .2.....7. ..3.6.2..</p>
+				<img src="images/img59/Exocet_JE2_Solution238415769.png" width="22%" style="float:left;  margin-right:8px;" alt=" ID:80580 Exocet_JE2 (dif:8 cc:0) IsChecked:True">
+				<img src="images/img59/Exocet_JE2_Rule3_Error.png" width="22%" style="float:left;  margin-right:8px;" alt=" ID:80580 Exocet_JE2 (dif:8 cc:0) IsChecked:True"><br>Exocet_JE2<br>
+				(dir:0 Stem:r6c7)<br>
+				<br>
+					Base: r6c89#2357<br>
+				Object1: r4c1<br>
+				Object2: r45c5<br>
+					SLine: c7,c1,c5 (15,9,13)<br>
+				Companion:_n/a_<br>
+				<br>
+				<p style="clear: both" ></p><br>
+				CoverLines (p:Parallel x:Cross) <br>
+				no:#2 size:2  CoverLine: r9_p  c1_x  ---- <br>
+				no:#3 size:2  CoverLine: r2_p  r3_p  ---- <br>
+				no:#5 size:2  CoverLine: r8_p  r9_p  ---- <br>
+				no:#7 size:2  CoverLine: r1_p  r2_p  ---- <br>
+				<br>
+				--------------------------------------------------------------------------------<br>
+				Explanation of candidate digits exclusion<br>
+				<br>
+				Compatible digit check ... (in development)<br>
+				incompatible pair(T1,T2) : <br>
+						valid pair(T1,T2) : #(3,2) (3,5) (3,7) (7,2) (7,5)<br>
+				No invalid pair(T1, T2) was found<br>
+				<br>
+				[Rule-3] Object1 r4c1#8 is a non-Base candidate, then it is negative.<br>
+				<br>
+				<br>
+			</p>
+-->
+		</section>
+		<br>
+
+
+
+
+		<section>
+			<a id="ID_JE1"></a>
+			<H3 id="head_bg_Blue">&nbsp;Junior Exocet_1 (JE1)</H3>
+			<p>
+				JE1は Targetが1つのタイプです。JE2での 一つのTarget(Object)がある位置に、確定数字（問題数字、または解析により確定した数字）があります。<br>
+				JE1の要素は、Base、Base数字、1つのTarget(Object)、確定数字Object(Base数字以外の確定数字があるObject)です。
+				BaseのCrossLine、Targetと空白ObjectのSLineは、Junior Exocetの自然な形で定義します。<br><br>
+				Sセル{S0,S1,S2}のカバーの仕方には、2つのタイプがあります。これは、JE1特有の条件です。
+				
+				<ul>
+					<li> S 基準 : 2つの CoverLine でカバーされる。</li>
+					<li> Wildcard 基準 : 3つの CoverLine でカバーされる。</li></li>
+				</ul>
+				<br><br>
+				<img src="images/img59/image59J_JE1_Conditions.svg" style="margin-left: 20px;" width="70%"><br><br>
+			</p>
+			
+			<H3 id="head_bg_LightBlue">&nbsp;JE1 の論理</H3>
+			<p>
+				JE1の Base数字 のカバーの仕方別に次の論理が成り立ちます。<br>
+				<ol style="list-style:none; padding-left:10px;">
+					<li>
+						<p class="PColor01">(1) S基準を満たす Base数字</p>
+						<ol style="list-style:none; padding-left:10px;"><b>S基準 Lockedの証明</b>  (CL:Cross-Line)
+							<li>1)Base数字 #aは、S領域に2つのCoverLineがある とします。</li>
+							<li>2)S領域を含むCrossLineには、合わせて3つの#aインスタンスが必要である。</li>
+							<li>3)従って、Targetに #a がある。(3-2=1)</li>
+						</ol>
+						Target が Object タイプの場合には、Object の2セルにある。<br><br>
+						<img src="images/img59/image59J_JE1_Logic_S.svg" style="margin-left: 20px;" width="60%"><br>
+					</li>
+					<li>
+						<p class="PColor01">(2) Wildcard基準を満たす Base数字 </p>
+						<ol style="list-style:none; padding-left:10px;"><b>JWildcard基準の証明</b>  (CL:Cross-Line)
+							<li>1)Base数字 #zは、S領域に2超のCoverLineがある とします。</li>
+							<li>2)S領域を含むCrossLineには、合わせて3つの#zインスタンス必要である。</li>
+							<li>3)従って、Targetに #z はない。(3-3=0)</li>
+						</ol><br>
+						<img src="images/img59/image59J_JE1_Logic_Wildcard.svg" style="margin-left: 20px;" width="60%"><br>
+					</li>
+				</ol>
+			</p>
+			
+			<H3 id="head_bg_LightBlue">&nbsp;JE1 の除外</H3>
+			<p>
+				JE1 が成立すると、次の除外ができます。
+				<ol>
+					<li>Target の Wildcard(#z)は、negative に確定</li>
+					<li>Baseの Wildcard は positive に確定、Base のもう一つの数字は未定。</li>
+					<li>Escape にある Wildcard は negative に確定。</li>
+					<li>Sline-1にある Wildcard は positive に確定。これが１つなら、対応セルの Wildcard 以外の候補は除外できる。</li>
+					<li>BaseとTargetのWildcardが確定することで、これの影響圏の Wildcard 数字は negative になる。</li>
+				</ol>
+				除外-1～3は、JE-1の要件を満たしたときに、直接的に導かれる除外です。<br>
+				除外-4,5は波及的な除外なので、GNPXでは対応していません。
+				<br><br>
+				
+				<img src="images/img59/image59J_JE1_Elimination.svg" style="margin-left: 20px;" width="60%">
+			</p>
+			<br><br><br><br>
+		</section>
+	</article>
+	</body>
+
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

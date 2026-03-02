@@ -1,0 +1,145 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>Sudoku Franken/Mutant Exocet</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 6.0+</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+	<!-- -------------------------------------------------------------------------- -->
+
+
+	<article id="main">
+		<section>
+			<a href="page59.html"><img src="images/imgTop/jumpBefore.png" height="18">&nbsp; Exocet Top</a><br><br>
+
+			<H3 id="head_bg_Blue">&nbsp;Franken/Mutant Exocet</H3>
+				Franken/Mutant Exocet は Exocet の CrossLine を拡張します。<br>
+				拡張 CrossLine上に Target を配置し、これによって SLine と Companion が決まります。<br>
+				SLineが2つの CoverLine でカバーされるなら Exocet Locked が成立します。<br>
+				拡張 CrossLine では、"Cross"の呼称は不自然ですが、素朴な Exocet の定義に従い、CrossLine を用います。<br><br>
+
+				Franken/Mutant タイプ の CrossLineを選択し、Target、Companion、SLine を設定すると、
+				SLine のカバーとその評価は、標準のExocet と同じです。<br>
+				CrossLine への拡張は、Exocet_Single、Exocet_SingleBase にも適用できます。<br><br>
+
+				<a href="page59S.html#ID_Exocet_FM">&nbsp; Exocet_FM サンプル<img src="images/imgTop/jumpTo.png" height="8"></a><br>
+				<a href="page59S.html#ID_Exocet_FM_Single">&nbsp; Exocet_FM_Single サンプル<img src="images/imgTop/jumpTo.png" height="8"></a><br>
+				<a href="page59S.html#ID_Exocet_FM_SingleBase">&nbsp; Exocet_FM_SingleBase サンプル<img src="images/imgTop/jumpTo.png" height="8"></a><br>
+				
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;拡張 CrossLine</H4>
+			<p>
+				basicな Exocet では、次の手順で CrossLine を定義します。
+				<ol>
+					<li>Baseの位置と方向を決める。</li>
+					<li>CrossBand-0 は Base 位置から決まる。</li>
+					<li>CrossBand-n から CrossLine-n を選択する(n=1,2)。</li>
+				</ol>
+				<img src="images/img59C/image59C_Standard_CrossLine.svg" style="margin-left: 20px;" width="50%" alt="Standard_CrossLine"> <br><br>
+				
+				拡張 CrossLine では、Baseの位置と方向、および CrossBand-0 を定めるまでは、同じです。<br>
+				CrossLineの基となる Bandは、Cross-Band、Paralell-Band、Block-Band の 3タイプがあります。異なる Band 内に 2つの CrossLine-1、CrossLine-2 を定めます。<br>
+				拡張 CrossLine では、複数の CrossLine が交差することがあります。Exocet の成立要件により、CrossLine が交差するセルは、Base候補数字を含むことができません。
+
+				<br><br>
+				<img src="images/img59C/image59C_FM_CrossLine.svg" style="margin-left: 20px;" width="68%" alt="FM_CrossLine"> <br><br>
+				
+				次の図は、拡張 CrossLine の例です。<br><br>
+				<img src="images/img59C/image59C_FM_CrossLine_Sample.svg" style="margin-left: 20px;" width="68%" alt="FM_CrossLine"> <br><br>
+			</p>
+
+
+
+
+			<H4 id="head_bg_LightBlue">&nbsp;Target</H4>
+			<p>
+				3つの CrossLine の Escape 領域を除く位置に、2つの Target を配置します。2 Targets / 3 CrossLines であり、1つの CrossLine には Target はありません。<br><br>
+				<img src="images/img59C/image59C_FM_Target_on_CrossLine.svg" style="margin-left: 20px;" width="80%" alt="FM_Target_on_CrossLine">
+			</p>
+
+			<H4 id="head_bg_LightBlue">&nbsp;Companion</H4>
+			<p>
+				Companionは、Row-type、Column-type、Block-type の CrossLine に定義されます。
+				数独のセルには、行・列・ブロックの 3つの houseの制約があるので、Row/Column-type と Block-type では形が異なります。
+				また、確定 Companion と、他の CrossLine の関係で決まる Companion 候補(▲印のセル)があります。<br><br>
+				<img src="images/img59C/image59C_FM_Target_Companion.svg" style="margin-left: 20px;" width="70%" alt="FM_CrossLine"><br><br>
+
+				2つの Target - Companion の合成で、Puzule の現局面の Companion が決まります。<br><br>
+				<img src="images/img59C/image59C_FM_Companion_Synthesized.svg" style="margin-left: 20px;" width="90%" alt="FM_CrossLine"><br><br>
+
+
+			<H4 id="head_bg_LightBlue">&nbsp;SLine </H4>
+			<p>
+				Target を含む CrossLine に着目します。 CrossLine は、Target, Escape, SLine and Companion で構成されます。<br>
+				SLine は、次式で定義されます。<br>
+				&nbsp; &nbsp;<b>SLine = CrossLine - (Target, Escape, Companion)</b><br><br>
+				<img src="images/img59C/image59C_FM_Sline_definition.svg" style="margin-left: 20px;" width="50%" alt="FM_CrossLine"><br>
+			</p><br><br><br>
+<!--
+			<H4 id="head_bg_LightBlue">&nbsp;Exocet_Franken/Mutant </H4>
+			<p>
+				Franken/Mutant タイプ の CrossLineを選択し、Target、Companion、SLine を設定すると、
+				SLine のカバーとその評価は、標準のExocet と同じです。<br>
+				<img src="images/img59C/image59C_Exocet_FM.svg" style="margin-left: 20px;" width="50%" alt="FM_CrossLine"><br>
+				<a href="page59S.html#ID_Exocet_FM">&nbsp; Exocet_FM サンプル<img src="images/imgTop/jumpTo.png" height="8"></a><br>
+			</p>
+-->
+			<H4 id="head_bg_LightBlue">&nbsp;Exocet_FM_Single </H4>
+			<p>
+				Exocet Single は CrossLineが Franken/Mu(F/M) タイプにも適用できます。<br>
+				<a href="page59S.html#ID_Exocet_FM_Single">&nbsp; Exocet_FM_Single サンプル<img src="images/imgTop/jumpTo.png" height="8"></a><br>		
+				<br>
+				<img src="images/img59C/image59C_Exocet_FM_Single.svg" style="margin-left: 20px;" width="80%" alt="FM_CrossLine"><br>
+				</p>
+
+
+			<H4 id="head_bg_LightBlue">&nbsp;Exocet_FM_SingleBase </H4>
+			<p>
+				SingleBase は 他の Exocet アルゴリズムに比べて多くの解が求まります。<br>
+				Franken/Mutant(F/M) 型でも同じで、多くの解が求まります。<br>
+				<a href="page59S.html#ID_Exocet_FM_SingleBase">&nbsp; Exocet_FM_Single サンプル<img src="images/imgTop/jumpTo.png" height="8"></a><br>
+				<br>
+				<img src="images/img59C/image59C_Exocet_FM_SingleBase.svg" style="margin-left: 20px;" width="80%" alt="FM_CrossLine"><br>
+				</p>
+
+			
+			
+		</section>
+	</article>
+
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>

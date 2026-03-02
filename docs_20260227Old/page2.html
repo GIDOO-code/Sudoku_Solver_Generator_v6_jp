@@ -1,0 +1,198 @@
+<!--
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+-->
+<!doctype html>
+<html>
+
+
+<head>
+    <meta charset="utf-8">
+    <title>GNPX4 Sudoku Algorithm</title>
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<link rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link rel="stylesheet" href="jq_treeview/screen.css" >
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+
+<body id="page">
+	<header id="head"> <strong><i">Sudoku Algorithm 4</i></strong>
+		<script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+	<div id="menuList">
+		<script type="text/javascript"> writeNaviAlgorithm(); </script>
+	</div>
+
+    <article id="main">
+		<section>
+			<h4 id="head_bg_Blue" style="color:blue"><strong>解析アルゴリズムの系統</strong></h4>
+									
+			<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; max-width: 95%;" >
+				<tr>
+					<td class="table_itemName" style="width: 25%" >Classification</td>
+					<td class="table_itemName" style="width: 45%" >Algorithm</td>
+					<td class="table_itemName" style="width: 30" >Remarks, aliases, etc.</td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp;Single</td>
+					<td class="table_line">
+						&nbsp; <a href="page31a.html"> Last Digit ***</a> <br>
+						&nbsp;<a href="page31b.html"> Naked Single ***</a> <br>
+						&nbsp;<a href="page31c.html"> Hidden Single ***</a></td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; LockedCandidate</td>
+					<td class="table_line">&nbsp;<a href="page32.html">LockedCandidate ***</a> </td>
+					<td class="table_line"> </td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; LockedSet</td>
+					<td class="table_line">&nbsp; <a href="page33.html">LockedSet ***</a> </td>
+					<td class="table_line"></td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; Fish </td>
+					<td class="table_line">
+						&nbsp; <a href="page34.html">Fish(2D-7D) ***</a> <br>
+						&nbsp; <a href="page35.html">Finned Fish ***</a> <br>
+						&nbsp; <a href="page36.html">Franken/Mutant Fish +</a> <br>
+						&nbsp; <a href="page36.html">Finned F/M Fish +</a> <br>
+						&nbsp; <a href="page37.html">(Finned)Endo Fish</a><br>
+						&nbsp; <a href="page37.html">(Finned)Canibalism</a> <br>
+						&nbsp; <a href="page38.html">Kraken(Finned)Fish +</a>
+					</td>
+					<td class="table_line">Alias<br>&nbsp;2D: X-Wing<br>&nbsp;3D: SwordFish<br
+					>&nbsp;4D: JellyFish<br>&nbsp;5D: Squirmbag<br>&nbsp;6D: Whale<br>&nbsp;7D: Leviathan</td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; Link<br>&nbsp;(Link-Chain)</td>
+					<td class="table_line">
+						&nbsp; <a href="page40.html">SkyScraper</a> <br>
+						&nbsp; <a href="page41.html">EmptyRectangle</a> <br>
+						&nbsp; <a href="page48.html">X-Chain **</a> <br>
+						&nbsp; <a href="page49.html">XY-Chain **</a> <br>
+						&nbsp; <a href="page46.html">(Multi)Coloring</a> <br>
+						&nbsp; <a href="page42.html">XY-Wing</a> <br>
+						&nbsp; <a href="page43.html">W-Wing</a> <br>
+						&nbsp; <a href="page47.html">RemotePair</a>
+					</td>
+					<td class="table_line"></td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; XYZ-Wing</td>
+					<td class="table_line">
+						&nbsp; <a href="page44.html">XYZ-Wing</a> <br>
+						&nbsp; <a href="page44.html#XYZWingALS">XYZ-Wing(ALS)</a> <br>
+					</td>
+					<td class="table_line">
+						<a href="page53a.html">&nbsp;ALS Death Blossom</a>
+					</td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; SueDeCoq</td>
+					<td class="table_line"> &nbsp; <a href="page45.html">SueDeCoq ++</a> </td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; ALS<br>&nbsp;(ALS-Chain)</td>
+					<td class="table_line">
+						&nbsp;<a href="page50.html">ALS XZ</a> <br>
+						&nbsp;<a href="page51.html">ALS XY-Wing</a> <br>
+						&nbsp;<a href="page52.html">ALS Chain **</a> <br>
+						&nbsp;<a href="page53.html">ALS Death Blossom</a> <br>
+						&nbsp;<a href="page53a.html">ALS Death BlossomEx</a> </td>
+					<td class="table_line"><br><br><br>&nbsp;XYZWing Extension</td>
+
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; NiceLoop</td>
+					<td class="table_line">
+						&nbsp;<a href="page54.html">NiceLoop *</a> <br>
+						&nbsp;<a href="page55.html">Grouped NiceLoop ** +</a> </td>
+					<td class="table_line">&nbsp;</td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp;ForceChain</td>
+					<td class="table_line">
+						&nbsp;<a href="page56.html">ForceChain_Cell * +</a> <br>
+						&nbsp;<a href="page56.html#FC_House">ForceChain_House * +</a> <br>
+						&nbsp;<a href="page56.html#FC_Null">ForceChain_Contradiction ** ++</a> </td>
+					<td class="table_line"></td>
+				</tr>
+				<tr>
+					<td class="table_line">&nbsp; GeneralLogic</td>
+					<td class="table_line">
+						&nbsp;<a href="page60.html">GeneralLogic * +</a> </td>
+					<td class="table_line">&nbsp;</td>
+				</tr>
+			</table>
+				***,**,*:Effective  ++,+:Fascinating<br><br>
+
+
+			<ul style="padding-left: 10px;">
+				<li>最初の3つ”Single、LockedCandidate、LockedSet”は基本的な手法で、これらで完結しています。</li><br>
+
+				<li>Fishには、”Locked”、”BaseSetとCoverSet” など、数独アルゴリズムを構成する上での重要な概念が含まれています。</li><br>
+
+				<li>ALSは、名前の通り ちょっとしたものを加えると"LockedSet" になる状態です。<br>
+					ALSに足す”ちょっとしたもの”は多数あり、したがってそのアルゴリズムも多種類あります。
+					また、ALS自体も盤面のなかに多数存在するので、解法として大変有用です。
+					人手で見つけるのは困難ですが、プログラムで探すのは問題になりません。</li><br>
+
+				<li>Linkの基本形は2つのセルの関係です。Linkは状態が連続するものですから、
+					セルとALS、ALS-ALS、ALS-AICなど様々なリンクを組み合わせることができます。
+					GNPXの次期バージョンでは、ALSXZを用いるLinkを実装します。</li><br>
+
+				<li>Linkを連結する方法には、起点から放射状に他のセル・数字に繋ぐ場合と、起点に戻ってループを形成する場合があります。</li><br>
+
+				<li>ForceChainはリンク連結(セル間リンク、AIC、ALSリンク)を用いるアルゴリズムです。波及的探索と履歴管理を用いる強力なな方法です。<br>
+					Force系アルゴリズムは次の論理に基づいています。
+					<ol>
+						<li>集合Xは、要素数n、1要素は真で残りは偽とする。どの要素が真であるかは未定。<br></li>
+						<li>真値の要素から始めたチェインでは、導かれる要素の値は真または偽と確定する。</li>
+						<li>偽値の要素から始めたチェインでは、導かれる要素の値は不確定となる（真でも偽でも導ける）。</li>
+						<li>集合Xの各要素を真と仮定して始めるそれぞれのチェインについて、全てのチェインの導く要素Aの真偽値が一致したとき、
+							要素Aの真偽は確定する。</li>
+						<li>集合Xの1要素Bを真と仮定して始めるチェインで、複数ルートで導かれる要素Cの真偽値が一致しないとき、
+							起点要素Bは偽と確定する。</li>
+					</ol>
+				</li><br>
+
+				<li>SueDeCoqは、他の手法とは独立した ”魅惑的な” 方法です。プログラム作成では、2つの ALS を使います。 </li>
+			</ul>
+						
+			<h4 id="head_bg_LightBlue" id="GeneralLogic" style="color:blue"><strong><a href="page80.html">GeneralLogic</a></strong></h4>
+			<p>
+				上の表に示した数独の解法アルゴリズムは、全て”GeneralLogic”で表せます。名称のとおりまさに汎用手法です。
+				これは、BaseSetとCoverSetの被覆の関係から、論理的に不都合な（あり得ない）候補を除外する手法です。
+				従来手法のアルゴリズムで解いた結果を、BaseSetとCoverSetで再解釈するのは比較的容易です。
+				しかし、あまりに素朴であるため、「GeneralLogic」は数独を解くのにあまり効率的ではありません。<br>
+				永く内面で考え続けることにします。 ”抵抗は無意味だ” でしょうか<br><br><br>
+		</p>
+		</section>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+    <footer id="foot">
+        <p id="copyright"> Copyright &copy; 2014-  GNPX. All rights reserved.</p>
+    </footer>
+</body>
+</html>

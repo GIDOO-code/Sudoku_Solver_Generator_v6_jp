@@ -44,10 +44,10 @@
         <section>
             
 
-            <h3 id="head_bg_Blue">AHS</h3>
+            <h3 id="head_bg_Blue">&nbsp;AHS</h3>
             <p>AHS（Almost Hidden Set）は 、House内の候補数字とセルの制約で生じる部分集合です。<a href="page26.html">ALS</a> と対になる制約です。<br></p>
 
-            <h4 id="head_bg_LightBlue">(1)AHS</h4>
+            <h4 id="head_bg_LightBlue">&nbsp;(1)AHS</h4>
             <p>
                 <b>Locked Set</b> は、同じhouseに属する&quot;n個のセルにn個の候補数字がある&quot;状態で、
                 どのセルがどの数字かは決まらないが、全体としてLocked状態です。<br>
@@ -64,7 +64,7 @@
 
         <section>
             <a ID="RCC"></a>
-            <h4 id="head_bg_LightBlue">(2) RCC,nRCC</h4>
+            <h4 id="head_bg_LightBlue">&nbsp;(2) RCC,nRCC</h4>
             <p>
                 AHSを用いる解析アルゴリズムでは、2つのAHSの 共通のセルと数字が制限する効果を利用します。<br>
                 2つのAHSが重なるとき、AHSのセルを分類します。AHSの重なる部分のセルは RCC(Restricted Common Cell)です。
@@ -99,12 +99,12 @@
 
 
 
-            <h3 id="head_bg_Blue">解析アルゴリズム</h3>
+            <h3 id="head_bg_Blue">&nbsp;解析アルゴリズム</h3>
             <p>
                 AHS-XZ は、数独アルゴリズムの中ではやや変わり種ですが、単純な論理です。GNPXのソースコードは参考になるでしょう。<br>
             </p>
 
-            <h4 id="head_bg_LightBlue">(1) AHS_XZ</h4>
+            <h4 id="head_bg_LightBlue">&nbsp;(1) AHS_XZ</h4>
             <p>
                 AHS_XZ は、RCCに <b>1以上の X と 1以上の Z</b> がある状態です。<br><br>
 
@@ -115,7 +115,7 @@
                 <img src="images/img50_AHS/img50AHS_AHS_XZ.svg" alt="AHS_xz" width="70%" ><br><br>
             </p>
 
-            <h4 id="head_bg_LightBlue">(2) AHS_XZ_double</h4>
+            <h4 id="head_bg_LightBlue">&nbsp;(2) AHS_XZ_double</h4>
             <p>
                 AHS-XZ double は、RCCに <b>2以上のX</b> がある状態です。<br><br>
                 
@@ -134,8 +134,61 @@
                 <img src="images/img50_AHS/img50AHS_AHS_XZ_double.svg" alt="AHS_xz" width="70%" ><br><br><br>
             </p>
 
+            <h4 id="head_bg_LightBlue">&nbsp;Example</h4>
 
+            <p>
+                <img src="images/img50_AHS/img50AHS_XZ_1.png" width="30%" style="float:left; margin-right:8px;" alt="AHS_XZ" >
+                <strong>(ID:01_5) AHS-XZ</strong><br>
+                AHS1: r7c45 r8c5 #38<br>
+                AHS2: r278c5 #39<br>
+                X(RCC): r78c5  X: r8c5  Z: r7c5<br><br>
+                r7c5#26 is negative<br>
+            </p>
+            <p style="clear: both" ></p>
+            <p><small>
+                568914372.79..8.513..75..986.75492.3.5.8.3..7..3.71..574...5...13.4.75..8951..734<br></small></p>
+            <p style="clear: both" ></p><br>
+
+            <p>
+                <img src="images/img50_AHS/img50AHS_XZ_2_double.png" width="30%" style="float:left; margin-right:8px;" alt="AHS_XZ_double" >
+                <strong>(ID:01_5) AHS-XZ double</strong><br>
+                AHS1: r567c7 #18<br>
+                AHS2: r56c78 #469<br>
+                X(RCC): r56c7  X: r56c7  Z: r56c7<br><br>
+                r5c8#1 r6c8#8 is negative<br>
+            </p>
+            <p style="clear: both" ></p>
+            <p><small>
+                568914372.79..8.513..75..986.75492.3.5.8.3..7..3.71..574...5...13.4.75..8951..734<br></small></p>
+            <p style="clear: both" ></p><br>
+
+            <p>
+                <img src="images/img50_AHS/img50AHS_XZ_3.png" width="30%" style="float:left; margin-right:8px;" alt="AHS_XZ" >
+                <strong>(ID:01_102) AHS-XZ</strong><br>
+                AHS1: r5c4 r6c45 #23<br>
+                AHS2: r6c1457 #357<br>
+                X(RCC): r6c45  X: r6c5  Z: r6c4<br><br>
+                r6c4#48 is negative<br>
+            </p>
+            <p style="clear: both" ></p>
+            <p><small>
+                697..3.45813..52964526...3727....3.8........2..1....6973...2.81.241...73168537924<br></small></p>
+            <p style="clear: both" ></p><br>
+
+            <p>
+                <img src="images/img50_AHS/img50AHS_XZ_4_double.png" width="30%" style="float:left; margin-right:8px;" alt="AHS_XZ" >
+                <strong>(ID:01_103) AHS-XZ double</strong><br>
+                AHS1: r3456c6 #568<br>
+                AHS2: r5c56 r6c456 #1237<br>
+                X(RCC): r56c6  X: r56c6  Z: r56c6<br><br>
+                r5c5#58 r6c4#9 r6c5#8 is negative<br>
+            </p>
+            <p style="clear: both" ></p>
+            <p><small>
+                783..9.614593612876127....3237...1...41....2..65....34398..76421268943755746..819<br></small></p>
+            <p style="clear: both" ></p><br>
         </section>
+    </article>
 
 
 

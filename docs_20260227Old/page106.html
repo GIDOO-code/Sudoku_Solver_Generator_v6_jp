@@ -1,0 +1,104 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!--
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+-->
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">&nbsp;Fish のファミリー</h3>
+            <p>
+                Fishは、BaseSet と CoverSet で構成する Locked です。<br>
+                CoverSet は Baseset を完全に被覆します。CoverSet を壊す要素は否定的に確定します。<br><br>
+
+
+                <ol>
+                    <li>
+                        Fish(Basic) : (BaseSet,CoverSet) = (2つの行house,2つの列house) の Fish.<br>
+                        （行house と 列house の順序は本質ではない。）
+                    </li>
+                    <li>
+                        サイズ : Fishのサイズは、2～7。それぞれに名前がついている。サイズ 5～7のFish には双対のFishがある（サイズ4～2）。
+                    </li>
+                    <li>
+                        Franken/Mutanthouse(F/M) FIsh : 行・列 houseに ブロック houseを加えても、Fishは成立する。
+                        BaseSet、CoverSetは、行/列/ブロック houseを任意に組み合わせて選べる。
+                    </li><br>
+
+                    <u> 1～3 のFishでは、BaseSet、CoverSetに重なりはない。</u><br><br>
+
+                    <li>
+                        Endo Fish: BaseSetに重なりがあるFish。重なり部分は Endo Fin で、肯定的に確定する。
+                    </li>
+                    <li>
+                        Cannibalistic Fish : CoverSetに重なりがあるFish。重なり部分は、否定的に確定する。
+                    </li>
+                    <li>
+                        Finned Fish : BaseSetの一部がCoverSetでカバーされないFish。
+                    </li><br>
+
+                    <u> 1～6 のFishでは、BaseSetとCoverSetは 行/列/ブロック houseで構成する。</u><br><br>
+
+                    <li>
+                        （Finned）Kraken Fish : Locked を壊すリンクに、eNetwork を適用するFish。
+                    </li>
+                    <li>LockedSet/ALS: Houseと数字で構成するFish。ALS は Finned LockedSetであり、Fish 拡張の一種。</li>
+                    <li>
+                        General Logic : 行/列/ブロック houseに加えて、セルの数字1～9を要素に加えたFish。<br>
+                        数独の解析アルゴリズムの多くは、General Logicで再構成できる。
+                    </li><br>
+
+                    <u> LockedSetは、数字(1～9) と 行/列/ブロック houseで構成する。</u><br><br>
+                </ol>
+                        
+                <img src="images/img106/image106_Fish_Family.svg" width="80%" alt="Fish のファミリー">
+            </p>
+        </section><br><br>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

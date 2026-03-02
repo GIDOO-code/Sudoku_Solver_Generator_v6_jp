@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!--
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+-->
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">&nbsp;SueDeCoq のファミリー</h3><br>
+			&nbsp;&nbsp;&nbsp;<a href="page45_v5.html"> SueDeCoqEx <img src="images/imgTop/jumpTo.png" width="20px"> </a>
+            <p>
+				SueDeCoqは、<a href="page103.html#AnLS">AnLS</a> と ALS で構成する Locked です。<br>
+                SueDeCoq(traditional) の定義ではセル配置、セル内の数字を用いていました。
+				これを一段階抽象化して、 ALS、AnLSを用いる <a href="page45_v5.html"> SueDeCoqEx</a> 新アルゴリズムを構成しました。
+				これにより、アルゴリズムが単純になり、かつ拡張しました。<br>
+				また、セル配置をビット表現することで、実装コードが単純になりました。
+				正しいコード（バグ発生の防止、バグ発生の検出）も容易に構成できます。<br>
+				もう一つの特徴として、SueDeCoqで求まる解は複雑な形状ですが、比較的高速です。
+			</p>
+
+			概要 :
+			<ol>
+				<li> SueDeCoqは、<a href="page103.html#AnLS">AnLS</a> と ALS で構成する	</li>
+				<li> SueDeCoqEx : SueDeCoq(traditional)は、AnLSのn=2 のケースです。houseの制約を緩和します。</li>
+				<li> SueDeCoqex n=2を、n=1、n=3 のケースに、拡張します。
+					n=3は、<a href="page45_v5.html#Franken_SueDeCoqEx3"> Franken SueDeCoqEx </a>と名付けます。</li>
+				<li> SueDeCoqex n=1は、<a href="page50.html#ALS_XZ_Doubly_Linked"> ALS-XZ doublylinked </a>と同じアルゴリズムです。
+					また、”Bent Naked Subset”のアルゴリズムも、実質的に同じです。(...おそらく）
+				</li>
+				<li> Finned SueDeCoq : SueDeCoqEx を fin付き に拡張します。
+					(FishのFinned Fish への拡張と、拡張の概念が似ています。）</li>
+				<li> Finned SueDeCoqex n=1は、<a href="page50.html"> ALS-XZ singlylinked </a>と同じアルゴリズムです。</li>
+
+			</ol><br>
+				
+			<img src="images/img108/image108_SDC_Family.svg" width="95%" alt="SueDeCoqファミリー"><br><br>
+
+
+
+
+        </section><br><br>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

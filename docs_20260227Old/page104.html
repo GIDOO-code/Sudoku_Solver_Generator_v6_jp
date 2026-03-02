@@ -1,0 +1,147 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>sudoku GNPX5</title>
+
+
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+    
+</head>
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 6</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+
+<!--
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+-->
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">&nbsp;Link</h3>
+            <p>
+                リンクは、様々な数独解析アルゴリズムの基になります。ここで定義するリンクを用いて、ネットワーク型のアルゴリズムを組み立てます。<br>
+                ここでは全般的な理解のしやすさを優先し、正確性は二の次の”簡略表現”となっています。
+                あたたかな気持ちと、まなざしと、理解力に期待します。
+                
+            </p>
+
+            <h4 id="head_bg_LightBlue">&nbsp;(1)&nbsp;セル間 リンク</h4>
+            <p>
+                最も単純なリンクは、セル間リンクです。<br>
+                セル間リンクには、強いリンクと弱いリンクの2種類があります。
+
+                <ul>
+                    <li>強いリンクは、1つのHouse内に着目数字 "a" をもつセルが2個ある状態です。
+                    以下の左図は、行・列・ブロックのHouseにある強いリンクを示しています。
+                    強いリンクは、一方のセルについて "aである"aでない" のいずれでも、他方のセルに "aでない"/"aである" と伝播します。<br><br></li>
+                    
+                    <li>弱いリンクは、1つのHouse内に着目数字"a"をもつセルが3個以上ある状態です。
+                        以下の右図は、行・列・ブロックのHouseにある弱いリンクを示しています。
+                        弱いリンクでは、あるセルが "aである" の場合に残りのセルは "aでない" と伝播します。強いリンクは弱いリンクでもあります。<br></li>
+                </ul>
+            </p>
+            <p style="padding-left: 20px">
+                <img src="images/img104/img104StrongLink.svg" width="25%" alt="Strong Link">
+                <img src="images/img104/img104WeakLink.svg" width="25%" alt="Weak Link">
+            </p>
+            <br>
+
+
+            <h4 id="head_bg_LightBlue">&nbsp;(2)&nbsp;セル内 リンク</h4>
+            <p>
+                セル内リンクも、最も単純なリンクの一つです。<br>
+                セル内リンクは、1つのセルの数字のリンクです。要素の数が2なら強いリンク、3以上なら弱いリンクです。
+            </p>
+                <p style="padding-left: 20px">
+                <img src="images/img104/img104IntraCellLink.svg" width="30%" alt="IntraCell Link ">
+            </p>
+
+
+            <h4 id="head_bg_LightBlue">&nbsp;(3)&nbsp;ALS リンク</h4>
+            <p>
+                ALSは、LokedSetより数字が1多い状態です。ALSの1要素数字がリンクによって否定的に確定したとき、ALSはLockedSetに変わります。
+                すなわち、外部の要素とALSが弱いリンクを形成した状態です。
+                
+            </p>
+                <p style="padding-left: 20px">
+                <img src="images/img104/img104_ALS_Link.svg" width="50%" alt="ALS Link ">
+            </p>
+
+            <h4 id="head_bg_LightBlue">&nbsp;(4)&nbsp;AIC リンク</h4>
+            <a href="page28.html"><img src="images/imgTop/jumpBefore.png" height="16"> AICの定義(詳細)</a>
+            <p>
+                セル群では、セル配置を延長する方向(House)から制約が伝わり、セル配置を延長する方向に制約が伝わります。<br>
+                リンクのセル群Bが単独セルの場合には制約は複数の方向(複数のHouse)に伝わります。
+
+                <p style="padding-left: 20px">
+                    <img src="images/img104/img104_AIC_1.svg" width="50%" alt="AIC Link ">
+                </p>
+            </p>
+
+            <h4 id="head_bg_LightBlue">&nbsp;(4)&nbsp;ALS_XZ リンク</h4>
+            <a href="page50.html"><img src="images/imgTop/jumpBefore.png" height="16" alt="ALS-XZ Link"> ALS_XZ</a>
+            <p>
+                ALS_XZリンクは、様々なリンクを探る最初の試みとして、試験的に開発しました。<br>
+                ALS_XZは2つのALSがRCCで連結した状態です。ALS_XZ doubly_linkedは、RCCが2個あるケースで、これはLockedしています。<br><br>
+                つまり、2つのRCCをもつ A2LS,ALS の組は、リンクになります。<br>
+                
+                <p style="padding-left: 20px">
+                    <img src="images/img104/img104_ALSXZ_1.svg" width="50%" alt="ALS-XZ Link">
+                </p>
+                なお、A2LSは House内のセル群で n個のセルに (n+2)個の候補数字がある状態です。<br>
+                GNPX ver5では AnLSがベースクラス、ALSは派生クラスと定義しています。
+            </p>
+            
+            <h3 id="head_bg_Blue">&nbsp;Finned</h3>
+            <p>
+                数独解法では、Fin付きのセル群がしばしば現れます。たとえば、Finned LockedSet, Finned Fish, Finned ALS(=A2ls),
+                Finned ALS-XZ singlylinked(=n=1のSueDeCoqEx)です。<br>
+                Fin付きのセル群について、次のことが言えます。
+                <ul>
+                    <lI>Fin付き Locked は リンクになる。</lI>
+                    <li>セル間の Strong/week リンク は、Fin付のセル である。</li>
+                </ul>
+                数独解析アルゴリズムについて、Locked, finned の視点で考察すると、新たな数独解析アルゴリズム開発のヒントになるでしょう。<br><br>
+                <img src="images/img104/image104_Finned_link.svg" width="50%" alt="Finned Link">
+                <br><br>
+
+            </p><br><br>
+
+        </section>
+    </article>
+    
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>

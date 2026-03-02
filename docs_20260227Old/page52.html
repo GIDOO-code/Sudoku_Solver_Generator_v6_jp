@@ -1,0 +1,103 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>数独 ALS Chain</title>
+	
+    <!-- Prism   https://prismjs.com/download.html -->
+	<script src="prism_js_css/prism.js"></script>
+	<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+	<!-- jQuery treeview ! -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+	<script src="jq_treeview/jquery.cookie.js"></script>
+	<script src="jq_treeview/jquery.treeview.js"></script>
+	<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+	<link   rel="stylesheet" href="jq_treeview/screen.css" >
+	<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+	<link rel="stylesheet" href='css/style_v4_HeaderFooter.css'>
+	<link rel="stylesheet" href="css/style_v6A_Standard.css">
+	<link rel="stylesheet" href='css/gotoTop.css'>
+
+	<script type="text/javascript" src="js/naviHeader.js"> </script>
+	<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+</head>
+
+
+<body id="page">
+	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    <section id="menuList">
+        <script type="text/javascript"> writeNaviAlgorithm(); </script>
+    </section>
+    <!-- -------------------------------------------------------------------------- -->
+
+    <article id="main">
+        <section><br>
+            <h3 id="head_bg_Blue">ALS Chain</h3>
+            <p>ALS Chainは、<a href="page26.html">ALSをRCC</a>でループ状につなぐ解析アルゴリズムです。<br>
+                ALS Chainのイメージ図に示すように、ALSがRCCのリンクで繋がった連を形成し、この連が次の性質をもつとき、Lockedが生じます。
+                <ul>
+                    <li>最初と最後のALSが、RCCとは異なる数字zを候補に持つ。</li>
+                    <li>ALSの外部に、最初と最後のALS内の全てのzをカバーするセルがある。</li>
+                </ul>
+                最初と最後のALS内の数字zを全てカバーするセルから、数字z除外できます。
+                &quot;このセルは数字z&quot;が真とすると、ALS-RCC-ALSの繋がりで、ALSは順にLockedSetとなりますが、
+                最後のALSでは候補数字が足りなくなります。<br>
+                なお、ALSの連で重なりがある場合も成立します。<br>
+
+                <img src="images/img52/img52a.svg" width="50%" alt="ALS Chain"><br><br>
+                
+                ALS Chain は、数独パズルの１つの局面について、起点とするセル・数字からのチェインが極めて多く見つかります。<br>
+                多数の解が存在することから、GNPX ver6.0 では、いくつかなタイプを設けました。
+                <ul>
+                    <li>1 起点について、1 チェインパターン(探索で最初に見つかったパターン)</li>
+                    <li>ALSの連りに重なりを許容する。</li>
+                    <li>ALSの連に制約をかけない、全てのパターン(数100の解が求まることもあります）。</li>
+                </ul>
+            </p>
+        
+
+            <h4 id="head_bg_LightBlue">ALS Chainの例です。</h4>
+	<p>
+		<img src="images/img52/img52_10.png" width="30%" style="float:left;  margin-right:8px;" alt="ALS Chain" >
+		<strong>ALS Chain<br></strong>
+			Stem : r5c8 #4 -><br>
+			ALS 1: r6c7 #45 -> #5<br>
+			ALS 2: r4c379 #2457 -> #4<br>
+			ALS 3: r4c5 #45 -> #5<br>
+			ALS 4: r5c5 #45 -> #5<br>
+			Excluded cells#no : r5c8 #4<br>
+		<p style="clear: both" /><br>
+			
+		<img src="images/img52/img52_11.png" width="30%" style="float:left;  margin-right:8px;" alt="ALS Chain" >
+			<strong>ALS Chain<br></strong>
+				Stem : r6c7 #3 -><br>
+				ALS 1: r1c7 #13 -> #1<br>
+				ALS 2: r1c56 #148 -> #4<br>
+				ALS 3: r3c4 #14 -> #1<br>
+				ALS 4: r5c4 #14 -> #4<br>
+				ALS 5: r5c9 #34 -> #4<br>
+				Excluded cells#no : r6c7 #3<br>
+			<p style="clear: both" /><br>
+			
+		Paste the next 81 digits onto the GNPX/grid and solve with /Solve/MultiSolve/<br>
+		7....5..9.9.4.7.8...8.3.7..81.3.9.6...6...9...3.7.2.18..3.7.1...4.5.1.2.1..6....4<br>
+		6..9....5.4.5.6.7...5.3.2...6.8.3.91..8...6..91.7.2.5...6.7.4...7.3.5.6.2....4..7<br><br>
+        </section>
+        
+    </article>
+
+    <a href="#" class="pagetop">Top</a>
+	<footer id="foot">
+		<p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+	</footer>
+
+</body>
+</html>
