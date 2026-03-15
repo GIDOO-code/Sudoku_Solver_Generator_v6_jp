@@ -1,11 +1,5 @@
-# Sudoku_Solver_Generator_v6.0 リリース (2026.February)<br>
-  AHS(HP) AHSXZ(GNPX) を追加(2025.07.17)<br>
- <span style="color: LightGreen;">
- Exocet_FM を 追加 (GNPX v5.95 2026.January)  
-  Exocet_FM_Single, Exocet_FM_SingleBase を 追加 (GNPX v5.95 2026.January)</span><br>
- GNPXの 数独Puzzle 生成方法を追加しました。(page-15)
- <br><br>
-
+# GNPX V6.2
+GNPX v6.2では、MSLS（Multi_Secter_LockedSets）を 対象とします。
 
 
 # GNPX v6 HP:
@@ -22,6 +16,7 @@
  Puzzle 生成機能を改良しました。sample はこの機能で作成しました。
  開発支援機能を追加しました。通常の実行場面では見えませんが、アルゴリズム開発時に機能します（アルゴリズムの誤り検出）。<br>
  PU 向けのいくつかの機能を追加しました(GNPXのコードを読んでください)。<br>
+  GNPXの 数独Puzzle 生成方法を追加しました。(page-15)<br>
 
 
 ## 2. 数独解析アルゴリズム　の改良と追加<br>
@@ -36,7 +31,7 @@
  (8) Fireworkアルゴリズム<br>
  (9) AHS(AHS-XZ)<br>
  (10) ALS Chain(改良)<br>
- (11) Exocet(Junior/Senior/FM) アルゴリズム(開発中)<br>
+ (11) Exocet(Junior/Senior/FM) アルゴリズム<br>
 
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>
