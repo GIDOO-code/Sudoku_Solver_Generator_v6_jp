@@ -57,7 +57,7 @@
 					<ul style="margin-left: 0px;">
 						<li>盤面にいくつかの Secter を配置し、交差部分に着目します。</li><br>
 						<li>交差部にある候補数字に着目し、それらを結ぶリンクをカウントします。<br>
-							候補数字を結ぶリンク表現が複数種あっても、1種類のみをカウントします。 </li><br>
+							候補数字を結ぶリンク表現が複数種あっても、1つのみをカウントします。 </li><br>
 						<li>交差部の"セル数"と、交差部に入る候補数字をつなぐ"リンク数" が同数であれば交差部は Locked Set になります。<br>
 							次の例では <b>4セル⁼4リンク</b>です。複数種のリンク表現 (c2 b1)#7 があります。</li><br>
 						<li>リンクと同じSecterの "交差部以外の候補数字" は、除外されます。</li><br>
@@ -102,8 +102,12 @@
 						<img src="images/img60/image_60_MSLS_Logic2.svg" alt="LockedSet" style="margin-left: 20px;" width="25%"><br><br>
 					</li>
 
-					<li>複数Secterの集合が交差しているとします。交差部Cで Locked が成立する候補数字 は、交差部Cのみで肯定的に確定します。</li><br>
-					<li><b>交差部のFreeセル数 = リンク数</b> なら、交差部は <b>Locked Set</b> になります。</li>
+					<li>複数Secterの集合が交差しているとします。</li><br>
+
+					<li>交差部のセルには必ず肯定となる数字があるので(どの数字かは確定でない)、<br>
+						<b>|Freeセル| = |リンク|</b> なら、<b>全てのリンクは肯定</b>となります。したがって、リンク群は LockedSet になります。<br>
+						ただし、どのリンク端の数字が肯定となるかは確定ではありません。</li><br>
+
 					<li><b>MSLSの Locked</b> が成立します。また、Secter集合の<b>交差部以外にある候補数字</b>は除外されます。<br><br>
 						<img src="images/img60/image_60_MSLS_Logic3.svg" alt="LockedSet" style="margin-left: 20px;" width="70%"><br><br>
 					</li>
