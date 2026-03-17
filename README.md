@@ -1,5 +1,5 @@
 # GNPX V6.2
-GNPX v6.2では、MSLS（Multi_Secter_LockedSets）を 対象とします。
+GNPX v6.2では、MSLS（Multi_Secter_LockedSets）を 実装します。
 
 
 # GNPX v6 HP:
