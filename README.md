@@ -1,3 +1,6 @@
+# GNPX V6.3
+GNPX v6.3では、POM,POIを 実装します。
+
 # GNPX V6.2
 GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
 
