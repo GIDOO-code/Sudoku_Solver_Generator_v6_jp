@@ -1,9 +1,12 @@
+# GNPX V6.4
+Simple アルゴリズム(Single,Fish)の小さな改良。
+その他のバグ修正。解析コードをプログラム専用に書き換え（バージョン7の初期段階の開始）。
+
 # GNPX V6.3
 GNPX v6.3では、POM,POIを 実装します。
 
 # GNPX V6.2
 GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
-
 
 # GNPX v6 HP:
  en: https://gidoo-code.github.io/Sudoku_Solver_Generator_v6/<br>
@@ -35,6 +38,8 @@ GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
  (9) AHS(AHS-XZ)<br>
  (10) ALS Chain(改良)<br>
  (11) Exocet(Junior/Senior/FM) アルゴリズム<br>
+ (12) Multi_Sector_Locked_Sets(MSLS), SK_Loop アルゴリズム<br>
+ (13) Pattern Overlay Method(POM Rule_1,_2) アルゴリズム<br>
 
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>
