@@ -7,11 +7,8 @@
    viewBox="0 0 184.21146 87.155006"
    version="1.1"
    id="svg2646"
-   inkscape:version="1.4 (86a8ad7, 2024-10-11)"
-   sodipodi:docname="img46a.svg"
-   inkscape:export-filename="img46a.png"
-   inkscape:export-xdpi="96"
-   inkscape:export-ydpi="96"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25, custom)"
+   sodipodi:docname="image46.svg"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns="http://www.w3.org/2000/svg"
@@ -27,25 +24,34 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      showgrid="false"
-     inkscape:zoom="0.41260131"
-     inkscape:cx="372.02984"
-     inkscape:cy="729.51779"
+     inkscape:zoom="0.46903409"
+     inkscape:cx="1074.5488"
+     inkscape:cy="868.80679"
      inkscape:window-width="2145"
      inkscape:window-height="1560"
-     inkscape:window-x="751"
-     inkscape:window-y="174"
+     inkscape:window-x="1156"
+     inkscape:window-y="290"
      inkscape:window-maximized="0"
-     inkscape:current-layer="layer1" />
+     inkscape:current-layer="layer1">
+    <inkscape:page
+       x="0"
+       y="0"
+       width="184.21146"
+       height="87.155006"
+       id="page2"
+       margin="0"
+       bleed="0" />
+  </sodipodi:namedview>
   <defs
      id="defs2643" />
   <g
      inkscape:label="Layer 1"
      inkscape:groupmode="layer"
      id="layer1"
-     transform="translate(-41.933564,-63.577379)">
+     transform="translate(-41.933564,-63.577382)">
     <g
        id="g6945"
-       inkscape:export-filename="img46a.png"
+       inkscape:export-filename="img46a.svg"
        inkscape:export-xdpi="96"
        inkscape:export-ydpi="96"
        transform="matrix(0.81723483,0,0,0.81723483,38.019054,29.198406)">
@@ -420,5 +426,29 @@
    id="tspan4582">Weak Link</tspan>		</text>
       </g>
     </g>
+    <text
+       xml:space="preserve"
+       style="font-size:4.20314px;line-height:2.57792px;writing-mode:lr-tb;direction:ltr;fill:#0000ff;fill-opacity:0.997085;stroke-width:0.132382;stroke-dasharray:1.43734, 1.43734"
+       x="123.47948"
+       y="103.90613"
+       id="text1"
+       transform="scale(0.84457683,1.1840249)"><tspan
+         sodipodi:role="line"
+         id="tspan1"
+         style="stroke-width:0.132382"
+         x="123.47948"
+         y="103.90613">exclude</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:4.20314px;line-height:2.57792px;writing-mode:lr-tb;direction:ltr;fill:#0000ff;fill-opacity:0.997085;stroke-width:0.132382;stroke-dasharray:1.43734, 1.43734"
+       x="242.25909"
+       y="103.06391"
+       id="text2"
+       transform="scale(0.84457683,1.1840249)"><tspan
+         sodipodi:role="line"
+         id="tspan2"
+         style="stroke-width:0.132382"
+         x="242.25909"
+         y="103.06391">exclude</tspan></text>
   </g>
 </svg>

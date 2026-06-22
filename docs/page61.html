@@ -28,7 +28,7 @@
 
 <body id="page">
 
-	<header id="head"> <strong><i>Sudoku Algorithm 6.0+</i></strong>
+	<header id="head"> <strong><i>Sudoku Algorithm 7.0</i></strong>
         <script type="text/javascript"> writeNaviHeader(); </script>
 	</header>
 
@@ -151,7 +151,7 @@
 					<div style="color:rgb(4, 0, 255)">
 					<ul style="margin-left: -20px;">
 						<li>それぞれのパターン内のセルは連結している。</li>
-						<li>パターン内のどれかのセルが候補数字が確定なら、連結する全てのセルは確定である。</li>
+						<li>パターン内のどれかのセルで候補数字が確定なら、連結する全てのセルは確定である。</li>
 						<li>パターン内のどれかのセルで候補数字が否定なら、連結する全てのセルでその候補数字は否定である。</li>
 					</ul>
 					なお、この分析は候補数字ごとの結果であり、候補数字間の相互関係は考慮されていません。
@@ -189,7 +189,7 @@
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM - all pattarn</H4>
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM Rule1 - all pattarn</H4>
 			<p>
 				全てのパターンに共通して セル・候補数字がある場合があります。このセル・候補数字は確定です。<br>
 				次のパズルの POM分析 では、<b>(r1c1 r8c3)#3</b> は 全てのパターンに含まれます。したがってこれらは確定です。<br>
@@ -225,7 +225,7 @@
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM - No pattarn</H4>
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM Rule1 - No pattarn</H4>
 			<p>
 				POM分析の結果、可能な配置パターンが存在しないセル・候補数字がある場合があります。このセル・候補数字は除外できます。<br>
 				上のパズルの POM分析 では、<b>(r2c4 r3c5)#9</b> は 全てのパターンに含まれません。したがって、これらは除外できます。<br>
@@ -260,7 +260,7 @@
 		
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM - Single Pattarn</H4>
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM Rule1 - Single Pattarn</H4>
 			<p>
 				パターンが1つの場合は、全てのパターンに共通していることになり、<b>All Pattarn</b> が成立します。<br>
 
@@ -293,7 +293,7 @@
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;Pattern Overlay Interactions</H4>
+			<H4 id="head_bg_LightBlue" id="SE">&nbsp;Pattern Overlay Method Rule2 - Interactions</H4>
 			<p>
 				候補数字の相互作用に基づくアルゴリズム（ルール2）は以下のとおりです。<br>
 				候補数字#m のパターンA を真と仮定したとき(#m-A)、パターンA のセルは 候補数字#m が占有し、他の候補数字は排除されます。<br>
@@ -352,7 +352,7 @@
 				&nbsp;Pattern 0: .2....... .......8. ......... ......... ......... ......... ......... ......... ......... <br>
 				&nbsp;Pattern 1: .......8. .2....... ......... ......... ......... ......... ......... ......... .........  Disabled by interaction<br>
 				<br>
-				#4<br>
+				#4<br> 
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;BOARD: ......... 12....... ......... ......... ......... ......... 12....... ......... .........  4 cells<br>
 				&nbsp;Pattern 0: ......... 1........ ......... ......... ......... ......... .2....... ......... .........<br>
 				&nbsp;Pattern 1: ......... .2....... ......... ......... ......... ......... 1........ ......... .........<br>
@@ -402,12 +402,13 @@
 				POMは、候補数字の配置可能なパターンを網羅的に扱う解析アルゴリズムです。<br>
 				これに対し、既存のアルゴリズムは、候補数字の配置を否定的に導きます。これは、その候補数字の配置が矛盾するからです。<br>
 				POMのパターンは、矛盾のない配置のみです。すなわち、既存のアルゴリズムの矛盾する配置はPOMには含まれません。<br><br>
-
+<!--
 				<b>上位互換性：</b><br>
 				単一数字を扱う 例えば ER、Skyscraper、Fish などのアルゴリズムに対し、POM Rule-1( no-pattern, all-pattern)は上位互換です。<br>
 				複数数字を扱う 例えば XY-wing、Chain、SueDeCoq などのアルゴリズムには、候補数字の相互作用を分析する POI Rule-2(POI:Pattern Overlay interactions)が対応します。
+-->
 			</p>
-			<br><br><br>
+			<br>
 		</section>
 
 

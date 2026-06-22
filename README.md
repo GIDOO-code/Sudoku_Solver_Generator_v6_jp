@@ -1,5 +1,8 @@
+# GNPX V6.4 -> V7.0
+GNPX V7.0では、コードを全面的に改訂します。
+
 # GNPX V6.3
-GNPX v6.3では、POM,POIを 実装します。
+GNPX v6.3では、POM(Pattern Overlay Method)を 実装します。
 
 # GNPX V6.2
 GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
@@ -22,7 +25,7 @@ GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
   GNPXの 数独Puzzle 生成方法を追加しました。(page-15)<br>
 
 
-## 2. 数独解析アルゴリズム　の改良と追加<br>
+## 2. 数独解析アルゴリズム　の改良と追加 (V6-,v7-)<br>
  論理を説明するイメージ図を用いて解説します。（具体的では本質が理解しづらい）<br>
  (1) 数独解析における "Locked"<br>
  (2) ALSの拡張(AnLS)、アルゴリズムの開発<br>
@@ -35,6 +38,8 @@ GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
  (9) AHS(AHS-XZ)<br>
  (10) ALS Chain(改良)<br>
  (11) Exocet(Junior/Senior/FM) アルゴリズム<br>
+ (12) Multi-Sector Locked Set(MSLS), SK Loop アルゴリズム<br>
+ (13) Pattern Overlay Method(POM) アルゴリズム<br>
 
 ## 3. GNPX v6 プログラム<br>
  (1) UIにpageを用いて、処理内容を分類・整理<br>

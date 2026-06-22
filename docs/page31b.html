@@ -55,31 +55,6 @@
 			<p>セルの候補数字がただ1つなら、その数字に確定する</p>
 			<p class="newLine">.3217.6.88.4..9.7.75.......6....84572.......6.7.4.....3..5...84.2.9..5..4..61.7.2</p>
 			<br>
-
-			<h4 id="head_bg_LightBlue">解析プログラム Naked Single</h4>
-<pre class="line-numbers" class="prismOp" >
-<code class="language-csharp">public class SimpleSingleGen: AnalyzerBaseV2{
-    public bool NakedSingle( ){
-        bool  SolFond=false;
-        foreach( UCell P in pBDL.Where(p=&gt;p.FreeBC==1) ){
-            SolFond=true;
-            P.FixedNo=P.FreeB.BitToNum()+1;
-            if(!MltSolOn)  goto LFond;
-        }
-
-        LFond:
-        if(SolFond){
-            SolCode=1;
-            Result=&quot;Naked Single&quot;;
-            if(SolInfoDsp) ResultLong=&quot;Naked Single&quot;;
-            AnMan.SnapSaveGP();   // SimpleSingleGen is not covered by SnapSaveGP
-            return true;
-        }
-        return false;
-    }
-}</code></pre>
-		
-		<br><br>
 		</section>
 	</article>
 

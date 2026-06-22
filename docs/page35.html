@@ -41,8 +41,7 @@
 
 <!-- -------------------------------------------------------------------------- -->
 	<article id="main">
-		<sectione>
-			
+		<sectione>		
 			<h3 id="head_bg_Blue">Finned Fish</h3>
 			<p>左の図はX-Wing（2D-Fish)です。BaseSetとCoverSetのLocked関係から、丸付き数字Xは候補数字から除外できます。
 				大きな丸はブロックを表すとします。このとき、右図のように四角付きの数字Xが追加で存在しても、丸付き数字Xは候補数字から除外できます。
@@ -64,22 +63,6 @@
 					..9..154..5..9.....6.5..92.8..3..1.41..4.6..95.4..8..2.42..9.6.....6..1..187..2..<br>
 				</small>
 			</p><br><br>
-
-			<h4 id="head_bg_LightBlue">Finned Fishの解析プログラム</h4>
-			<p>
-				Finned Fish の解析アルゴリズムは、BaseSet、CoverSet、Finの概念を用いて解きます。
-				プログラムは、汎用Fishサブプログラム(ExtFishSub)のパラメータ制御で解きます。
-<pre class="line-numbers" class="prismOp" >
-<code class="language-csharp">public partial class FishGen: AnalyzerBaseV2{
-	// FinnedFish
-    public bool FinnedXWing(){     return Fish_Basic(2,true); }
-    public bool FinnedSwordFish(){ return Fish_Basic(3,true); }
-    public bool FinnedJellyFish(){ return Fish_Basic(4,true); }
-    public bool FinnedSquirmbag(){ return Fish_Basic(5,true); }
-    public bool FinnedWhale(){     return Fish_Basic(6,true); }
-    public bool FinnedLeviathan(){ return Fish_Basic(7,true); }
-}</code></pre>	<br><br>
-			</p>
 		</section>
 	</article>
 

@@ -117,39 +117,6 @@
 				.38.6...96....93..2..43...1..61..9355.3.8.1...4........8.65..13...8..5.63.59..827<br>
 				..9..154..5..9.....6.5..92.8..3..1.41..4.6..95.4..8..2.42..9.6.....6..1..187..2..<br>
 			</p>
-					
-
-			<h4 id="head_bg_LightBlue">(Finned) Franken/Mutant Fishの解析プログラム</h4>
-			<p>
-				(Finned) Franken/Mutant Fishの解析プログラムは、上記のアルゴリズムをそのままコードにすればできます。
-				しかし、BaseSet/CoverSetを用いる汎用Fishサブプログラム(ExtFishSub)があるので、これのパラメータ制御だけで(Finned) Franken/Mutant Fishは解けます。
-			</p>
-
-<pre class="line-numbers" class="prismOp" >
-<code class="language-csharp">public partial class FishGen: AnalyzerBaseV2{
-//Frankenn/MutantFish
-    private int rcbSel=0x7FFFFFF;
-    public bool FrankenMutantFish( ){
-        for( int sz=2; sz&lt;=4; sz++ ){   //対称性からサイズ4まで
-            for( int no=0; no&lt;9; no++ ){
-                if( ExtFishSub(sz,no,27,rcbSel,rcbSel,false) ) return true;
-                if( AnMan.CheckTimeOut() ) return false;
-            }
-        }
-        return false;
-    }
-//FinnedFrankenn/MutantFish
-    public bool FinnedFrankenMutantFish( ){
-        for( int sz=2; sz&lt;=7; sz++ ){   //Finあり はサイズ7まで(5:Squirmbag 6:Whale 7:Leviathan)
-            for( int no=0; no&lt;9; no++ ){
-                if( ExtFishSub(sz,no,27,rcbSel,rcbSel,true) ) return true;
-                if( AnMan.CheckTimeOut() ) return false;
-            }
-        }
-        return false;
-    }
-}</code></pre> <br><br>
-
 		</section>
 	</article>
 
