@@ -37,12 +37,171 @@
         <script type="text/javascript"> writeNaviAlgorithm(); </script>
     </section>
 
-
-
 <!-- -------------------------------------------------------------------------- -->
 
 	<article id="main">
+		<section><br>
+			<h3 id="head_bg_Blue">GroupedNiceLoop</h3>
+			<p>GroupedNiceLoopは、NiceLoopの<a href="page28.html">スーパーリンク</a>版です。<br>
+				GroupedNiceLoopは、セル内リンク、セル間リンク、AIC、ALS、ALS-XZ リンク のチェインです。
+				連結の連続/不連続の条件は、NiceLoopと同じです。
 
+				<br><br>
+				以下はGroupedNiceLoopの例です。<br>
+				5,6番目の例は、矛盾を導く例です。1セルから始まる経路が、特定のセル・候補数字で肯定/否定の両方を導きます。
+				このときは出発セル・数字が否定であることが分かります。<br>
+				<a href="page17.html">GNPX</a>の複数解解析で、様々な解を見ることができます。<br>
+				（簡単な解もあるので、skyscraper-ALS系アルゴリズムをオフに設定してください）。<br><br>
+			</p>
+
+<div><tt>
+<p><p style="clear: both"/><p class="newLine"/>ID:00_1 eNW_NiceLoopExt<br>
+.46..3.8. 72....... .8.7..3.. ..42.7... ..9.58.2. .....6..1 ..14396.. 4.....139 .976.1.4. Puzzle<br>
+.46..3.8. 723...... .857..3.. ..42.7... ..9.58.2. ....46..1 .5143967. 46..7.139 3976.1.4. Current<br></p>
+<img src="images/img55/eNW_NiceLoopExt_1.png" width="30%" style="float:left;  margin-right:8px;" alt="eNW_NiceLoopExt (Lv.11)"><br>
+
+<p>
+NiceLoopExtEx discontinue Origin:r3c5#2<br>
+<br>
+r3c5#2+ => r3c6#2- => r8c6#2+ => r9c5#2- => r9c5#8+<br>
+     => [ALS:r1568c4 #13589->#13589 ->r1c4#5-] => r2c46#5+<br>
+     => [ALS:r2c789 r3c89 #124569->#124569 ->r3c9#2+]<br>
+     => r3c5#2-</p>
+<p style="clear: both"/>
+<br><hr>
+</tt></div>
+
+
+<div><tt>
+<p><p style="clear: both"/><p class="newLine"/>ID:00_1 eNW_NiceLoopExt<br>
+.46..3.8. 72....... .8.7..3.. ..42.7... ..9.58.2. .....6..1 ..14396.. 4.....139 .976.1.4. Puzzle<br>
+.46..3.8. 723...... .857..3.. ..42.7... ..9.58.2. ....46..1 .5143967. 46..7.139 3976.1.4. Current<br></p>
+<img src="images/img55/eNW_NiceLoopExt_2.png" width="30%" style="float:left;  margin-right:8px;" alt="eNW_NiceLoopExt (Lv.11)"><br>
+
+<p>
+NiceLoopExtEx continue Origin:r3c6#4<br>
+<br>
+r3c6#4+ => r3c9#4- => r2c79#4+<br>
+     => ALSXZ[1)ALS:r56c4#139 @ 2)AnLS:r1c4 r2c46#14589 (RCC:#19)]<br>
+     => r2c4#8+] => r8c4#8- => r8c4#5+ => r1c4#5-<br>
+     => r2c46#5+<br>
+     => [ALS:r2c789 r3c89 #124569->#124569 ->r3c9#2+]<br>
+     => r3c6#2-</p>
+<p style="clear: both"/>
+<br><hr>
+</tt></div>
+
+
+<div><tt>
+<p><p style="clear: both"/><p class="newLine"/>ID:00_3 eNW_NiceLoopExt<br>
+.97..1.5. 86....... .1.7..8.. ..95.3... ..1.96.8. .....7..9 ..53249.. 1.....475 .481.5.6. Puzzle<br>
+.97681.54 86.45.... 51473.8.6 7895.36.. 4.1296.8. ..68.7..9 675324918 1..968475 948175.6. Current<br></p>
+<img src="images/img55/eNW_NiceLoopExt_3.png" width="30%" style="float:left;  margin-right:8px;" alt="eNW_NiceLoopExt (Lv.11)"><br>
+
+<p>
+NiceLoopExtEx continue Origin:r4c9#2<br>
+<br>
+r4c9#2+ => r9c9#2- => r9c9#3+<br>
+     => [AIC:r9c79 r9c79#3- ->r9c7#2+] => r1c7#2-<br>
+     => r1c7#3+ => r2c8#3- => r6c8#3+<br>
+     => [ALS:r6c1257 #12345->#12345 ->r2c7#1-] => r2c9#1+<br>
+     => r4c9#1-</p>
+<p style="clear: both"/>
+<br><hr>
+</tt></div>
+
+
+<div><tt>
+<p><p style="clear: both"/><p class="newLine"/>ID:00_12 eNW_NiceLoopExt<br>
+4.7.5.... 8......1. 62.1.7954 ...876..9 2.9..3... ..6.9...7 .3.54867. ...9..3.. .......98 Puzzle<br>
+417.59... 895.2471. 623187954 ...876..9 279413... .86295..7 93.54867. 7.896.3.. .6.73..98 Current<br></p>
+<img src="images/img55/eNW_NiceLoopExt_4.png" width="30%" style="float:left;  margin-right:8px;" alt="eNW_NiceLoopExt (Lv.11)"><br>
+
+<p>
+NiceLoopExtEx discontinue Origin:r4c3#1<br>
+<br>
+r4c3#1+ => r6c1#1- => r6c1#3+ => r6c8#3- => r6c8#4+ => r8c8#4-<br>
+     => r9c7#4+ => [AIC:r9c1367 r9c1367#4- ->r9c1#5+]<br>
+     => [AIC:r469c1 r469c1#5- ->r4c3#1-]</p>
+<p style="clear: both"/>
+<br><hr>
+</tt></div>
+
+
+<div><tt>
+<p><p style="clear: both"/><p class="newLine"/>ID:00_12 eNW_NiceLoopExt<br>
+4.7.5.... 8......1. 62.1.7954 ...876..9 2.9..3... ..6.9...7 .3.54867. ...9..3.. .......98 Puzzle<br>
+417.59... 895.2471. 623187954 ...876..9 279413... .86295..7 93.54867. 7.896.3.. .6.73..98 Current<br></p>
+<img src="images/img55/eNW_NiceLoopExt_5.png" width="30%" style="float:left;  margin-right:8px;" alt="eNW_NiceLoopExt (Lv.11)"><br>
+
+<p>
+NiceLoopExtEx contradiction<br>
+ Org:r1c4#6+ to r9c7#5<br>
+ r1c4#6 is excluded.<br>
+<br>
+ r1c4#6+ => [inter cell -> r1c8#6-]<br>
+         => [inter cell -> r5c8#6+]<br>
+         => [AIC:r5c789 r5c789#6- ->r5c7#5-]<br>
+         => [inter cell -> r5c9#5+]<br>
+         => [inter cell -> r8c9#5-]<br>
+         => [inter cell -> r9c7#5+]<br>
+<br>
+ r1c4#6+ => [inter cell -> r1c8#6-]<br>
+         => [inter cell -> r5c8#6+]<br>
+         => [AIC:r5c789 r5c789#6- ->r5c7#5-]<br>
+         => [inter cell -> r5c9#5+]<br>
+         => [ALS:r1456c7 #12458->#12458 ->r1c7#2+]<br>
+         => [ALS:r4c1237 #12345->#12345 ->r4c1#3+]<br>
+         => [inter cell -> r6c1#3-]<br>
+         => [intra cell -> r6c1#1+]<br>
+         => [inter cell -> r9c1#1-]<br>
+         => [intra cell -> r9c1#5+]<br>
+         => [inter cell -> r9c7#5-]</p>
+<p style="clear: both"/>
+<br><hr>
+</tt></div>
+
+
+<div><tt>
+<p><p style="clear: both"/><p class="newLine"/>ID:00_21 eNW_NiceLoopExt<br>
+.4.8.9.63 ..61437.8 8.7.....9 52..91.8. ......... 7..25.9.4 .......4. ..962...5 3....58.. Puzzle<br>
+.4.879.63 ..61437.8 837562419 52..91687 ....8.... 7..256934 ...93..4. ..962.375 3...1589. Current<br></p>
+<img src="images/img55/eNW_NiceLoopExt_6.png" width="30%" style="float:left;  margin-right:8px;" alt="eNW_NiceLoopExt (Lv.11)"><br>
+
+<p>
+NiceLoopExtEx contradiction<br>
+ Org:r2c1#9+ to r9c4#4<br>
+ r2c1#9 is excluded.<br>
+<br>
+ r2c1#9+ => [inter cell -> r2c2#9-]<br>
+         => [intra cell -> r2c2#5+]<br>
+         => [ALS:r14569c3 #123458->#123458 ->r6c2#8-]<br>
+         => [intra cell -> r6c2#1+]<br>
+         => [ALS:r4569c3 #12348->#12348 ->r9c3#2+]<br>
+         => [intra cell -> r9c3#4-]<br>
+         => [inter cell -> r9c4#4+]<br>
+<br>
+ r2c1#9+ => [inter cell -> r2c2#9-]<br>
+         => [intra cell -> r2c2#5+]<br>
+         => [ALS:r14569c3 #123458->#123458 ->r6c2#8-]<br>
+         => [intra cell -> r6c2#1+]<br>
+         => [inter cell -> r8c2#1-]<br>
+         => [intra cell -> r8c2#8+]<br>
+         => [inter cell -> r8c6#8-]<br>
+         => [intra cell -> r8c6#4+]<br>
+         => [inter cell -> r9c4#4-]</p>
+<p style="clear: both"/>
+<br><hr>
+</tt></div>
+
+<!--			
+				<img src="images/img55/img55a.png" width="60%">
+
+			<p class="newLine">
+			1526.7.893...5...4...9.3..75.8...2.6.6.....9.9.3...4.14..5.6...6...3...573.4.1962</p><br><br<br>
+-->
+	
+		</section>
 		
 	</article>
 

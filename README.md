@@ -1,11 +1,16 @@
+# GNPX V6.5
+POM と NiceLoop を組み合わせたアルゴリズムを実装しました。
+拡張 NetWork と NiceLoop のコードを整理しました。
+HPとプログラムの結果は、一致しないところが多々あります。
+
 # GNPX V6.4 -> V7.0
 GNPX V7.0では、コードを全面的に改訂します。
 
 # GNPX V6.3
-GNPX v6.3では、POM(Pattern Overlay Method)を 実装します。
+POM(Pattern Overlay Method)を 実装します。
 
 # GNPX V6.2
-GNPX v6.2では、MSLS（Multi_sector_LockedSets）を 実装します。
+MSLS（Multi_sector_LockedSets）を 実装します。
 
 # GNPX v6 HP:
  en: https://gidoo-code.github.io/Sudoku_Solver_Generator_v6/<br>
