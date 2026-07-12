@@ -1,3 +1,7 @@
+# GNPX V6.51
+POM 2候補数字の相互作用を実装しました。
+POM - Interaction Level-2 は、比較的少ないコストで、高い解析力のアルゴリズムです。
+
 # GNPX V6.5
 POM と NiceLoop を組み合わせたアルゴリズムを実装しました。
 拡張 NetWork と NiceLoop のコードを整理しました。

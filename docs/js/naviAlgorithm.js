@@ -119,7 +119,9 @@ function writeNaviAlgorithm(){
 				html += '<ul>';
 		        	html += '<li><a href="page61.html">POM All Pattern</a></li>';
 					html += '<li><a href="page61.html">POM No Pattern</li>';
-					html += '<li><a href="page61.html">POI Rule-2</a></li>';
+					html += '<li><a href="page61.html">POI Interaction</li>';
+					html += '<li><a href="page61.html">POI Interaction Lv2</a></li>';
+					html += '<li><a href="page61.html">POM POM-Niceloop</a></li>';
 			    html += '</ul>';
 			html += '</li>';
 
