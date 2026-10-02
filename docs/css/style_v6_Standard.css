@@ -9,19 +9,13 @@
     padding: 1px 3px 0;
 }
 
-body{
-	color: rgb(0, 0, 0);
-	font-size: 16px;
-	font-style: normal;
-	font-weight: normal;
-	letter-spacing: normal;
-	orphans: 2;
-	text-align: left;
-	text-indent: 0px;
-	text-transform: none;
-	white-space: normal;
-	word-spacing: 0px;
-	background-color: #ffffff;
+body {
+    background-color: #fbf9f3; /* 鳥の子色 */
+    background-image: 
+        radial-gradient(rgba(0,0,0,0.015) 1px, transparent 0),
+        linear-gradient(to right, rgba(235,230,215,0.2) 1px, transparent 1px);
+    background-size: 4px 4px, 100px 100px;
+    font-family: 'Noto Sans JP', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {

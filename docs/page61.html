@@ -163,27 +163,38 @@
 					<ul>
 						<li>単一候補数字のアルゴリズム(Rule-1)</li>
 							<ul style="margin-left: -20px;">候補数字#n 毎に
-								<li>全てのパターンに共通するセル・候補数字は真である。  =>  <font style="color:blue">All Patterns</font></li>
-								<li>全てのパターンに含まれないセル・候補数字は偽であり、除外できる。=> <font style="color:blue">No Patterns</font></li>
+								<li>全てのパターンに共通するセル・候補数字は真である。  => 
+									<a href="#Rule1-All_Pattern">&nbsp; all-Pattern <img src="images/imgTop/jumpTo.png" height="8"></a></li>
+								
+									<li>全てのパターンに含まれないセル・候補数字は偽であり、除外できる。=> 
+									<a href="#Rule1-No_Pattern">&nbsp; no-Pattern <img src="images/imgTop/jumpTo.png" height="8"></a></li>
 								<li>パターンが１種類のみの場合は、”全パターンに共通する”ので セル・候補数字は真である。<br>
-									”全パターンに含まれない” セル・候補数字は偽である。 &nbsp; &nbsp; &nbsp; &nbsp;=> <font style="color:blue">All Patterns, single pattern</font><br>
+									”全パターンに含まれない” セル・候補数字は偽である。 &nbsp; &nbsp; &nbsp; &nbsp;=> 
+									<a href="#Rule1-Single">&nbsp; single <img src="images/imgTop/jumpTo.png" height="8"></a><br>
 								</li>
 							</ul>
 							<br>
 
-						<li>候補数字の相互作用に基づくアルゴリズム(Rule-2)</li>
+						<li>候補数字の相互作用に基づくアルゴリズム(Rule-2)
+							<a href="#Rule2-Interactions">&nbsp; Interactions<img src="images/imgTop/jumpTo.png" height="8"></a><br>
+							2つの候補数字の相互作用に基づくアルゴリズム(Rule-2 Level-2)
+							<a href="#Rule2-InteractionsLv2">&nbsp; Interactions Level2<img src="images/imgTop/jumpTo.png" height="8"></a>
+
+						</li>
 						<br>
 
-						<li>POM と Nice-Loop の組み合わせアルゴリズム(Rule-3)</li>
+						<li>POM と Nice-Loop の組み合わせアルゴリズム(Rule-3)<
+							<a href="#Rule3_POM_NiceLoop">&nbsp; POM_NiceLoop<img src="images/imgTop/jumpTo.png" height="8"></a></li>
 						<br>
 					</ul>
 			</p>
-			</p><br><br>
+			</p>
 		</section>
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM Rule1 - all pattern</H4>
+			<a id="Rule1-All_Pattern"></a>
+			<H4 id="head_bg_LightBlue">&nbsp;POM Rule1 - all pattern</H4>
 			<p>
 				全てのパターンに共通して セル・候補数字がある場合があります。このセル・候補数字は確定です。<br>
 				次のパズルの POM分析 では、<b>(r1c1 r8c3)#3</b> は 全てのパターンに含まれます。したがってこれらは確定です。<br>
@@ -219,7 +230,8 @@
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM Rule1 - No Pattern</H4>
+			<a id="Rule1-No_Pattern"></a>
+			<H4 id="head_bg_LightBlue">&nbsp;POM Rule1 - No Pattern</H4>
 			<p>
 				POM分析の結果、可能な配置パターンが存在しないセル・候補数字があることがあります。このセル・候補数字は除外できます。<br>
 				上のパズルの POM分析 では、<b>(r2c4 r3c5)#9</b> は 全てのパターンに含まれません。したがって、これらは除外できます。<br>
@@ -254,7 +266,8 @@
 		
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM Rule1 - Single Pattern</H4>
+			<a id="Rule1-Single"></a>
+			<H4 id="head_bg_LightBlue" >&nbsp;POM Rule1 - Single Pattern</H4>
 			<p>
 				パターンが1つの場合は、全てのパターンに共通していることになり、<b>All Pattern</b> が成立します。<br>
 				また、全てのパターンに含まれないセル・候補数字は偽であり、除外できます(<b>No Pattern</b>)。<br>
@@ -307,7 +320,8 @@ Pattern Overlay Method _ No Pattern Exclusion<br>
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM - Interactions</H4>
+			<a id="Rule2-Interactions"></a>
+			<H4 id="head_bg_LightBlue" >&nbsp;POM - Interactions</H4>
 			<p>
 				<b>候補数字の相互作用</b> に基づくアルゴリズム は以下のとおりです。<br>
 				<ul>
@@ -417,7 +431,8 @@ Pattern Overlay Method _ No Pattern Exclusion<br>
 
 
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;POM - Interactions Level-2</H4>
+			<a id="Rule2-InteractionsLv2"></a>
+			<H4 id="head_bg_LightBlue">&nbsp;POM - Interactions Level-2</H4>
 			<p>
 				<b>候補数字の相互作用</b> に基づくアルゴリズム は、<b>2つの候補数字の相互作用</b> のアルゴリズム</b>へと、自然に拡張できます。<br>
 				<ul> 相互作用 Level 2 アルゴリズム
@@ -467,8 +482,10 @@ Pattern Overlay Interaction Lv2 _ All Pattern Fixed<br>
 		</section>
 
 
+		
 		<section>
-			<H4 id="head_bg_LightBlue" id="SE">&nbsp;Pattern Overlay Method Rule3 - POM NiceLoop</H4>
+			<a id="Rule3_POM_NiceLoop"></a>
+			<H4 id="head_bg_LightBlue" id="Rule3_POM_NiceLoop">&nbsp;Pattern Overlay Method Rule3 - POM NiceLoop</H4>
 			<p>
 				<b>ROM分析とNice-Loopを組み合わせて不整合を検出する</b> アルゴリズムです。<br>
 				<ul style="margin-left: -20px;">

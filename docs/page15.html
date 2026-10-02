@@ -80,17 +80,16 @@
 					&nbsp; &nbsp; なお、ユニークなパターンも '唯一解を持つ=数独の問題'であることは保証されません。<br>
 				</li><br>
 
-				<li><b>ステップ-3. ユニークな 前Puzzle セットを TryAndError 法で解く [parallel可能]</b><br>
+				<li><b>ステップ-3. ユニークな Puzzle セットを TryAndError 法で解く [parallel可能]</b><br>
 					&nbsp; &nbsp; TryAndError は 高速 に ラテン方陣を解きます。<br>
-					&nbsp; &nbsp; TryAndError でユニークな解をもつ 前Puzzle は、数独の問題の候補です。<br>
-					&nbsp; &nbsp; ここでも、'数独の問題'であることは保証されません。ステップ-1 の他のパラメータから生成される ラテン方陣 が同じ場合があることに因ります。<br>
+					&nbsp; &nbsp; TryAndError でユニークな解をもつ Puzzle は、数独の問題 です。<br>
+					&nbsp; &nbsp; ステップ-1～3 で 数独Puzzle が求まるごとに 数独アルゴリズムスレッドに送ります(Queue使用)。<br>
 				</li><br>
 
 				<li><b>ステップ-4. 数独アルゴリズムで解く [parallel可能]</b><br>
 					&nbsp; &nbsp; ステップ-3 の 数独の問題の候補 を 数独アルゴリズム で解きます。<br>
 					&nbsp; &nbsp; ステップ-1～3 と ステップ-4 は それぞれ独立に(別スレッドで)実行できます。<br>
-					&nbsp; &nbsp; GNPXでは、数独アルゴリズムスレッドは 常に動作状態にし、 <br>
-					&nbsp; &nbsp; ステップ-1～3 で 数独Puzzle の候補が求まるごとに 数独アルゴリズムスレッドに送ります(Queue使用)。
+					&nbsp; &nbsp; GNPXでは、数独アルゴリズムスレッドは 常に動作状態 になっています(Queueが空の間は待機状態)。 <br>
 				</li><br>
 			</ol>
 				
