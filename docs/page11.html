@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-	<title>Sudoku Algorithm Permutation</title>
+	<title>Permutation</title>
 
     <!-- Prism   https://prismjs.com/download.html -->
 	<script src="prism_js_css/prism.js"></script>
@@ -33,7 +33,7 @@
 <body id="page">
 	<a id="pageTop"></a>
 
-    <header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+    <header id="head"> <strong><i>Sudoku Algorithm 7</i></strong>
         <script type="text/javascript"> writeNaviHeader(); </script>
     </header>
 
@@ -135,9 +135,10 @@
         <section>
             <h3 id="head_bg_LightBlue">Permutationの使い方</h3>
             <p>
-            	Permutationを次のように使います。<br>
-            	Successorをcallするたびに次の順列を生成し、生成している間は戻り値はtrueで、最後に達するとfalseになります。
-            	次の順列生成の変更位置を指定して、無駄な生成をスキップします。変更位置はダイナミックに変更できます。位置指定は0から(順列サイズ-1)で、これ以外の場合または指定を省略したときは、スキップ機能は働きません。
+                Permutationを次のように使います。<br>
+                Successorをcallするたびに次の順列を生成し、生成している間は戻り値はtrueで、最後に達するとfalseになります。
+                次の順列生成の変更位置を指定して、無駄な生成をスキップします。変更位置はダイナミックに変更できます。
+                位置指定は0から(順列サイズ-1)で、これ以外の場合または指定を省略したときは、スキップ機能は働きません。
             </p>
             
             <pre class="line-numbers" class="prismOp" >

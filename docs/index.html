@@ -14,7 +14,7 @@
 </head>
 
 <body id="page0">
-    <header id="head"> <strong><i">Sudoku Algorithm 4</i></strong>
+    <header id="head"> <strong><i">Sudoku Algorithm 7</i></strong>
         <script type="text/javascript"> writeNaviHeader(); </script>
     </header>
 
@@ -29,12 +29,13 @@
 				これも、また別の数独の楽しみ方です。<br><br>
 
 				この問題は、ヒトが鉛筆と知力だけで解くのは極めて困難だと思います。腕自慢の上級の方も試みない方がよいでしょう。身のためです。これはプログラムで扱う問題です。</p>
-            <p class="newLine">6..2....1.8.9.4.2...9.1.3...9.8.1.35..3...7..45.3.7.6...7.4.2...6.7.9.1.9....2..3</p>
+                <tt><p class="newLine">6..2....1 .8.9.4.2. ..9.1.3.. .9.8.1.35 ..3...7.. 45.3.7.6. ..7.4.2.. .6.7.9.1. 9....2..3</p></tt> 
         </section>
 
         <section>
-            <h3 id="head_bg_LightBlue">解き方のルール</h3>
-            <img class="imgR" src="images/imgTop/Img01b.png" alt="数独サンプル"><br><br>
+            <h3 id="head_bg_LightBlue">&nbsp; 解き方のルール</h3>
+            <br>
+            <img class="imgR" src="images/imgTop/Img01b.png" alt="数独サンプル">
             <p>
                 ”数独の行・列・ブロック毎に1-9の数字を入れる”というルールは同じです。<br>
                 プログラムで数独を解く場合の、解き方にルールを設けます。<br>
@@ -43,37 +44,33 @@
                 このサイトで扱うのは、論理的に解くアルゴリズムです。なお、これはローカルルールです。
                 異なる意見があることは承知しています。<br><br>
 				左上の数独の解(数字配列) はこの通りです。でも、それはここでのルールの解ではありません。
-				解を求める論理的な説明が必要です。
+				解を求める論理的な説明が必要です。<br><br><br><br><br><br>
             </p>
         </section><br><br>
-		
+
         <section>
+            <a id="Algorithm_v5"></a>
             <h3 id="head_bg_LightBlue">▽次のステップへ</h3>
-            <p>本サイトで紹介するのは、数独の問題を解く解析アルゴリズムです。
-                これらを理解し、それなりのコードを補えば数独を解くプログラムは組み立てられます。
-                一番良いのは、プログラム例を参考にご自身のコードを作ることです。
-                プログラム例は GNPX v4 で用いているものですが、バグフィックス、改良、単なる気分で、(しばしば）変更します。
-                このため、全体の統一性はいずれ崩れると思います。
-                なにより自分流を貫く方が、発展形のアルゴリズムを開発し、組み込むうえでもよいでしょう。<br>
-                &quot;C#で数独を作る&quot;に関しては、直接には解説していません。
-                ラテン方陣の作り方（ソース込みのプロジェクトあり、あるいはGNPXに含む）と、
-                解析アルゴリズムを組合わせるだけのことです。<br>
-                <strong>Winアプリケーション</strong>、<strong>プログラムのソース</strong>、<strong>プロジェクト</strong>は
-                Github にあります。参考になるでしょう。
+            <p>
+                本サイトで解説するアルゴリズムは、<strong><a href="page2.html"> アルゴリズムリスト </a></strong>にあります。<br>
+                <br>
+                数独解析アルゴリズムを理解し、それなりのコードを補えば数独を解くプログラムは組み立てられます。<br>
+                また、数独を解く・数独問題を作る C#プログラム <span style="color:rgb(4, 0, 255)"> GNPX </span>のソースコードを公開しています。<br>
+                本サイトの解説とGNPXのコードは（ほぼ）対応しています。ダウンロードして、参考にしてください。<br>
+                ただ、GNPX のコードは、バグフィックス、改良、単なる気分で、(しばしば) 変更します。継続性の保証はありません。<br>
+                従って（ほぼ）対応しています。<br>
+                一番良いのは、ご自身のコードを作ることです。
+                なにより自分流を貫くことが、発展形のアルゴリズムを開発し、組み込むうえでもよいでしょう。<br>
             </p>
 
             <img src="images/imgTop/download_image.png" width="48">
-            <a href="page17.html">GNPXダウンロード</a></span>
+            <a href="page17.html">GNPXダウンロード</a>
             <br><br><br>
-            <h3  id="head_bg_Blue"><strong><span class="auto-style1"></span>2027年に Ver.7 へのアップデートを予定しています。</span></strong></h3>
-            <ul>
-                <li>解法の論理性を強化し、プログラムコードを改良します。</li>
-            </ul>
-            <img src="images/imgTop/jumpTo.png" width="80">
-            <a href="index_v7.html"> to GNPX v7.0</a><span class="auto-style3"></span>
-            <br><br>
-        </section>
 
+
+
+            <br><br><br><br>
+        </section>
     </article>
 
     <a href="#" class="pagetop">Top</a>

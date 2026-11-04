@@ -29,7 +29,7 @@
 </head>
 
 <body id="page">
-	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+	<header id="head"> <strong><i>Sudoku Algorithm 7</i></strong>
         <script type="text/javascript"> writeNaviHeader(); </script>
 	</header>
 
@@ -42,7 +42,7 @@
             <p>数独解析アルゴリズムを理解するには、なるべく早い段階で<a href="page13.html#house" >House</a>に慣れるとよいでしょう。
                 以下のアルゴリズム解説でも、具体的な数独盤面ではなく、制約関係のHouseで行います。</p>
             
-            <h3 id="head_bg_Blue">X-Wing / Fish</h3>
+            <h3 id="head_bg_Blue">&nbsp; X-Wing / Fish</h3>
             <p>数字Xに着目したとき、数字Xが次のように配置されているとします。列c0では数字Xの位置は行r01c0のどちらかであり、
                 列c1でも行r01c1のどちらかとします。このとき、セルr0cx(印）では数字Xは候補数字から除外できます。
                 これはr01c01の4つのセルが数字Xに関してLocked(限定状態）にあることによります。<br></p>
@@ -50,14 +50,14 @@
             <p class="newLine"/><br><br>
 
 
-            <h4 id="head_bg_Blue">Fish</h4>
+            <h4 id="head_bg_Blue">&nbsp; Fish</h4>
             <p>BaseSet(実線)の列では2つのセルのどちらかが数字X。CoverSet（破線）はBaseSetを完全に含む。
                 また、CoverSetはその他にセル(丸印)を含んでいる。丸印の位置に数字Xがあると、BaseSetに数字Xを配置できない。
                 丸印の位置の数字Xは除外される。（BaseSet、CoverSetは以下で説明）<br><br>
 
                 数字4に着目すると、BaseSet(r57)、CoverSet(c26)のX-Wing成立。R47C2のセルから数字4は除外される。<br>
-                    <img src="images/img34/img34_10.png" alt="X-Wing" width="25%"><br>
-                <p class="newLine">4....9.5.23..58.67...4.7.........3253.2....8.5.1...7.....89....9......7..1.72..46</p>
+                    <img src="images/img34/img34_10.png" alt="X-Wing" width="25%">
+                <p class="newLine"><tt>4....9.5. 23..58.67 ...4.7... ......325 3.2....8. 5.1...7.. ...89.... 9......7. .1.72..46</tt></p>
 
                 X-Wingは「Fish」の別名称を用いることもあります。また、3次以上のFish にも名前がついています。
                 以下では、より一般的に解説するので、全てFishを用います。
@@ -84,7 +84,7 @@
         </section>
 
         <section>
-            <h4 id="head_bg_LightBlue" id="BaseCoverSet"><strong>BseSet/CoverSet(重なりなし）</strong></h4>
+            <h4 id="head_bg_LightBlue" id="BaseCoverSet">&nbsp; <strong>BseSet/CoverSet(重なりなし）</strong></h4>
         
             <p>
                 Fish系の解法では、2組のhouseを用います。数字Xに着目し、数字Xを最大N個(Nは次数）含むhouseをN個選び、これを<strong>BaseSet</strong>と呼びます。
@@ -114,7 +114,7 @@
                 <br><br>
 
                 次の図は、SwordFish(3D-Fish)と JellyFish(4D-Fish)の例です。
-                これらは同じ問題の同じ局面の双対Fishです。除外されるセル・候補数字は同じです。<br><br>
+                これらは同じ問題の同じ局面の双対Fishです。除外されるセル/候補数字は同じです。<br><br>
 
                 <img src="images/img34/img34_11.png" style="float:left;  margin-right:8px; width:30%" alt="SwordFish">
                 <br><strong>SwordFish #7</strong><br>
@@ -128,9 +128,8 @@
                 （4D-Fish）<br>
                 BaseSet  : r2345<br>
                 CoverSet : c2567<br>
-                    <p style="clear: both" ></p>
-                
-                <p><small>...6.8...6...9...529.....483.1...4.64..3.1..2...8.6....1.4.2.7..6.7.9.5.....8....</small></p><br>
+                <p style="clear: both" ></p>
+                <p><tt>...6.8... 6...9...5 29.....48 3.1...4.6 4..3.1..2 ...8.6... .1.4.2.7. .6.7.9.5. ....8....</tt></p><br>
             </p>
         </section>
     </article>

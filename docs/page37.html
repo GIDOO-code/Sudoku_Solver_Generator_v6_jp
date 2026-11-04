@@ -29,7 +29,7 @@
 
 
 <body id="page">
-	<header id="head"> <strong><i>Sudoku Algorithm 4</i></strong>
+	<header id="head"> <strong><i>Sudoku Algorithm 7</i></strong>
         <script type="text/javascript"> writeNaviHeader(); </script>
 	</header>
 
@@ -43,7 +43,7 @@
 	<article id="main">
 		<section>
 
-			<h3 id="head_bg_Blue">Endo Fins/Cannibalism</h3>
+			<h3 id="head_bg_Blue">&nbsp; Endo Fins/Cannibalism</h3>
 			<p>Endo Fins/Cannibalismの理解には、
 				<a href="page34.html"><strong>Fish</strong></a>、
 				<a href="page35.html"><strong>Finned Fish</strong></a>、
@@ -54,7 +54,7 @@
 				ここではこの条件を緩めます。<a href="#Cannibalism"><strong>（⇒Cannibalism）</strong></a>
 			</p>
 		
-			<h4 id="head_bg_Blue">Endo Fin Fish</h4>
+			<h4 id="head_bg_Blue">&nbsp; Endo Fin Fish</h4>
 			<p>Endo Finsは、BaseSetを構成するHouse群に重なりがある場合です。<br>
 				N次Fishについて、N個のHouse群がBaseSetを構成し、これに対応するN個のHouse群がCoverSetとなっているとします。
 				BaseSetのHouse群が重なるので、必然的に行・列・ブロックが混在するFranken/Mutantタイプです。<br>
@@ -66,11 +66,11 @@
 		</section>
 
 		<section>
-			<h4 id="head_bg_LightBlue">(1)Fish（基本Fish、BaseSet/CoverSetに重なりはない）</h2>
+			<h4 id="head_bg_LightBlue">&nbsp; (1)Fish（基本Fish、BaseSet/CoverSetに重なりはない）</h4>
 			<p>
 				<img src="images/img37/img37a.svg" width="80%"><br>
-				【左図】
-				<ul>
+				
+				<ul><b>左図:</b>
 					<li>【左図】N次Fishを考えます。Fishを構成するセルは、それぞれがBaseSetのHouseに含まれます。(BaseSetはFishの完全被覆）<br>
 						"Fishを構成するセル群(Fishセル群)"が先にあって、これを完全被覆するBaseSet(N個のHouse群)を求めるのが順序ですが、
 						実際にはN個の重なりのないHouse群を求めて、これをFishとしてももよいでしょう。</li><br>
@@ -87,8 +87,8 @@
 						これにより、CoverSetの真は(N-1)個になります。これはあり得ないので、セル▲は偽となります。<br><br></Li>
 				</ul>
 		
-				【右図】
-				<ul>
+				
+				<ul><b>右図:</b>
 					<li>Fin付きN次Fishを考えます。通常のFishに、BaseSetに含まれ CoverSetに含まれないセル
 						（<span class="fun"><strong>X</strong></span>:Finセル）が付加する状態です。<br><br></Li>
 
@@ -106,7 +106,7 @@
 
 		<section>
 		<!--	<a id="Franken/Mutant Fish（F/M Fish)" > -->
-			<h4 id="head_bg_LightBlue">(2)Franken/Mutant Fish（F/M Fish)</h4>
+			<h4 id="head_bg_LightBlue">&nbsp; (2)Franken/Mutant Fish（F/M Fish)</h4>
 			<p>
 				<img src="images/img37/img37b.svg" width="80%"><br>
 				<ul>
@@ -123,7 +123,7 @@
 
 		<section>
 			<a id="Endo Fin Fish"></a>
-			<h4 id="head_bg_LightBlue">(3)Endo Fin Fish</h4>
+			<h4 id="head_bg_LightBlue">&nbsp; (3)Endo Fin Fish</h4>
 			<p>
 				<img src="images/img37/img37c.svg" width="80%">	<br>
 				<ul>
@@ -182,13 +182,13 @@
 					Endo Fin: r7c13<br></p>
 				<p style="clear: both"/>
 				<p>	Paste the next 81 digits onto the grid and solve with /Solve/MultiSolve/<br>
-					....2.6..7.41.9....3.847.1..7.9.1.541.3...7.9.9.2.8.36.4.683.7.3.75.4.......1.4..</p>
+					<tt>....2.6.. 7.41.9... .3.847.1. .7.9.1.54 1.3...7.9 .9.2.8.36 .4.683.7. 3.75.4... ....1.4..</tt></p>
 			</p>
 		</section>
 
 		<section>
 			<a id="Cannibalism"></a>
-			<h3 id="head_bg_Blue">(4)Cannibalism</h3>
+			<h3 id="head_bg_Blue">&nbsp; (4)Cannibalism</h3>
 			<p>
 				<ul>
 					<li> N次F/M FishでCoverSetに重なりがあるケースを考えます。
@@ -209,7 +209,7 @@
 				</p>
 				<p style="clear: both"/><br>
 				<p>Paste the next 81 digits onto the grid and solve with /Solve/MultiSolve/<br>
-				....9.6..4.61.8....8.462.5..6.2.1.373.5...2.8.4.3.6.95.3.914.7.6.18.5.......2.8..</p>
+			<tt>....9.6.. 4.61.8... .8.462.5. .6.2.1.37 3.5...2.8 .4.3.6.95 .3.914.7. 6.18.5... ....2.8..</tt></p>
 			</p>
 		</section>
 
