@@ -1,0 +1,268 @@
+<!doctype html>
+
+		<head>
+			<meta charset="utf-8">
+			
+
+			<script src="prism_js_css/prism.js"></script>
+			<link rel="stylesheet" href="prism_js_css/prism.css">
+
+
+			<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7/jquery.min.js"></script>
+			<script src="jq_treeview/jquery.cookie.js"></script>
+			<script src="jq_treeview/jquery.treeview.js"></script>
+			<link   rel="stylesheet" href="jq_treeview/jquery.treeview.css" >
+			<link   rel="stylesheet" href="jq_treeview/screen.css" >
+			<script type="text/javascript" src="jq_treeview/cssFunction.js"></script>
+
+
+			<link rel="stylesheet" href='css/style_v6_HeaderFooter.css'>
+			<link rel="stylesheet" href="css/style_v6A_Standard.css">
+			<link rel="stylesheet" href='css/gotoTop.css'>
+
+			<script type="text/javascript" src="js/naviHeader.js"> </script>
+			<script type="text/javascript" src="js/naviAlgorithm.js"> </script>
+			
+		</head>
+
+
+
+
+<body id="page0">
+	<header id="head"> <strong><i>Sudoku Algorithm 7</i></strong>
+        <script type="text/javascript"> writeNaviHeader(); </script>
+	</header>
+
+    
+<!-- -------------------------------------------------------------------------- -->
+    <article id="main">
+        <section>
+            <h3 id="head_bg_Blue">&nbsp;DLX </h3>
+            <p>
+				DLXは、「完全被覆問題」を解くためのアルゴリズムです。数独専用のアルゴリズムではありません。<br>
+				完全被覆問題は、与えられた集合から部分集合の集まりを選び出し、元の集合の各要素がいずれか一つの部分集合にちょうど一度だけ含まれるようにする問題です。<br>
+				例えば、「Nクイーン問題」、「グラフの彩色問題」、「ナップサック問題」「数独」などが完全被覆問題の例です。
+				実社会での応用例では「スケジューリング・割り当て問題」「ルーティング・配送計画」も完全被覆問題の一種です。<br><br>
+
+				ここでは、DLX を数独に適用する方法 を解説します。対象とする数独のサイズは 9x9 の標準的な数独です。<br>
+				また、解説は GNPXのコードに対応しています。<br>
+				<ul>
+					<li>DLX の表現形 : 選択肢とルールのマトリックス</li>
+					<li>DLX の実装方法： </li>
+					<li>DLX のアルゴリズム</li>
+				</ul>
+				<br>
+			</p>
+			
+
+
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;DLX の表現形 : 選択肢とルールのマトリックス</h4>
+			<p>
+				数独の選択肢は、9x9 のマス目のそれぞれに、1～9 の数字を入れることです。<br>
+				数独のルールは、行・列・ブロックのそれぞれに、1～9 の数字が重複しないように配置する ことです。<br><br>
+
+				（1）DLX表現の要素<br>
+					
+
+
+
+					DLXは、選択肢とルールを次のマトリクスで表します。
+					
+					
+					
+					
+					
+					縦軸は選択肢(r,c,v),、横軸はルールです。<br><br>
+
+					<img src="images/img109/img109_DLX_0.svg" width="40%" alt="DLX_matrix"><br><br>
+
+				<table class="table1" style="border-collapse:collapse; border: 1px solid #000099; max-width: 80%;" >
+					<tr>
+						<td class="table_itemName" style="width: 20%" ></td>
+						<td class="table_itemName" style="width: 45%" >数独での意味</td>
+						<td class="table_itemName" style="width: 35" >サイズ</td>
+					</tr>
+
+					<tr>
+						<td class="table_line">&nbsp; &nbsp; 行</td>
+						<td class="table_line">&nbsp; 候補「(r,c)にvを入れる」</td>
+						<td class="table_line">&nbsp; 9×9×9 = 729</td>
+					</tr>
+
+					<tr>
+						<td class="table_line">&nbsp; &nbsp; 列</td>
+						<td class="table_line">&nbsp; 数字配置のルール</td>
+						<td class="table_line">&nbsp; 4種類×81 = 324</td>
+					</tr>
+				</table><br>
+
+
+				数独のルールは、<b>マス目に数字を入れる</b>と、<b>行・列・ブロックの重複禁止</b>です。これは、4種類のルールに分けることができます。
+				<ol>
+					<li>マス(r,c)に数字がちょうど1つ入る</li>
+					<li>行rに数字vがちょうど1回入る</li>
+					<li>列cに数字vがちょうど1回入る</li>
+					<li>ブロックbに数字vがちょうど1回入る</li>
+				</ol>
+
+				最初に、数独の「選択肢とルール」のマトリックス(<b>パズルを設定する前の状態</b>)を考えます。(適度に縮小して表示)<br>
+				<a href="images/img109/01_Candidates_Constraints.txt" target="_blank">/images/img109/01_Candidates_Constraints.txt</a>
+				&nbsp; &nbsp; これが<b>選択肢とルールのマトリクス</b>の表現形です。
+				<br><br><br><br>
+
+
+				数独枠に、数字を1つ配置します。例えば、<span style="color:blue;">"(0)セル-rc に数字vを置く"</span>とします。
+				その結果、以下のように盤面全体に状態が変化します。<br>
+				<div style="color:blue;">
+					&nbsp; (1) セル-rc にv 以外の数字はない。<br>
+					&nbsp; (2) 行-r に数字v はない。<br>
+					&nbsp; (3) 列-c に数字v はない。<br>
+					&nbsp; (4) ブロック-b に数字v はない。<br>
+				</div>
+				<br>
+				<img src="images/img109/img109_DLX_3Covered.svg" width="70%" alt="DLX_matrix"><br><br>
+				<br>
+
+そのを効率よく全体の状態に反映する方法です。
+マトリクスは 98.7% が空白です。
+
+				<a href="images/img109/rc10v5_Fixed.txt" target="_blank">/images/rc10v5_Fixed.txt</a><br><br>
+				<a href="images/img109/rc10v5_Diff_Fixed.txt" target="_blank">/images/rc10v5_Fixed.txt</a>
+				<br><br>
+			</p＞>
+
+
+			<h4 id="head_bg_LightBlue">&nbsp;DLX の実装</h4>
+			<p>
+				数独の場合、「選択肢とルール」のマトリックスは 98.7％ が空白です。<br>
+				完全被覆問題（exact cover problem）の表現形式には、Donald Knuth が提案した「ダンシング・リンク（Dancing Links）」が用いられます。<br>
+				「ダンシング・リンク」は、二重の双方向連結リストです。行や列の削除および復元を効率的に行うことができます。<br>
+			</p>
+
+				<img src="images/img109/img109_DLX_1.svg" width="70%" alt="DLX_matrix"><br>
+
+			
+			<p>(1) 要素クラス<br>
+				二重の双方向連結リストの要素クラスは、次のように定義されます。<br>
+				Node クラスは、「選択肢とルール」のマトリックス要素を表します。<br>
+				ColumnNodeは、列ヘッダーを表します。ColumnNodeを経由してNodeにアクセスします。<br>
+				headerは、マトリックスに導く最初のオブジェクトです。<br>
+
+				Node、ColumnNodeは、マトリクスの要素を連結する4つのポインターを持っています。<br>
+				このポインターで、「Header」->「ColumnNode」->「Node」とマトリックスの要素にアクセスします。<br>
+
+<pre class="gnpx7_matrix">
+<div style="background-color:rgb(211, 220, 215)">
+    public class Node{
+    	public Node L, R, U, D;
+    	public ColumnNode Column;
+    	public object Tag; // Arbitrary data storing which candidate this row corresponds to.
+    
+    	public Node(){
+    		L = R = U = D = this;
+    	}
+    }
+    
+    public class ColumnNode: Node{	
+    	public int Size;
+    	public string Name;
+    
+    	public ColumnNode(string name){
+    		Name = name;
+    		Size = 0;
+    		Column = this;
+    	}
+    }
+
+</div>
+</pre>
+	
+
+
+			<br>(2) ルールの設定/br>
+
+<pre class="gnpx7_matrix">
+<div style="background-color:rgb(211, 220, 215)">
+public SudokuSolver(){
+	// the DLX skeleton is built.
+	_dlx = new L0_DLX( L1_Sudoku_Constraints.NumColumns );                                  // *** Create DLX Skeleton.
+
+	L2_candidateNodes_nodes = new L0_Node[_size, _size, L1_Sudoku_Constraints.NumValues+1][];
+
+	// Construct all 729 rows in the L0_DLX structure according to the Sudoku rules (L1_Sudoku_Constraints). 
+	// This structure itself remains unchanged thereafter (although it is temporarily covered within L0_Solve(),
+	// it is always uncovered to restore the original state).
+	int kx=0;
+	foreach( var row in L1_Sudoku_Constraints.AllCandidates() ){                            // *** Add Sudoku Constraint.
+		var candidate = row.Candidate;
+		L0_Node[] nodes = _dlx.L0_AddRow( row.Columns, candidate);
+		candidateNodes_nodes[ candidate.Row, candidate.Col, candidate.Value] = nodes;    // *** Define the Table for Nodes.
+	}
+}
+
+public static IEnumerable<L1_SudokuCandidateRow> AllCandidates(){
+	for( int r=0; r&lt;Size; r++ ){
+		for( int c=0; c&lt;Size; c++ ){
+			int boxIndex = (r/Box)*Box + (c/Box);
+
+			for( int v=1; v&lt;=NumValues; v++){
+				int cellCol =   0 + r*Size + c;
+				int rowCol  =  81 + r*NumValues + (v-1);
+				int colCol  = 162 + c*NumValues + (v-1);
+				int boxCol  = 243 + boxIndex*NumValues + (v-1);
+
+				var candidate = new L1_SudokuCandidate { Row=r, Col=c, Value=v };
+				yield return new L1_SudokuCandidateRow( candidate, new[]{ cellCol, rowCol, colCol, boxCol });
+			}
+		}
+	}
+}
+</div></pre>
+			</p>
+
+			<br>(3) 候補数字の確定(仮確定)</br>
+				DLXの操作は、"Nodes"の参照配列を用いて 行います。<br>
+				”Nodes”は、DLXマトリックスの制約群(マス目に数字を入れるルールと、行・列・ブロックの重複禁止ルール)です。
+<pre class="gnpx7_matrix">
+<div style="background-color:rgb(211, 220, 215)">
+    L0_Node[,,][] nodes = candidateNodes_nodes[ candidate.Row, candidate.Col, candidate.Value] = nodes;
+
+</div></pre>
+				<img src="images/img109/img109_DLX_2Covered.svg" width="40%" alt="DLX_matrix"><br><br>
+
+
+
+
+
+
+<p>
+				<b></b>
+				DLXは、基本的には TryAndError 手法の一種です。Try選択による影響、すなわち候補の否定的な影響を状態に反映する”仕組み”を持つことが特徴です。
+				</b><br><br>
+</p>
+        </section><br><br>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+	</article>
+    
+
+
+
+
+    <a href="#" class="pagetop">Top</a>
+
+<footer id="foot">
+    <p id="copyright">Copyright &copy; 2014- GNPX. All rights reserved.</p>
+</footer>
+
+</body>
+</html>
